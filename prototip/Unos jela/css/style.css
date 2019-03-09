@@ -1,0 +1,39 @@
+/* Vue List Item transition */
+.list-item-enter-active,
+.list-item-leave-active {
+  transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s, -webkit-transform 0.3s;
+  -webkit-transform-origin: left center;
+          transform-origin: left center;
+}
+.list-item-enter,
+.list-item-leave-to {
+  opacity: 0;
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+}
+/* //////////////////////////////////////// */
+/* Basic Styles */
+.list {
+  background: #FFF;
+  margin: auto;
+  padding: 1em 1em 1em;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+}
+.list :last-child {
+  margin-bottom: 0;
+}
+.list__ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.list__input {
+  display: flex;
+  margin-bottom: 0.5em;
+}
+.list__item {
+  display: block;
+  margin-bottom: 0.25em;
+}
