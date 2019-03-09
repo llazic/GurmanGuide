@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Registracija</title>
+		<title>Moj profil</title>
 		<style>
 			body{
 				background-color:rgb(198, 219, 192);
@@ -45,46 +45,57 @@
 				margin-right:auto;
 				vertical-align:middle;
 			}
+			
 			.polje {
 				text-align:center;
 			}
+			
 			.crvenaSlova {
 				font-size: 13px;
 				font-family: Arial;
 				color: red;
+			}
+			
+			.mojprofil{
+				text-align: right;
+				margin-right: 50px;
+				margin-top: 70px;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="header">
 			<img src="../Images/logo.png" width="300" class="logo">
+			<div class="mojprofil">
+				<a href="#" align="right"> Moj profil </a>
+			</div>
 		</div>
 		
-		<p class="title"> Registracija Gurmana </p>
+		<p class="title"> Moj profil </p>
 		
 		<table class="center" cellspacing="15" cellpadding="5">
 			<tr>
 				<td align="top">Korisničko ime:</td>
 				<td>
-					<input type="text" name="korimegurman" size="50" placeholder="&nbsp;Unesite korisničko ime">
+					lazarlazic
 					<br/> 
 				</td>
 			</tr>
 			<tr>
 				<td>Lozinka:</td>
-				<td><input type="password" name="lozinkagurman" size="50" placeholder="&nbsp;Unesite lozinku"></td>
+				<td><input type="password" name="lozinkagurman" size="50" placeholder="&nbsp;Unesite lozinku" value="sifra123"></td>
 			</tr>
 			<tr>
 				<td>Potvrdi lozinku:</td>
-				<td><input type="password" name="potvrdalozinkegurman" size="50" placeholder="&nbsp;Ponovo unesite lozinku"></td>
+				<td><input type="password" name="potvrdalozinkegurman" size="50" placeholder="&nbsp;Ponovo unesite lozinku" value="sifra123"></td>
 			</tr>
 			<tr>
 				<td>Ime:</td>
-				<td><input type="text" name="imegurman" size="50" placeholder="&nbsp;Unesite Vaše ime"></td>
+				<td><input type="text" name="imegurman" size="50" placeholder="&nbsp;Unesite Vaše ime" value="Lazar"></td>
 			</tr>
 			<tr>
 				<td>Prezime:</td>
-				<td><input type="text" name="prezimegurman" size="50" placeholder="&nbsp;Unesite Vaše prezime"></td>
+				<td><input type="text" name="prezimegurman" size="50" placeholder="&nbsp;Unesite Vaše prezime" value="Lazic"></td>
 			</tr>
 			<tr>
 				<td>Pol:</td>
@@ -95,12 +106,12 @@
 			</tr>
 			<tr>
 				<td>Slika:</td>
-				<td><input type="button" name="slikagurman" value="Izaberi sliku"></td>
+				<td><input type="button" name="slikagurman" value="Promeni sliku"></td>
 			</tr>
 		</table>
 		<table class="center" cellspacing="50">
 			<tr>
-				<td class="polje" colspan="2"><input type="submit" name="potvrdi" value="Postani Gurman"></td>
+				<td class="polje" colspan="2"><input type="submit" name="sacuvajizmene" value="Sačuvaj izmene"></td>
 			</tr>
 		</table>
 		
