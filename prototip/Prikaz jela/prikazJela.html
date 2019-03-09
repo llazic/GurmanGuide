@@ -1,0 +1,200 @@
+<html>
+	<head>
+		<title>Calzone</title>
+		<link rel="stylesheet" type="text/css" href="rezultatiPretrage.css">
+		<style>
+			body{
+				background-color:rgb(198, 219, 192);
+				font-family: "Arial Black", Gadget, sans-serif;
+			}
+			
+			.logo{
+				position: absolute;
+				margin-top: 20px;
+				margin-left: 30px;
+			}
+			
+			.header{
+				position: absolute;
+				clear: both;
+				top: 0;
+				left: 0;
+				right: 0;
+				background-color: #efefef;
+				height: 170px;
+			}
+			
+			.footer{
+				position: absolute;
+				clear: both;
+				height: 70px;
+				left: 0;
+				right: 0;
+				align: bottom;
+				background-color: #efefef;
+				text-align: center;
+			}
+			
+			.title{
+				margin-top: 200px;
+				text-align: center;
+				font-size: 30px;
+			}
+			
+			.box{
+			    background-color: white;
+				width: 50%;
+				border: 1px solid darkgray;
+				padding: 10px;
+				margin: auto;
+				overflow:auto;
+			}
+			
+			.stil {
+				font-family:"Georgia",serif;
+				font-style:italic;
+			}
+			
+			.center {
+				text-align:center;
+			}
+			
+			.slikaJela {
+				border-radius: 8px;
+				object-fit: cover;
+				float: center;
+				width: 350px;
+				height: 250px;
+			}
+			.ocena {
+				font-family: "Arial Black", Gadget, sans-serif;
+				font-size: 40px;
+			}
+			
+			.btn-group .button {
+			  background-color: #333;
+			  border-radius: 12px;
+			  border: none;
+			  color: white;
+			  padding: 12px 20px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			  font-size: 13px;
+			  cursor: pointer;
+			  float: center;
+			  border-width: 100%;
+			  width:100%;
+			}
+
+			.btn-group .button:hover {
+			  background-color: #ddd;
+			  color: black;
+			}
+
+			.mojprofil{
+				text-align: right;
+				margin-right: 50px;
+				margin-top: 70px;
+			}			
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<img src="../../Images/logo.png" width="300" class="logo">
+			<div class="mojprofil">
+				<a href="#" align="right"> Moj profil </a> &nbsp;
+				<a href="#" align="right"> Izloguj se </a>
+			</div>
+		</div>
+		
+		<p class="title"> Calzone </p>
+		
+		<p class="center"><img class="slikaJela" src="../../Images/calzone1.png"/></p>
+
+		<br/>
+		
+		<center><table width="50%">
+			<tr>
+				<td align="center" width="20%">
+					<div class="komentar">
+						<font class="ocena">9.7</font>/10
+					</div>
+					<div class="btn-group">
+						<button class="button" name="ocenaBtn">Oceni jelo</button>
+						<button class="button" name="recenzijaBtn">Napisi recenziju</button>
+						<button class="button" name="rezervacijaBtn">Rezervisi mesto</button>
+					</div>
+				</td>
+				<td>
+					<div class="komentar">
+                     <p class="korisnik">Sastav:</p>
+                     <p>Chicago testo, sir, šunka, pančeta, kisela pavlaka, šampinjoni</p>
+					</div>
+					<div class="komentar">
+                     <p class="korisnik">Opis:</p>
+                     <p>Aliquam consequat nunc eu est lacinia aliquet. Duis nibh magna, euismod vel eleifend ut, tincidunt at nunc. Sed non metus tellus. Vestibulum ornare bibendum ante eu sagittis. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis sagittis lorem ac accumsan. Sed congue tristique tellus, a euismod nisi aliquam quis. Phasellus purus purus, varius ultrices pharetra at, fermentum sed sem. Phasellus rutrum dictum tellus quis auctor. Nunc rhoncus elementum purus, quis ultrices ante eleifend quis.
+					 </p>
+					</div>
+					<div class="komentar">
+                     <p class="korisnik">Ovo jelo ponosno nudi:</p>
+                     <p><a href="../pregledRestorana.html" title="Odvedi me u restoran">Restoran Madera</a></p>
+					</div>
+				</td>
+			</tr>
+		</table>
+		</center>
+		
+		<br>
+		
+		<div class="box"> <img src="../../Images/jefta.png" class="slika" alt="Jefta" style="width:120px;height:120px;margin-right:40px;"/> 
+						<p>Jefta Pikiljic</p>
+						<font class="stil">
+						"Omiljeni ukus u omiljenom restoranu."
+						</font>
+						</p>
+						
+		</div>
+		<br/>
+		<div class="box"> <img src="../../Images/grigorije.jpg" class="slika" alt="Grisa" style="width:120px;height:120px;margin-right:40px;"/> 
+						<p>Grigorije Andjelkovic Andjelko</p>
+						<font class="stil">
+						"Pesma za moja nepca. Definitivno najbolji kalcone u gradu, a i sire."
+						</font>
+						</p>
+						
+		</div>
+		<br/>
+		<div class="box"> <img src="../../Images/rozalija.png" class="slika" alt="Roska" style="width:120px;height:120px;margin-right:40px;"/> 
+						<p>Rozalija Mihajlovic</p>
+						<font class="stil">
+						"Bila sam u Parizu, Londonu, Lisabonu, Kijevu, Moskvi, Pragu, Rimu, Kopenhagenu i Bukurestu, ali ovakav ukus jos nisam srela. "
+						</font>
+						</p>
+						
+		</div>
+		<br/>
+		<div class="box"> <img src="../../Images/spiridon.png" class="slika" alt="Spira" style="width:120px;height:120px;margin-right:40px;"/> 
+						<p>Spridon Janjic</p>
+						<font class="stil">
+						"Meeeh. Jeo sam i boljih svari u ovom restoranu. 3/10"
+						</font>
+						</p>
+						
+		</div>
+		
+		
+		<!-- ovde ubacujete ono sto hocete da bude ispod naslova-->
+		<!-- ostavite dovoljan broj <br/> posle toga sto ubacujete da bi footer bio skroz dole-->
+		
+		<br/><br/><br/><br/>
+
+		
+		
+		<div class="footer">
+			<br/>
+			<a href="#"> Kontakt </a>&nbsp;
+			<a href="#"> O nama </a>
+		</div>
+	</body>
+</html>
