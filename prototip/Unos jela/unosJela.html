@@ -48,14 +48,14 @@
    </head>
    <body>
       <div class="header">
-         <img src="images/gg.png" width="300" class="logo">
+         <img src="images/logo.png" width="300" class="logo">
          <p class="title"> Unos jela </p>
       </div>
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <table class="center" cellspacing="15" cellpadding="5">
          <tr>
             <td>Naziv jela:</td>
-            <td><input type="text" name="naziv" size="50" placeholder="&nbsp;Unesite korisničko ime"></td>
+            <td><input type="text" name="naziv" size="50" placeholder="&nbsp;Unesite naziv jela"></td>
          </tr>
          <tr>
             <td>Opis jela:</td>
@@ -67,11 +67,11 @@
                <div id="example-1" class="list">
                   <div class="list__input">
                      <button v-on:click="add">+</button>
-                     <input v-model="newItem" placeholder="Add new..." @keydown.enter="add" />
+                     <input v-model="newItem" placeholder="Dodaj sastojak" name="input"@keydown.enter="add" />
                   </div>
                   <transition-group name="list-item" tag="ul" class="list__ul">
                      <li class="list__item" v-for="item in items" :key="item">
-                        <input type="checkbox" @click="remove(item)" />
+                        <input type="button" value="x" @click="remove(item)" />
                         {{ item.message }}
                      </li>
                   </transition-group>
@@ -92,6 +92,7 @@
       </table>
       <!-- ovde ubacujete ono sto hocete da bude ispod naslova-->
       <!-- ostavite dovoljan broj <br/> posle toga sto ubacujete da bi footer bio skroz dole-->
+	  <br />
       <div class="footer">
          <br/>
          <a href="#"> Kontakt </a>&nbsp;
