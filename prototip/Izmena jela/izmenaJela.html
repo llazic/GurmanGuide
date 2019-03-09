@@ -1,6 +1,6 @@
 <html>
    <head>
-      <title>Unos jela</title>
+      <title>Izmena jela</title>
       <link rel="stylesheet" href="css/style.css">
       <style>
          body{
@@ -44,32 +44,31 @@
          .polje {
          text-align:center;
          }
-		 .mojprofil{
-				text-align: right;
-				margin-right: 50px;
-				margin-top: 70px;
-		 }
+         .mojprofil{
+         text-align: right;
+         margin-right: 50px;
+         margin-top: 70px;
+         }
       </style>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    </head>
    <body>
       <div class="header">
-			<img src="../../images/logo.png" width="300" class="logo">
-			<div class="mojprofil">
-				<a href="#" align="right"> Moj profil </a> &nbsp;
-				<a href="#" align="right"> Izloguj se </a>
-			</div>
-		</div>
-		
-		<p class="title"> Moj profil </p>
-		
+         <img src="../../Images/logo.png" width="300" class="logo">
+         <div class="mojprofil">
+            <a href="#" align="right"> Moj profil </a> &nbsp;
+            <a href="#" align="right"> Izloguj se </a>
+         </div>
+      </div>
+      <p class="title">Izmena jela</p>
       <table class="center" cellspacing="15" cellpadding="5">
          <tr>
             <td>Naziv jela:</td>
-            <td><input type="text" name="naziv" size="50" placeholder="&nbsp;Unesite naziv jela"></td>
+            <td><input type="text" name="naziv" size="50" placeholder="&nbsp;Unesite naziv jela" value="Calzone"></td>
          </tr>
          <tr>
             <td>Opis jela:</td>
-            <td><textarea cols="50" name="opis" placeholder="&nbsp;Unesite opis jela"></textarea></td>
+            <td><textarea cols="50" name="opis" placeholder="&nbsp;Unesite opis jela">Fusce fringilla, leo at bibendum tempus, dui velit molestie leo, finibus hendrerit dolor nibh id dui. Suspendisse lacinia luctus nibh at fringilla. Fusce vitae turpis in dolor imperdiet congue nec eu ex. Etiam massa risus, rhoncus ac pharetra eget, posuere nec arcu. Vestibulum purus justo, aliquam convallis nisi nec, faucibus ultrices libero. Pellentesque laoreet nunc sit amet egestas sagittis. Maecenas elementum pulvinar arcu id dapibus. Donec efficitur accumsan felis, nec dignissim velit molestie vel.</textarea></td>
          </tr>
          <tr>
             <td>Sastojci</td>
@@ -77,7 +76,7 @@
                <div id="example-1" class="list">
                   <div class="list__input">
                      <button v-on:click="add">+</button>
-                     <input v-model="newItem" placeholder="Dodaj sastojak" name="input"@keydown.enter="add" />
+                     <input v-model="newItem" placeholder="Dodaj sastojak" @keydown.enter="add" />
                   </div>
                   <transition-group name="list-item" tag="ul" class="list__ul">
                      <li class="list__item" v-for="item in items" :key="item">
@@ -102,7 +101,6 @@
       </table>
       <!-- ovde ubacujete ono sto hocete da bude ispod naslova-->
       <!-- ostavite dovoljan broj <br/> posle toga sto ubacujete da bi footer bio skroz dole-->
-	  <br />
       <div class="footer">
          <br/>
          <a href="#"> Kontakt </a>&nbsp;
