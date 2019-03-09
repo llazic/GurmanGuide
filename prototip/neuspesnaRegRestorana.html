@@ -61,49 +61,59 @@
 				font-family: Arial;
 				color: red;
 			}
+			
+			.profil{
+				text-align: right;
+				margin-right: 50px;
+				margin-top: 70px;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="header">
 			<img src="../Images/logo.png" width="300" class="logo">
-			<p class="title"> Registracija restorana </p>
+			<div class="profil">
+				<a href="#" align="right"> Prijavi se </a> &nbsp;
+				<a href="#" align="right"> Registruj restoran </a> &nbsp;
+				<a href="#" align="right"> Postani Gurman </a>
+			</div>
 		</div>
 		
-		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<p class="title"> Registracija restorana </p>
 		
 		<table class="center" cellspacing="15" cellpadding="5">
 			<caption><font class="crvenaslova">Lozinka i potvrda lozinke se ne poklapaju, pokušajte ponovo.</font></caption>
 			<tr>
-				<td>Korisničko ime:</td>
+				<td> Korisničko ime: </td>
 				<td><input type="text" name="korimerestoran" size="50" value="restoranmadera"></td>
 			</tr>
 			<tr>
-				<td>Lozinka:</td>
+				<td> Lozinka: </td>
 				<td><input type="password" name="lozinkarestoran" size="50" value="madera123">
 				</td>
 			</tr>
 			<tr>
-				<td>Potvrdi lozinku:</td>
-				<td><input type="password" name="lozinkarestoran" size="50" placeholder="&nbsp;Ponovo unesite lozinku"></td>
+				<td> Potvrdi lozinku: </td>
+				<td><input type="password" name="lozinkarestoran" size="50" placeholder="&nbsp;Ponovo unesite lozinku" ></td>
 			</tr>
 			<tr>
-				<td>Naziv restorana:</td>
-				<td><input type="text" name="imerestorana" size="50" value="Restoran Madera"></td>
+				<td> Naziv restorana: </td>
+				<td><input type="text" name="imerestorana" size="50" value="Restoran Madera" ></td>
 			</tr>
 			<tr>
-				<td>Adresa:</td>
-				<td><input type="text" name="adresarestorana" size="50" value="Bulevar kralja Aleksandra 43"></td>
+				<td> Adresa: </td>
+				<td><input type="text" name="adresarestorana" size="50" value="Bulevar kralja Aleksandra 43" ></td>
 			</tr>
 			<tr>
-				<td>Grad:</td>
-				<td><input type="text" name="gradrestorana" size="50" value="Beograd"></td>
+				<td> Grad: </td>
+				<td><input type="text" name="gradrestorana" size="50" value="Beograd" ></td>
 			</tr>
 			<tr>
-				<td>Država:</td>
+				<td> Država: </td>
 				<td><input type="text" name="drzavarestorana" size="50" value="Srbija"></td>
 			</tr>
 			<tr>
-				<td>Slika:</td>
+				<td> Slika: </td>
 				<td><input type="button" name="dugmeSlika" value="Izaberi sliku"</td>
 			</tr>
 		</table>
