@@ -47,7 +47,7 @@
 				margin-top: 70px;
 			}
 			
-			table.center {
+			.center {
 				margin-left:auto;
 				margin-right:auto;
 				vertical-align:middle;
@@ -64,14 +64,23 @@
 				text-align:center;
 			}
 			
+			a{
+				color:black;
+			}
+			
+			.ocena{
+				margin-top: 5px;
+			}
+			
 		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	</head>
 	<body>
 		<div class="header">
 			<a href="#"><img src="../Images/logo.png" width="300" class="logo"></a>
 			<div class="mojprofil">
-				<a href="#" align="right"> Moj profil </a> &nbsp;
-				<a href="#" align="right"> Izloguj se </a>
+				<a href="#" align="right"> Moj profil</a> &nbsp;
+				<a href="#" align="right"> Izloguj se</a>
 			</div>
 		</div>
 		
@@ -81,6 +90,17 @@
 			<tr>
 				<td> Korisničko ime: </td>
 				<td> lazarlazic </td>
+			</tr>
+			<tr>
+				<td> Unesite ocenu: </td>
+				<td><form action="">
+						<input type="radio" name="onestar" value="1"> 1 
+						&nbsp;<input type="radio" name="twostars" value="2"> 2
+						&nbsp;<input type="radio" name="threestars" value="3"> 3
+						&nbsp;<input type="radio" name="fourstars" value="4"> 4
+						&nbsp;<input type="radio" name="fivestars" value="5"> 5
+					</form>
+				</td>
 			</tr>
 			<tr>
 				<td class="vertikalno"> Unesite komentar: </td>
