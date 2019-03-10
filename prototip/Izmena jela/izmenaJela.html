@@ -1,6 +1,7 @@
 <html>
    <head>
       <title>Izmena jela</title>
+      <link rel="icon" href="../../images/icon.png">
       <link rel="stylesheet" href="css/style.css">
       <style>
          body{
@@ -36,6 +37,11 @@
          text-align: center;
          font-size: 30px;
          }
+         .center {
+         margin-left:auto;
+         margin-right:auto;
+         vertical-align:middle;
+         }
          table.center {
          margin-left:auto;
          margin-right:auto;
@@ -49,6 +55,12 @@
          margin-right: 50px;
          margin-top: 70px;
          }
+         .tekst{
+         resize:none;
+         }
+         a {
+         color:black;
+         }
       </style>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    </head>
@@ -56,8 +68,8 @@
       <div class="header">
          <img src="../../Images/logo.png" width="300" class="logo">
          <div class="mojprofil">
-            <a href="#" align="right"> Moj profil </a> &nbsp;
-            <a href="#" align="right"> Izloguj se </a>
+            <a href="#" align="right"> Moj profil</a> &nbsp;
+            <a href="#" align="right"> Izloguj se</a>
          </div>
       </div>
       <p class="title">Izmena jela</p>
@@ -68,7 +80,7 @@
          </tr>
          <tr>
             <td>Opis jela:</td>
-            <td><textarea cols="50" name="opis" placeholder="&nbsp;Unesite opis jela">Fusce fringilla, leo at bibendum tempus, dui velit molestie leo, finibus hendrerit dolor nibh id dui. Suspendisse lacinia luctus nibh at fringilla. Fusce vitae turpis in dolor imperdiet congue nec eu ex. Etiam massa risus, rhoncus ac pharetra eget, posuere nec arcu. Vestibulum purus justo, aliquam convallis nisi nec, faucibus ultrices libero. Pellentesque laoreet nunc sit amet egestas sagittis. Maecenas elementum pulvinar arcu id dapibus. Donec efficitur accumsan felis, nec dignissim velit molestie vel.</textarea></td>
+            <td><textarea cols="50" rows="20" class="tekst" placeholder="Unesite opis jela">Nunc rhoncus elementum purus, quis ultrices ante eleifend quis.</textarea>
          </tr>
          <tr>
             <td>Sastojci</td>
@@ -96,14 +108,14 @@
       </table>
       <table class="center" cellspacing="50">
          <tr>
-            <td class="polje"><input type="submit" name="potvrdi" value="Unesi jelo"></td>
+            <td class="polje"><input type="submit" name="potvrdi" value="Potvrdi izmenu"></td>
          </tr>
       </table>
       <!-- ovde ubacujete ono sto hocete da bude ispod naslova-->
       <!-- ostavite dovoljan broj <br/> posle toga sto ubacujete da bi footer bio skroz dole-->
       <div class="footer">
          <br/>
-         <a href="#"> Kontakt </a>&nbsp;
+         <a href="#"> Kontakt</a>&nbsp;
          <a href="#"> O nama </a>
       </div>
    </body>

@@ -1,0 +1,10 @@
+Razlog zbog kojeg prvo polje i text area nisu stalno jednaki je u tome sto postoji razlika u fontovima u ova dva polja. Ovim kodom se to moze izjednaciti, samo sto treba usaglasiti font-family i font-size (usaglasiti i sa ostalim fajlovima)
+
+		 textarea {
+			font-family: inherit;
+			font-size: inherit;
+		}
+		 input {
+			font-family: inherit;
+			font-size: inherit;
+		}

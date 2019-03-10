@@ -1,6 +1,7 @@
 <html>
    <head>
       <title>Unos jela</title>
+      <link rel="icon" href="../../images/icon.png">
       <link rel="stylesheet" href="css/style.css">
       <style>
          body{
@@ -36,6 +37,11 @@
          text-align: center;
          font-size: 30px;
          }
+         .center {
+         margin-left:auto;
+         margin-right:auto;
+         vertical-align:middle;
+         }
          table.center {
          margin-left:auto;
          margin-right:auto;
@@ -44,24 +50,28 @@
          .polje {
          text-align:center;
          }
-		 .mojprofil{
-				text-align: right;
-				margin-right: 50px;
-				margin-top: 70px;
-		 }
+         .mojprofil{
+         text-align: right;
+         margin-right: 50px;
+         margin-top: 70px;
+         }
+         .tekst{
+         resize:none;
+         }
+         a {
+         color:black;
+         }
       </style>
    </head>
    <body>
       <div class="header">
-			<img src="../../images/logo.png" width="300" class="logo">
-			<div class="mojprofil">
-				<a href="#" align="right"> Moj profil </a> &nbsp;
-				<a href="#" align="right"> Izloguj se </a>
-			</div>
-		</div>
-		
-		<p class="title"> Moj profil </p>
-		
+         <img src="../../images/logo.png" width="300" class="logo">
+         <div class="mojprofil">
+            <a href="#" align="right"> Moj profil</a> &nbsp;
+            <a href="#" align="right"> Izloguj se</a>
+         </div>
+      </div>
+      <p class="title"> Unos jela </p>
       <table class="center" cellspacing="15" cellpadding="5">
          <tr>
             <td>Naziv jela:</td>
@@ -69,7 +79,7 @@
          </tr>
          <tr>
             <td>Opis jela:</td>
-            <td><textarea cols="50" name="opis" placeholder="&nbsp;Unesite opis jela"></textarea></td>
+            <td><textarea cols="50" rows="20" class="tekst" placeholder="Unesite opis jela" ></textarea></td>
          </tr>
          <tr>
             <td>Sastojci</td>
@@ -97,15 +107,15 @@
       </table>
       <table class="center" cellspacing="50">
          <tr>
-            <td class="polje"><input type="submit" name="potvrdi" value="Unesi jelo"></td>
+            <td class="polje"><input type="submit" name="potvrdi" value="Potvrdi unos"></td>
          </tr>
       </table>
       <!-- ovde ubacujete ono sto hocete da bude ispod naslova-->
       <!-- ostavite dovoljan broj <br/> posle toga sto ubacujete da bi footer bio skroz dole-->
-	  <br />
+      <br />
       <div class="footer">
          <br/>
-         <a href="#"> Kontakt </a>&nbsp;
+         <a href="#"> Kontakt</a>&nbsp;
          <a href="#"> O nama </a>
       </div>
    </body>

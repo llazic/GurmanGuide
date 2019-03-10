@@ -1,10 +1,12 @@
 .column {
 	height: auto;
+	width: auto;
 	padding: 10px;
 	border: 1px solid #000000;
-	float: left;
+	float: center;
 	margin-left: 0px;
-	margin-top: 10px
+	margin-top: 10px;
+	margin-right: 0px;
 }
 
 .column h1 {
