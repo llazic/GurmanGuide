@@ -1,0 +1,108 @@
+<html>
+
+<head>
+<title>GurmanGuide</title>
+<style>
+body{
+	background-color:rgb(198, 219, 192);
+	font-family: "Arial Black", Gadget, sans-serif;
+
+}
+* {
+  box-sizing: border-box;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+.col-40 {
+  float: left;
+  width: 40%;
+  margin-top: 6px;
+}
+
+.col-60 {
+  float: left;
+  width: 60%;
+  margin-top: 6px;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.btn-group .button {
+  background-color: #333;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+  float: left;
+}
+
+.btn-group .button:hover {
+  background-color: #ddd;
+  color: black;
+}
+.logo{
+	position: absolute;
+	left: 30%;
+	top: 15%;
+}
+h1{
+	position: absolute;
+	padding: 25px 50px 75px 100px;
+	top: 50%;
+	left: 33%;
+}
+
+</style>
+</head>
+
+<body>
+	<div class="topnav">
+	  <a href="#">Register</a>
+	  <a href="#">Login</a>
+	</div>
+	<div class="logo">
+		<img src="../images/logo.png" width="800">
+		<div class="row">
+		<div class="col-60">
+		  <input type="text" id="search" name="target" placeholder="Search...">
+		</div>
+		<div class="col-40">
+		<div class="btn-group">
+		    <button class="button">search for restaurant</button>
+			<button class="button">search for dish</button>
+		</div>
+		</div>
+		</div>
+	</div>
+	<h1 > Recommended by Gurmans</h1>
+
+</body>
+
+
+</html>
