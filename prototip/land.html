@@ -3,6 +3,7 @@
 
 <head>
 <title>GurmanGuide</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <link rel="icon" href="../images/icon.png">
 <style>
 body{
@@ -15,22 +16,29 @@ body{
 }
 
 input[type=text] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
+  width: 60%;
+  padding : 20px;
+  border: 2px solid #ccc;
+	margin-left: 40%;
+	height: 50px;
   border-radius: 4px;
   resize: vertical;
 }
-.col-40 {
-  float: left;
-  width: 40%;
-  margin-top: 6px;
+h1{
+	text-align: center;
+	font-size: 45px;
+	letter-spacing: 2px;
+	font-weight: bold;
 }
-
-.col-60 {
-  float: left;
-  width: 60%;
-  margin-top: 6px;
+.card {
+  background-color: white;
+	border-radius: 10px;
+  padding: 25px;
+  margin-left: 23%;
+	margin-right: 25%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	width: 50%
 }
 .topnav {
   overflow: hidden;
@@ -50,60 +58,149 @@ input[type=text] {
   background-color: #ddd;
   color: black;
 }
-.btn-group .button {
-  background-color: #333;
-  border-radius: 12px;
-  border: none;
-  color: white;
-  padding: 12px 20px;
+.header {
+  padding: 30px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  cursor: pointer;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.leftcolumn {
   float: left;
+  width: 60%;
 }
 
-.btn-group .button:hover {
-  background-color: #ddd;
+.rightcolumn {
+  float: left;
+  width: 40%;
+  padding-left: 20px;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}
+.dropbtn {
+  background-color: #333;
+	border-radius: 10px;
+  color: white;
+  padding: 14px;
+
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+	text-align: center;
+}
+.topnav .dropdown{
+	display: inline-block;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
   color: black;
-}
-.logo{
-	position: absolute;
-	left: 30%;
-	top: 15%;
-}
-h1{
-	position: absolute;
-	padding: 25px 50px 75px 100px;
-	top: 50%;
-	left: 33%;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
+.dropdown-content a:hover {background-color: #333; color: white;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: white;
+	color: black;
+}
+.lugano {
+	font-family:"Georgia",serif;
+	font-style:italic;
+}
 </style>
 </head>
 
 <body>
 	<div class="topnav">
-	  <a href="#">Register</a>
-	  <a href="#">Login</a>
+		<a href="registracijRestorana.html">Registruj restoran</a>
+	  <a href="registracijaGurmana.html">Postani Gurman</a>
+	  <a href="login.html">Prijavi se</a>
 	</div>
-	<div class="logo">
+	<div class="header">
 		<img src="../images/logo.png" width="800">
-		<div class="row">
-		<div class="col-60">
-		  <input type="text" id="search" name="target" placeholder="Search...">
+	</div>
+	<div class="row">
+		<div class="leftcolumn">
+			<input type="text" id="search" name="target" placeholder="Search...">
 		</div>
-		<div class="col-40">
-		<div class="btn-group">
-		    <button class="button">search for restaurant</button>
-			<button class="button">search for dish</button>
+		<div class="rightcolumn">
+			<div class="dropdown">
+  			<button class="dropbtn">Dropdown</button>
+  			<div class="dropdown-content">
+				  <a href="#">Link 1</a>
+  				<a href="#">Link 2</a>
+  				<a href="#">Link 3</a>
+		  </div>
 		</div>
-		</div>
+		<div class="dropdown">
+			<button class="dropbtn">Dropdown</button>
+			<div class="dropdown-content">
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+			</div>
 		</div>
 	</div>
-	<br/><br/><br/><br/><br/>
-	<h1 > Recommended by Gurmans</h1>
+</div>
+<br><br><br><br>
+<div class="row">
+<h1><b>Gurmani preporučuju</b></h1>
+</div>
+
+<div class="card">
+	<img src="../Images/calzone1.png" alt="Calzone" style="float:left;width:120px;height:120px;margin-right:40px;"/>
+	Calzone
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<p class="lugano">	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in euismod risus. Aenean scelerisque mauris vitae imperdiet tempus. Nunc convallis semper ultrices. Cras vulputate non ex in sagittis. Integer in nulla commodo felis faucibus facilisis nec sed nibh. Nam nec erat et velit auctor dignissim. "
+</p>
+</div>
+<div class="card">
+	<img src="../Images/krilca.png" alt="Calzone" style="float:left;width:120px;height:120px;margin-right:40px;"/>
+	Pileća krilca u BBQ sosu
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
+	<p class="lugano">	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in euismod risus. Aenean scelerisque mauris vitae imperdiet tempus. Nunc convallis semper ultrices. Cras vulputate non ex in sagittis. Integer in nulla commodo felis faucibus facilisis nec sed nibh. Nam nec erat et velit auctor dignissim. "
+</p>
+</div>
+
+
+
 
 </body>
 
