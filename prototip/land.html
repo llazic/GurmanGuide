@@ -35,10 +35,10 @@ h1{
 	border-radius: 10px;
   padding: 25px;
   margin-left: 23%;
-	margin-right: 25%;
+	margin-right: 20%;
 	margin-top: 2%;
 	margin-bottom: 2%;
-	width: 50%
+	width: 55%
 }
 .topnav {
   overflow: hidden;
@@ -60,7 +60,9 @@ h1{
 }
 .header {
   padding: 30px;
-  text-align: center;
+	margin-left: 25%;
+	margin-right: 25%;
+
 }
 .row:after {
   content: "";
@@ -111,6 +113,7 @@ h1{
   display: none;
   position: absolute;
   background-color: #f2f2f2;
+	border-radius: 10px;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -121,17 +124,20 @@ h1{
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+	border-radius: 10px;
 }
 
-.dropdown-content a:hover {background-color: #333; color: white;}
+.dropdown-content a:hover {background-color: #333; color: white;border-radius: 10px;}
 
 .dropdown:hover .dropdown-content {
   display: block;
+	border-radius: 10px;
 }
 
 .dropdown:hover .dropbtn {
   background-color: white;
 	color: black;
+	border-radius: 10px;
 }
 .lugano {
 	font-family:"Georgia",serif;
@@ -147,7 +153,7 @@ h1{
 	  <a href="login.html">Prijavi se</a>
 	</div>
 	<div class="header">
-		<img src="../images/logo.png" width="800">
+		<img src="../images/logo.png" width="100%">
 	</div>
 	<div class="row">
 		<div class="leftcolumn">
@@ -155,19 +161,18 @@ h1{
 		</div>
 		<div class="rightcolumn">
 			<div class="dropdown">
-  			<button class="dropbtn">Dropdown</button>
+  			<button class="dropbtn">Pretraga jela</button>
   			<div class="dropdown-content">
-				  <a href="#">Link 1</a>
-  				<a href="#">Link 2</a>
-  				<a href="#">Link 3</a>
+				  <a href="#">po nazivu</a>
+  				<a href="#">po sastojku</a>
+  				<a href="#">po restoranu</a>
 		  </div>
 		</div>
 		<div class="dropdown">
-			<button class="dropbtn">Dropdown</button>
+			<button class="dropbtn">Pretraga restorana</button>
 			<div class="dropdown-content">
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
+				<a href="#">po nazivu</a>
+				<a href="#">po lokaciji</a>
 			</div>
 		</div>
 	</div>
