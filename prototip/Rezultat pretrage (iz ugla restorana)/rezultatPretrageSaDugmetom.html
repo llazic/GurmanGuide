@@ -47,11 +47,16 @@
          a {
          color:black;
          }
+
+		 button {
+			margin: 4px 2px;
+		 }
+
       </style>
    </head>
    <body>
       <div class="header">
-         <img src="../../Images/logo.png" width="300" class="logo">
+         <a href="../land.html"><img src="../../Images/logo.png" width="300" class="logo"></a>
          <div class="mojprofil">
             <a href="#" align="right"> Moj profil</a> &nbsp;
             <a href="#" align="right"> Izloguj se</a>
@@ -62,14 +67,15 @@
          <h1><a href="..\Prikaz jela\prikazJela.html">Calzone</a></h1>
          <table width="100%">
             <tr>
-               <td width="25%">
+               <td width="25%" align="center">
                   <img class="slika" src="../../images/calzone1.png">
+				  <button type="button" name="izmeni" onclick="location.href='../Izmena jela/izmenaJela.html'">Izmeni jelo</button>
                </td>
                <td width="75%">
-                  <p class="sastojci">Chicago testo, sir, �unka, pan�eta, kisela pavlaka, �ampinjoni</p>
+                  <p class="sastojci">Chicago testo, sir, šunka, pančeta, kisela pavlaka, šampinjoni</p>
                   <div class="komentar">
                      <p class="korisnik">Opis:</p>
-                     <p>Nunc rhoncus elementum purus, quis ultrices ante eleifend quis.
+                     <p>Danas poznati italijanski specijalitet, ali malo ko zna da je nastao za vreme starog Rima. Prvi čovek koji ju je probao bio je, ni manje ni više, nego Gaj Julije Cezar.
                      </p>
                   </div>
                   <div class="komentar">
@@ -80,7 +86,6 @@
                      <p class="korisnik">Recenzija:</p>
                      <p>Feromenalan i ocaravajuci ukus. Kada jednom probate, sigurno ce te se vratiti da probate opet!</p>
                   </div>
-				<!--Ovde ide Tag kod 1-->
                </td>
             </tr>
          </table>
@@ -88,16 +93,16 @@
       </div>
       <div class="column">
          <h1>Pizza carbonara</h1>
-         <table>
+         <table width="100%">
             <tr>
-               <td width="25%">
+               <td width="25%" align="center">
                   <img class="slika" src="../../images/carbonara.jpeg">
                </td>
                <td>
-                  <p class="sastojci">Carbonara sos, �ampinjoni, pan�eta, baby mozzarella</p>
+                  <p class="sastojci">Carbonara sos, šampinjoni, pančeta, baby mozzarella</p>
                   <div class="komentar">
                      <p class="korisnik">Opis:</p>
-                     <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus id neque rhoncus, dapibus urna ut, molestie ipsum. Morbi in interdum felis, a condimentum dui. Maecenas porta arcu non sem faucibus congue. In interdum a ipsum in dignissim. Nunc aliquam, orci eget gravida accumsan, odio tellus tempus elit, quis lacinia enim velit fringilla arcu. Cras eget sapien sit amet eros iaculis interdum eu quis sem. Fusce mattis tellus vitae sapien rutrum accumsan. Nunc ac condimentum ligula. Nam accumsan justo elit, eget commodo ligula rutrum sed.
+                     <p>Duh špageti karbonara sada se preselio u drugo telo - picu. 
                      </p>
                   </div>
                   <div class="komentar">
@@ -108,7 +113,6 @@
                      <p class="korisnik">Recenzija</p>
                      <p>Jeo sam i bolje pice. Mozda mi samo nije legla...</p>
                   </div>
-                  <!--Ovde ide Tag kod 2-->
                </td>
             </tr>
          </table>
