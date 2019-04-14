@@ -1,7 +1,7 @@
 <!--Nenad Babin-->
 <html>
    <head>
-      <title>Izmena jela</title>
+      <title>Unos jela</title>
       <link rel="icon" href="../../images/icon.png">
       <link rel="stylesheet" href="css/style.css">
       <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -63,6 +63,11 @@
          a {
          color:black;
          }
+		 .crvenaSlova {
+				font-size: 13px;
+				font-family: Arial;
+				color: red;
+		}
       </style>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    </head>
@@ -74,11 +79,13 @@
             <a href="../land.html" align="right"> Izloguj se </a>
          </div>
       </div>
-      <p class="title">Izmena jela</p>
+      <p class="title">Unos jela</p>
+	  <center><font class="crvenaSlova"><strong>Niste uneli ime jela!</strong></font></center>
+	  <center><font class="crvenaSlova"><strong>Niste uneli ni jedan sastojak!</strong></font></center>
       <table class="center" cellspacing="15" cellpadding="5">
          <tr>
             <td>Naziv jela:</td>
-            <td><input type="text" name="naziv" size="50" placeholder="&nbsp;Unesite naziv jela" value="Calzone"></td>
+            <td><input type="text" name="naziv" size="50" placeholder="&nbsp;Unesite naziv jela"></td>
          </tr>
          <tr>
             <td>Opis jela:</td>
@@ -111,8 +118,7 @@
       <table class="center" cellspacing="50">
          <tr>
             <td class="polje">
-			<input type="submit" name="ukloni" value="Ukloni jelo" onclick="location.href = '../jeloUspesnoObrisano.html'">
-			<input type="submit" name="potvrdi" value="Potvrdi izmenu" onclick="location.href = '../jeloUspesnoIzmenjeno.html'">
+			<input type="submit" name="potvrdi" value="Potvrdi unos" onclick="location.href = '../jeloUpesnoDodato.html'">
 			</td>
          </tr>
       </table>
