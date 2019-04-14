@@ -18,6 +18,7 @@ CREATE TABLE [Grad]
 ( 
 	[IdDrzava]           integer  NOT NULL ,
 	[IdGrad]             integer  NOT NULL ,
+	[Naziv]              varchar(20)  NULL ,
 	CONSTRAINT [XPKGrad] PRIMARY KEY  CLUSTERED ([IdGrad] ASC)
 )
 go
