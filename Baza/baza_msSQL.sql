@@ -36,6 +36,14 @@ CREATE TABLE [Gurman]
 )
 go
 
+CREATE TABLE [Ima_Sastojak]
+( 
+	[IdJelo]             integer  NOT NULL ,
+	[IdSastojak]         integer  NOT NULL ,
+	CONSTRAINT [XPKIma_Sastojak] PRIMARY KEY  CLUSTERED ([IdJelo] ASC,[IdSastojak] ASC)
+)
+go
+
 CREATE TABLE [Jelo]
 ( 
 	[Naziv]              varchar(30)  NULL ,
@@ -43,6 +51,9 @@ CREATE TABLE [Jelo]
 	[IdJelo]             integer  NOT NULL ,
 	[IdKorisnik]         integer  NOT NULL ,
 	[IdSlika]            integer  NOT NULL ,
+	[Pregledano]         char  NULL 
+	CONSTRAINT [Ogranicenje_Pregledano_2057014714]
+		CHECK  ( [Pregledano]='P' OR [Pregledano]='N' ),
 	CONSTRAINT [XPKJelo] PRIMARY KEY  CLUSTERED ([IdJelo] ASC)
 )
 go
@@ -50,19 +61,10 @@ go
 CREATE TABLE [Korisnik]
 ( 
 	[IdKorisnik]         integer  NOT NULL ,
-	[Username]           varchar(20)  NULL ,
-	[Password]           varchar(20)  NULL ,
+	[KorisnickoIme]      varchar(20)  NULL ,
+	[Lozinka]            varchar(20)  NULL ,
 	[Email]              varchar(30)  NULL ,
 	CONSTRAINT [XPKKorisnik] PRIMARY KEY  CLUSTERED ([IdKorisnik] ASC)
-)
-go
-
-CREATE TABLE [RadnoVreme]
-( 
-	[IdKorisnik]         integer  NOT NULL ,
-	[IdRadnoVreme]       integer  NOT NULL ,
-	[DanIVreme]          varchar(40)  NULL ,
-	CONSTRAINT [XPKRadnoVreme] PRIMARY KEY  CLUSTERED ([IdRadnoVreme] ASC)
 )
 go
 
@@ -74,6 +76,9 @@ CREATE TABLE [Recenzija]
 		CHECK  ( Ocena BETWEEN 1 AND 5 ),
 	[Komentar]           varchar(250)  NULL ,
 	[IdJelo]             integer  NOT NULL ,
+	[Pregledano]         char  NULL 
+	CONSTRAINT [Ogranicenje_Pregledano_268628333]
+		CHECK  ( [Pregledano]='P' OR [Pregledano]='N' ),
 	CONSTRAINT [XPKRecenzija] PRIMARY KEY  CLUSTERED ([IdJelo] ASC,[IdKorisnik] ASC)
 )
 go
@@ -84,17 +89,18 @@ CREATE TABLE [Restoran]
 	[Telefon]            varchar(20)  NULL ,
 	[Naziv]              varchar(30)  NULL ,
 	[Adresa]             varchar(30)  NULL ,
-	[Grad]               varchar(20)  NULL ,
-	[Drzava]             varchar(20)  NULL ,
 	[IdGrad]             integer  NOT NULL ,
 	[IdSlika]            integer  NOT NULL ,
+	[RadnoVreme]         varchar(200)  NULL ,
+	[Pregledano]         char  NULL 
+	CONSTRAINT [Ogranicenje_Pregledano_233966035]
+		CHECK  ( [Pregledano]='P' OR [Pregledano]='N' ),
 	CONSTRAINT [XPKRestoran] PRIMARY KEY  CLUSTERED ([IdKorisnik] ASC)
 )
 go
 
 CREATE TABLE [Sastojak]
 ( 
-	[IdJelo]             integer  NOT NULL ,
 	[IdSastojak]         integer  NOT NULL ,
 	[Naziv]              varchar(20)  NULL ,
 	CONSTRAINT [XPKSastojak] PRIMARY KEY  CLUSTERED ([IdSastojak] ASC)
@@ -132,6 +138,19 @@ go
 
 ALTER TABLE [Gurman]
 	ADD CONSTRAINT [R_12] FOREIGN KEY ([IdSlika]) REFERENCES [Slika]([IdSlika])
+		ON DELETE SET NULL
+		ON UPDATE CASCADE
+go
+
+
+ALTER TABLE [Ima_Sastojak]
+	ADD CONSTRAINT [R_14] FOREIGN KEY ([IdJelo]) REFERENCES [Jelo]([IdJelo])
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+go
+
+ALTER TABLE [Ima_Sastojak]
+	ADD CONSTRAINT [R_15] FOREIGN KEY ([IdSastojak]) REFERENCES [Sastojak]([IdSastojak])
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE
 go
@@ -145,14 +164,7 @@ go
 
 ALTER TABLE [Jelo]
 	ADD CONSTRAINT [R_13] FOREIGN KEY ([IdSlika]) REFERENCES [Slika]([IdSlika])
-		ON DELETE NO ACTION
-		ON UPDATE CASCADE
-go
-
-
-ALTER TABLE [RadnoVreme]
-	ADD CONSTRAINT [R_4] FOREIGN KEY ([IdKorisnik]) REFERENCES [Restoran]([IdKorisnik])
-		ON DELETE NO ACTION
+		ON DELETE SET NULL
 		ON UPDATE CASCADE
 go
 
@@ -184,13 +196,6 @@ go
 
 ALTER TABLE [Restoran]
 	ADD CONSTRAINT [R_11] FOREIGN KEY ([IdSlika]) REFERENCES [Slika]([IdSlika])
-		ON DELETE NO ACTION
-		ON UPDATE CASCADE
-go
-
-
-ALTER TABLE [Sastojak]
-	ADD CONSTRAINT [R_6] FOREIGN KEY ([IdJelo]) REFERENCES [Jelo]([IdJelo])
-		ON DELETE NO ACTION
+		ON DELETE SET NULL
 		ON UPDATE CASCADE
 go
