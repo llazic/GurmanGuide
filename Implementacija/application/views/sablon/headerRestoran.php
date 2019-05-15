@@ -78,7 +78,7 @@
 		<div class="header">
 			<a href="land.html"><img src="../Images/logo.png" width="300" class="logo"></a>
 			<div class="profil">
-				<a href="izmenaRestorana.html" align="right"> Moj profil</a> &nbsp;
-				<a href="land.html" align="right"> Izloguj se</a>
+				<a href="<?php echo site_url('C_Restoran/izmenirestoran');?>" align="right"> Moj profil</a> &nbsp;
+				<a href="<?php echo site_url('C_Restoran/izlogujse');?>" align="right"> Izloguj se</a>
 			</div>
 		</div>
