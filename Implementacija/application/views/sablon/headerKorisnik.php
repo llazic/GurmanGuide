@@ -73,7 +73,7 @@
 		<div class="header">
 			<a href="land.html"> <img src="../Images/logo.png" width="300" class="logo"> </a>
 			<div class="mojprofil">
-				<a href="izmenaProfilaGurmana.html" align="right"> Moj profil</a> &nbsp;
-				<a href="land.html" align="right"> Izloguj se </a>
+                            <a href="<?php echo site_url('C_Gurman/izmenaProfila');?>" align="right"> Moj profil</a> &nbsp;
+				<a href="<?php echo site_url('C_Gurman/izlogujSe');?>" align="right"> Izloguj se </a>
 			</div>
 		</div>

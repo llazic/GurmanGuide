@@ -17,7 +17,8 @@ class C_Gurman extends CI_Controller{
     }
     
     public function index(){
-        
+        $this->load->view('sablon/headerKorisnik.php');
+        $this->load->view('sablon/footer.php');
     }
 }
 

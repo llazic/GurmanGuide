@@ -17,6 +17,6 @@ class C_Gost extends CI_Controller{
     }
     
     public function index(){
-        
+        $this->load->view('stranice/land.html');
     }
 }
