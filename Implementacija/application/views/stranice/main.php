@@ -148,9 +148,9 @@
 
 <body>
 	<div class="topnav">
-		<a href="registracijaGurmana.html">Postani Gurman</a>
-		<a href="registracijaRestorana.html">Registruj restoran</a>
-		<a href="login.html">Prijavi se</a>
+		<a href="<?php echo site_url('C_Gost/registrujGurmana') ?>">Postani Gurman</a>
+		<a href="<?php echo site_url('C_Gost/registrujRestoran') ?>">Registruj restoran</a>
+		<a href="<?php echo site_url('C_Gost/ulogujse') ?>">Prijavi se</a>
 	</div>
 	<div class="header">
 		<img src="../images/logo.png" width="100%">

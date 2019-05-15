@@ -17,6 +17,12 @@ class C_Gost extends CI_Controller{
     }
     
     public function index(){
-        $this->load->view('stranice/land.html');
+        $this->load->view('stranice/main.php');
     }
+    
+    public function registrujGurmana() {
+        echo '123';
+    }
+    
+    
 }
