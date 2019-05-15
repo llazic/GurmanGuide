@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Upravljanje jelima</title>
+		<title><?php echo $title?></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<link rel="icon" href="../images/icon.png">
 		<style>

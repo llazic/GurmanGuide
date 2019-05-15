@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Moj profil</title>
+		<title><?php echo $title?></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<link rel="icon" href="http://localhost/GurmanGuide/images/icon.png">
 		<style>
@@ -68,9 +68,6 @@
 				color:black;
 			}
                         
-                        .center{
-				text-align:center;
-			}
 
 			.sredina{
 				margin-left:auto;

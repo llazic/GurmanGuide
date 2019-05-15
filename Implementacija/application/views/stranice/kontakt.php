@@ -1,10 +1,10 @@
 	<p class="title"> Kontakt </p>
 		
-		<p class="center">
+		<p style="text-align:center;">
 			U slučaju bilo kakvih nedoumica ili preporuka, možete nas kontaktirati na neku od sledećih e-mail adresa:
 		</p>
 		
-		<p class="center">
+		<p>
 			<table class="sredina" cellspacing="15" cellpadding="5">
 			<tr>
 				<td><a href="mailto:cd160236d@student.etf.bg.ac.rs"> cd160236d@student.etf.bg.ac.rs </a></td>

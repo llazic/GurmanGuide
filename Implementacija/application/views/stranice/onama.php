@@ -1,7 +1,7 @@
 <p class="title"> O nama </p>
 		
 		
-		<p class="center">
+		<p>
 			<table class="sredina" cellspacing="15" cellpadding="5">
 			<tr>
 				<td align="center">
