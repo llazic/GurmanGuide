@@ -35,4 +35,79 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->row();
     }
     
+    
+    public function proveriIzmene($restoran){
+        $lozinka = $this->input->post('lozinkarestoran');
+        $potvrdalozinke = $this->input->post('potvrdalozinke');
+        $telefon = $this->input->post('telefon');
+        $ime = $this->input->post('imerestorana');
+        $adresa = $this->input->post('adresarestorana');
+        $grad = $this->input->post('gradrestorana');
+        $drzava = $this->input->post('drzavarestorana');
+        
+        /*
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "psibaza";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+             die("Connection failed: " . $conn->connect_error);
+        } 
+
+        if ($telefon != $restoran->brTelefona){
+            $sql = "UPDATE restoran SET Telefon=".$telefon." WHERE id=2".$restoran->id." ";
+        }
+       // $sql = "UPDATE restoran SET lastname='Doe' WHERE id=".$restoran->id." ";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . $conn->error;
+        }
+
+        $conn->close();
+        if ($telefon != $restoran->brTelefona){
+            
+        }*/
+    }
+    
+    public function dohvatiRestoran($id){
+        
+        $query = $this->db->query("SELECT restoran.Naziv as imeRestorana, restoran.Telefon as brTelefona, restoran.Adresa as adresaRestorana, grad.Naziv as gradRestorana, drzava.Naziv as drzavaRestorana, korisnik.KorisnickoIme as korime, korisnik.Lozinka as lozinka, korisnik.Email as email, restoran.IdKorisnik as id "
+                . "FROM restoran, grad, drzava, korisnik "
+                . "WHERE restoran.IdGrad = grad.IdGrad AND grad.IdDrzava = drzava.IdDrzava "
+                . "AND restoran.IdKorisnik = korisnik.IdKorisnik AND restoran.IdKorisnik = ". $id." ");
+        
+        return $query->row();
+       /* $this->db->from('restoran');
+        $this->db->where('IdKorisnik', $id);
+        
+        $restoran = $this->db->get()->row();
+        if ($restoran != null){
+            $this->db->from('grad');
+            $this->db->where($restoran->IdGrad, 'IdGrad');
+            
+            $korisnik = $this->db->get()->row();
+            $restoran->Grad = $korisnik->Naziv;
+            
+            if ($korisnik != null){
+                $this->db->from('drzava');
+                $this->db->where($restoran->IdGrad, 'IdGrad');
+            
+                $korisnik2 = $this->db->get()->row();
+                $restoran->Drzava = $korisnik2->Naziv;
+                
+                return $restoran;
+            } else {
+                return null;
+            }
+        } else {
+            //ako postoji korisnik sa tim ID-jem ali nije gurman, vraca null
+            return null;
+        }*/
+    }
 }

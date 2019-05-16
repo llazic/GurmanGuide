@@ -1,0 +1,25 @@
+/*********************************************************************************
+
+	Template Name: Template full name  
+	Template URI: https://themeforest.net/user/
+	Description: Template description
+	Author: author name
+	Author URI: author uri
+	Version: 1.0
+
+	Note: This is plugins css. All plugins css files import here.
+
+**********************************************************************************/
+
+@import url(plugins/font-awesome.min.css);
+@import url(plugins/slick.min.css);
+@import url(plugins/fakeloader.css);
+@import url(plugins/pe-icon-7-stroke.css);
+@import url(plugins/material-design-iconic-font.min.css);
+@import url(plugins/animation.css);
+@import url(plugins/jquery.yu2fvl.css);
+@import url(plugins/owl.carousel.min.css);
+@import url(plugins/owl.theme.default.min.css);
+@import url(plugins/lightbox.css);
+@import url(plugins/jquery-ui.min.css);
+@import url(plugins/mainmenu.css);
