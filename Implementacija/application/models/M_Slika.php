@@ -16,4 +16,20 @@ class M_Slika extends CI_Model{
         parent::__construct();
     }
     
+    public function poslednjiId() {
+        $this->db->select('max(slika.IdSlika) as poslednjiId');
+        $this->db->from('slika');
+        
+        return $this->db->get()->row();
+    }
+    
+    public function unesiSliku($slika) {
+        $podaciSlika = array(
+            'IdSlika' => $slika->IdSlika,
+            'Putanja' => $slika->Putanja
+        );
+
+        $this->db->insert('slika', $podaciSlika);
+    }
+    
 }
