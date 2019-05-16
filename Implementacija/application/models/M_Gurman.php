@@ -35,6 +35,25 @@ class M_Gurman extends CI_Model{
         }
     }
     
+    public function azuriranjeGurmana($info){
+        $this->db->set('Lozinka', $info['sifra']);
+        $this->db->where('IdKorisnik', $info['id']);
+        $this->db->update('Korisnik');
+        
+        $this->db->set('Ime', $info['ime']);
+        $this->db->set('Prezime', $info['prezime']);
+        $this->db->set('Pol', $info['pol']);
+        $this->db->where('IdKorisnik', $info['id']);
+        $this->db->update('Gurman');
+        
+//        za slike
+//        $gurman = $this->dohvatiGurmana($info['id']);
+//        
+//        $this->db->set('Putanja', $info['slika']);        
+//        $this->db->where('IdSlika', $gurman->IdSlika);
+//        $this->db->update('Slika');
+    }
+    
     public function proveraKorImena($korime) {
         $this->db->select('*');
         $this->db->from('korisnik, gurman');
