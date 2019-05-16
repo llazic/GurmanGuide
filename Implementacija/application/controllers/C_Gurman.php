@@ -29,7 +29,7 @@ class C_Gurman extends CI_Controller {
         }
     }
 
-    public function index() {
+    public function index($poruka = null) {
         $this->load->view('sablon/headerGurman.php', ['title' => 'Pretraga']);
         //dodati pretragu kao sredinu
         $this->load->view('sablon/footer.php');
@@ -38,13 +38,17 @@ class C_Gurman extends CI_Controller {
     public function izmenaProfila() {
         $korisnik = $this->session->userdata('korisnik');
         $gurman = $this->M_Gurman->dohvatiGurmana($korisnik->id);
-        
-        $this->session->set_userdata('korisnik', $gurman);
 
+        $promenljive['korisnickoIme'] = $gurman->KorisnickoIme;
+        $promenljive['lozinka'] = $gurman->Lozinka;
+        $promenljive['email'] = $gurman->Email;
+        $promenljive['ime'] = $gurman->Ime;
+        $promenljive['prezime'] = $gurman->Prezime;
+        $promenljive['pol'] = $gurman->Pol;
+                
         $this->load->view('sablon/headerGurman.php', ['title' => 'Moj profil']);
-        $this->load->view('stranice/izmenaProfilaGurmana.php');
+        $this->load->view('stranice/izmenaProfilaGurmana.php', $promenljive);
         $this->load->view('sablon/footer.php');
-        $this->session->set_userdata('korisnik', $korisnik);
     }
 
     public function izlogujSe() {
@@ -88,7 +92,7 @@ class C_Gurman extends CI_Controller {
             $korisnik = $this->session->userdata('korisnik');
             $info['id'] = $korisnik->id;
             $this->M_Gurman->azuriranjeGurmana($info);
-            $this->index();
+            $this->index('Uspesno napravljene izmene.');
         }
     }
 

@@ -4,40 +4,40 @@
 			<tr>
 				<td align="top">Korisničko ime:</td>
 				<td>
-					<?php echo $this->session->userdata('korisnik')->KorisnickoIme; ?>
+					<?php echo $korisnickoIme; ?>
 				</td>
 			</tr>
 			<tr>
 				<td>Lozinka:</td>
 				<td><?php echo "<font color='red' size='2'>" .form_error('lozinkagurman') ."</font>"?>
-                                    <input type="password" name="lozinkagurman" size="50" placeholder="&nbsp;Unesite lozinku" value="<?php echo set_value('lozinka', $this->session->userdata('korisnik')->Lozinka); ?>"></td>
+                                    <input type="password" name="lozinkagurman" size="50" placeholder="&nbsp;Unesite lozinku" value="<?php echo set_value('lozinka', $lozinka); ?>"></td>
 			</tr>
 			<tr>
 				<td>Potvrdi lozinku:</td>
 				<td><?php echo "<font color='red' size='2'>" .form_error('potvrdalozinkegurman') ."</font>"?>
-                                    <input type="password" name="potvrdalozinkegurman" size="50" placeholder="&nbsp;Ponovo unesite lozinku" value="<?php echo set_value('lozinka', $this->session->userdata('korisnik')->Lozinka); ?>"></td>
+                                    <input type="password" name="potvrdalozinkegurman" size="50" placeholder="&nbsp;Ponovo unesite lozinku" value="<?php echo set_value('lozinka', $lozinka); ?>"></td>
 			</tr>
 			<tr>
 				<td>E-mail:</td>
 				<td>
-					<?php echo $this->session->userdata('korisnik')->Email; ?>
+					<?php echo $email; ?>
 				</td>
 			</tr>
 			<tr>
 				<td>Ime:</td>
 				<td><?php echo "<font color='red' size='2'>" .form_error('imegurman') ."</font>"?>
-                                    <input type="text" name="imegurman" size="50" placeholder="&nbsp;Unesite Vaše ime" value="<?php echo set_value('imegurman', $this->session->userdata('korisnik')->Ime); ?>"></td>
+                                    <input type="text" name="imegurman" size="50" placeholder="&nbsp;Unesite Vaše ime" value="<?php echo set_value('imegurman', $ime); ?>"></td>
 			</tr>
 			<tr>
 				<td>Prezime:</td>
 				<td><?php echo "<font color='red' size='2'>" .form_error('prezimegurman') ."</font>"?>
-                                    <input type="text" name="prezimegurman" size="50" placeholder="&nbsp;Unesite Vaše prezime" value="<?php echo set_value('prezimegurman', $this->session->userdata('korisnik')->Prezime); ?>"></td>
+                                    <input type="text" name="prezimegurman" size="50" placeholder="&nbsp;Unesite Vaše prezime" value="<?php echo set_value('prezimegurman', $prezime); ?>"></td>
 			</tr>
 			<tr>
 				<td>Pol:</td>
 				<td>    <?php echo "<font color='red' size='2'>" .form_error('pol') ."</font>"?>
-                                        <input type="radio" name="pol" value="M"<?php if(set_value('pol', $this->session->userdata('korisnik')->Pol)=="M"){ echo 'checked="true"';}?>>Muški
-                                        <input type="radio" name="pol" value="Z"<?php if(set_value('pol', $this->session->userdata('korisnik')->Pol)=="Z"){ echo 'checked="true"';}?>>Ženski
+                                        <input type="radio" name="pol" value="M"<?php if(set_value('pol', $pol)=="M"){ echo 'checked="true"';}?>>Muški
+                                        <input type="radio" name="pol" value="Z"<?php if(set_value('pol', $pol)=="Z"){ echo 'checked="true"';}?>>Ženski
 				</td>
 			</tr>
 			<tr>
