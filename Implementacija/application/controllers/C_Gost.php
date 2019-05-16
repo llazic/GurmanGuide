@@ -33,6 +33,8 @@ class C_Gost extends CI_Controller{
         $this->load->model("M_Restoran");
         $this->load->model("M_Administrator");
         $this->load->model("M_Slika");
+        $this->load->model("M_Grad");
+        $this->load->model("M_Restoran");
     }
     
     public function index(){
@@ -46,8 +48,9 @@ class C_Gost extends CI_Controller{
     }
     
     public function registrujRestoran() {
+        $gradovi = $this->M_Grad->gohvatiSveGradove();
         $this->load->view("sablon/headerGost.php", ['title' => 'Registracija']);
-        $this->load->view('stranice/registracijaRestorana.php');
+        $this->load->view('stranice/registracijaRestorana.php', ['gradovi' => $gradovi]);
     }
     
     public function prijaviSe($poruka = null) {
@@ -125,7 +128,7 @@ class C_Gost extends CI_Controller{
         }
     }
     
-    public function proveraRegistracije() {
+    public function proveraRegistracijeGurman() {
         $korime = $this->input->post("korimegurman");
         $sifra = $this->input->post("lozinkagurman");
         $sifraPotvrda = $this->input->post("potvrdalozinkegurman");
@@ -133,9 +136,7 @@ class C_Gost extends CI_Controller{
         $ime = $this->input->post("imegurman");
         $prezime = $this->input->post("prezimegurman");
         $pol = $this->input->post("pol");
-        $slika = $this->input->post("slikagurman");
         
-        $this->load->helper('email');
         $this->form_validation->set_rules('korimegurman', 'Korisnicno ime', 'required|trim|is_unique[korisnik.KorisnickoIme]', array('required' => 'Niste uneli korisničko ime', 'is_unique' => 'Korisničko ime već postoji'));
         $this->form_validation->set_rules('lozinkagurman', 'Sifra', 'required', array('required' => 'Niste uneli šifru'));
         $this->form_validation->set_rules('potvrdalozinkegurman', 'Potvrda sifre', 'required|matches[lozinkagurman]', array('required' => 'Niste uneli potvrdu šifre', 'matches' =>'Šifre koje ste uneli se ne poklapaju'));
@@ -161,7 +162,7 @@ class C_Gost extends CI_Controller{
             if (isset($_FILES['slikagurman']) && $_FILES['slikagurman']['error'] != UPLOAD_ERR_NO_FILE) {
                 
                 $putanjaDoFoldera = "./uploads/gurman/" ."$id";
-                if (($putanjaDoSlike = $this->upload($putanjaDoFoldera, "profil")) == null) {
+                if (($putanjaDoSlike = $this->upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
                     $this->registrujGurmana("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
                             . "Maksimalna veličina 1000 bajtova. <br />"
@@ -194,6 +195,8 @@ class C_Gost extends CI_Controller{
             }
 
             $this->M_Gurman->unesiGurmana($gurman);
+            
+            $this->prijaviSe("Uspešno ste se registrovali. Možete se prijaviti.");
         }        
     }
     
@@ -209,11 +212,14 @@ class C_Gost extends CI_Controller{
         }
     }
     
-    public function upload($putanja, $imeSlike) {
+    //vrsta slike moze biti:
+    //      slikagurman
+    //      slikarestoran
+    public function upload($putanja, $imeSlike, $vrstaSlike) {
         if(!file_exists($putanja)) {
            mkdir($putanja, 0777, true);
         }
-        if (isset($_FILES['slikagurman']) && $_FILES['slikagurman']['error'] != UPLOAD_ERR_NO_FILE) {
+        if (isset($_FILES["$vrstaSlike"]) && $_FILES["$vrstaSlike"]['error'] != UPLOAD_ERR_NO_FILE) {
             $config['upload_path'] = $putanja;
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = 1000;
@@ -221,7 +227,7 @@ class C_Gost extends CI_Controller{
             $config['max_height'] = 1024;
             $config['file_name'] = $imeSlike;
             $this->load->library('upload', $config);
-            if (!$this->upload->do_upload('slikagurman')) {
+            if (!$this->upload->do_upload("$vrstaSlike")) {
                 //$message = (string)$this->upload->display_errors();
                 return null;
             } else {
@@ -232,6 +238,84 @@ class C_Gost extends CI_Controller{
         } else {
             return null;
         }
+    }
+    
+    public function proveraRegistracijeRestoran() {
+        $korime = $this->input->post("korimerestoran");
+        $sifra = $this->input->post("lozinkarestoran");
+        $sifraPotvrda = $this->input->post("potvrdalozinkerestoran");
+        $email = $this->input->post("email");
+        $telefon = $this->input->post("telefon");
+        $naziv = $this->input->post("nazivrestorana");
+        $radnoVreme = $this->input->post("radnovreme");
+        $adresa = $this->input->post("adresarestorana");
+        $idGrad = $this->input->post("grad");
+        
+        $this->form_validation->set_rules('korimerestoran', 'Korisnicno ime', 'required|trim|is_unique[korisnik.KorisnickoIme]', array('required' => 'Niste uneli korisničko ime', 'is_unique' => 'Korisničko ime već postoji'));
+        $this->form_validation->set_rules('lozinkarestoran', 'Sifra', 'required', array('required' => 'Niste uneli šifru'));
+        $this->form_validation->set_rules('potvrdalozinkerestoran', 'Potvrda sifre', 'required|matches[lozinkarestoran]', array('required' => 'Niste uneli potvrdu šifre', 'matches' =>'Šifre koje ste uneli se ne poklapaju'));
+        $this->form_validation->set_rules('email', 'Mejl', 'trim|required|is_unique[korisnik.Email]|callback_regex_check', array('required' => 'Niste uneli mejl', 'is_unique' => 'Mejl već koristi drugi korisnik'));
+        $this->form_validation->set_rules('telefon', 'Telefon', 'required|trim', array('required' => 'Niste uneli broj telefona'));
+        $this->form_validation->set_rules('nazivrestorana', 'Naziv', 'required|trim', array('required' => 'Niste uneli naziv restorana'));
+        $this->form_validation->set_rules('radnovreme', 'Radno Vreme', 'required', array('required' => 'Niste uneli radno vreme'));
+        $this->form_validation->set_rules('adresarestorana', 'Adresa', 'required', array('required' => 'Niste uneli adresu'));
+        //$this->form_validation->set_rules('gradrestorana', 'Grad', 'required', array('required' => 'Niste uneli grad'));
+        
+        if ($this->form_validation->run() == FALSE) {
+            $this->registrujRestoran();
+        } else {
+            $poslednjiId = $this->M_Restoran->poslednjiId()->poslednjiId;
+            $id = $poslednjiId + 1;
+
+            //pravimo restoranu njegov direktorijum
+            if (!file_exists("./uploads/restoran/" ."$id")) {
+                  mkdir("./uploads/restoran/" ."$id", 0777, true);
+            }
+            
+            //ako je uploadovana slika
+            if (isset($_FILES['slikarestoran']) && $_FILES['slikarestoran']['error'] != UPLOAD_ERR_NO_FILE) {
+                
+                $putanjaDoFoldera = "./uploads/restoran/" ."$id";
+                if (($putanjaDoSlike = $this->upload($putanjaDoFoldera, "profil", "slikarestoran")) == null) {
+                    $this->registrujRestoran("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
+                            . "Podržani formati: gif, jpg, png. <br />"
+                            . "Maksimalna veličina 1000 bajtova. <br />"
+                            . "Maksimalna rezolucija 2048x1024px.");
+                } {
+                   
+                    $poslednjaSlika = $this->M_Slika->poslednjiId()->poslednjiId;
+                    $slikaId = $poslednjaSlika + 1;
+                    
+                    $slika = new stdClass();
+                    $slika->IdSlika = $slikaId;
+                    $slika->Putanja = $putanjaDoSlike;
+                    $this->M_Slika->unesiSliku($slika);
+                }
+            }
+            
+            $restoran = new stdClass();
+            $restoran->IdKorisnik = $id;
+            $restoran->KorisnickoIme = $korime;
+            $restoran->Lozinka = $sifra;
+            $restoran->Email = $email;
+            $restoran->Telefon = $telefon;
+            $restoran->Naziv = $naziv;
+            $restoran->Adresa = $adresa;
+            $restoran->IdGrad = $idGrad;
+            
+            if (isset($slikaId)) {
+                $restoran->IdSlika = $slikaId;
+            } else {
+                $restoran->IdSlika = 2; //genericka slika za restoran
+            }
+            
+            $restoran->RadnoVreme = $radnoVreme;
+            $restoran->Pregledano = 'N';
+
+            $this->M_Restoran->unesiRestoran($restoran);
+            
+            $this->prijaviSe("Uspešno ste se registrovali. Možete se prijaviti.");
+        }        
     }
     
 }
