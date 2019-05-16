@@ -1,8 +1,8 @@
 <html>
 	<head>
-		<title> Moj profil </title>
+		<title><?php $title?></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<link rel="icon" href="../images/icon.png">
+		<link rel="icon" href="http://localhost/GurmanGuide/images/icon.png">
 		<style>
 			body{
 				background-color:rgb(198, 219, 192);
@@ -42,7 +42,7 @@
 				font-size: 30px;
 			}
 
-			table.center {
+			.tblctr {
 				margin-left:auto;
 				margin-right:auto;
 				vertical-align:middle;
@@ -71,12 +71,56 @@
 			.tekst{
 				resize:none;
 			}
+                        
+                        .center{
+                            text-align: center;
+                        }
+                        
+                        .sredina{
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
+                        
+                        .box{
+			    background-color: white;
+				width: 50%;
+				border: 1px solid darkgray;
+				padding: 10px;
+				margin: auto;
+				overflow:auto;
+			}
+                        
+                        .slika{
+				float:left;
+			}
+                        
+                        .star{
+				margin-top: 2px;
+				margin-right: 5px;
+				height: 20px;
+				width: 20px;
+			}
+                        
+                        .stil {
+				font-family:"Georgia",serif;
+				font-style:italic;
+			}
+                        
+                        .border {
+				padding:1px;
+				border:4px solid #021a40;
+			}
+                        
+                        .gore{
+				vertical-align:top;
+			}
 		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	</head>
 	<body>
 		<div class="header">
-			<a href="land.html"><img src="../Images/logo.png" width="300" class="logo"></a>
+                    <a href="<?php echo site_url('C_Restoran/index');?>"><img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo"></a>
 			<div class="profil">
 				<a href="<?php echo site_url('C_Restoran/izmenaRestorana');?>" align="right"> Moj profil</a> &nbsp;
 				<a href="<?php echo site_url('C_Restoran/izlogujse');?>" align="right"> Izloguj se</a>
