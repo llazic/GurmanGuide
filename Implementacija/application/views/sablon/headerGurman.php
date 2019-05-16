@@ -1,8 +1,8 @@
 <html>
 	<head>
-		<title>Moj profil</title>
+		<title><?php echo $title?></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<link rel="icon" href="../images/icon.png">
+		<link rel="icon" href="http://localhost/GurmanGuide/images/icon.png">
 		<style>
 			body{
 				background-color:rgb(198, 219, 192);
@@ -67,11 +67,18 @@
 			a{
 				color:black;
 			}
+                        
+
+			.sredina{
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="header">
-			<a href="land.html"> <img src="../Images/logo.png" width="300" class="logo"> </a>
+                    <a href="<?php echo site_url('C_Gurman/index');?>"> <img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo"> </a>
 			<div class="mojprofil">
                             <a href="<?php echo site_url('C_Gurman/izmenaProfila');?>" align="right"> Moj profil</a> &nbsp;
 				<a href="<?php echo site_url('C_Gurman/izlogujSe');?>" align="right"> Izloguj se </a>

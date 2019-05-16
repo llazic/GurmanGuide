@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Upravljanje jelima</title>
+		<title><?php echo $title?></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<link rel="icon" href="../images/icon.png">
 		<style>
@@ -8,32 +8,32 @@
 				background-color:rgb(198, 219, 192);
 				font-family: "Arial Black", Gadget, sans-serif;
 			}
-      .btn-group-red .button {
-        background-color: #FF0000;
-        border-radius: 12px;
-        border: none;
-        color: white;
-        padding: 12px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 15px;
-        cursor: pointer;
-        float: right;
-      }
-      .btn-group-green .button {
-        background-color: #33CC33;
-        border-radius: 12px;
-        border: none;
-        color: white;
-        padding: 12px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 15px;
-        cursor: pointer;
-        float: right;
-      }
+                        .btn-group-red .button {
+                          background-color: #FF0000;
+                          border-radius: 12px;
+                          border: none;
+                          color: white;
+                          padding: 12px 20px;
+                          text-align: center;
+                          text-decoration: none;
+                          display: inline-block;
+                          font-size: 15px;
+                          cursor: pointer;
+                          float: right;
+                        }
+                        .btn-group-green .button {
+                          background-color: #33CC33;
+                          border-radius: 12px;
+                          border: none;
+                          color: white;
+                          padding: 12px 20px;
+                          text-align: center;
+                          text-decoration: none;
+                          display: inline-block;
+                          font-size: 15px;
+                          cursor: pointer;
+                          float: right;
+                        }
 			.logo{
 				position: absolute;
 				margin-top: 20px;
@@ -106,6 +106,11 @@
 				color:black;
 			}
 
+			.sredina{
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
 		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	</head>
