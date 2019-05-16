@@ -3,7 +3,7 @@
 	<head>
 		<title><?php echo $title?></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<link rel="icon" href="../images/icon.png">
+		<link rel="icon" href="http://localhost/GurmanGuide/images/icon.png">
 		<style>
 			body{
 				background-color:rgb(198, 219, 192);
@@ -205,8 +205,8 @@
 	</head>
 	<body>
 		<div class="headerH">
-			<a href="land.html">
-			<img src="../images/logo.png" width="300" class="logo">
+                    <a href="<?php echo site_url('C_Gost/index')?>">
+			<img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo">
 			<div class="mojprofil">
 				<a href="<?php echo site_url('C_Gost/prijaviSe');?>" align="right"> Prijavi se</a> &nbsp;
 				<a href="<?php echo site_url('C_Gost/registrujRestoran');?>" align="right"> Registruj restoran</a> &nbsp;

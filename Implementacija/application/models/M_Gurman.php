@@ -41,7 +41,7 @@ class M_Gurman extends CI_Model{
         $this->db->where('korisnik.IdKorisnik = gurman.IdKorisnik');
         $this->db->where('korisnik.KorisnickoIme', $korime);
         
-        return $this->db->get()->row();
+        return $this->db->get()->result();
     }
     
     public function proveraSifre($korime, $sifra) {
@@ -53,4 +53,33 @@ class M_Gurman extends CI_Model{
         
         return $this->db->get()->row();
     }
+    
+    public function poslednjiId() {
+        $this->db->select('max(korisnik.IdKorisnik) as poslednjiId');
+        $this->db->from('korisnik');
+        
+        return $this->db->get()->row();
+    }
+    
+    public function unesiGurmana($gurman) {
+        $podaciKorisnik = array(
+            'IdKorisnik' => $gurman->IdKorisnik,
+            'KorisnickoIme' => $gurman->KorisnickoIme,
+            'Lozinka' => $gurman->Lozinka,
+            'Email' => $gurman->Email
+        );
+
+        $this->db->insert('korisnik', $podaciKorisnik);
+        
+        $podaciGurman = array(
+            'IdKorisnik' => $gurman->IdKorisnik,
+            'Ime' => $gurman->Ime,
+            'Prezime' => $gurman->Prezime,
+            'Pol' => $gurman->Pol,
+            'IdSlika' => $gurman->IdSlika
+        );
+
+        $this->db->insert('gurman', $podaciGurman);
+    }
+    
 }
