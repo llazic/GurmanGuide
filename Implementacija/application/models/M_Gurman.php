@@ -16,4 +16,22 @@ class M_Gurman extends CI_Model{
         parent::__construct();
     }
     
+    public function proveraKorImena($korime) {
+        $this->db->select('*');
+        $this->db->from('korisnik, gurman');
+        $this->db->where('korisnik.IdKorisnik = gurman.IdKorisnik');
+        $this->db->where('korisnik.KorisnickoIme', $korime);
+        
+        return $this->db->get()->row();
+    }
+    
+    public function proveraSifre($korime, $sifra) {
+        $this->db->select('*');
+        $this->db->from('korisnik, gurman');
+        $this->db->where('korisnik.IdKorisnik = gurman.IdKorisnik');
+        $this->db->where('korisnik.KorisnickoIme', $korime);
+        $this->db->where('korisnik.Lozinka', $sifra);
+        
+        return $this->db->get()->row();
+    }
 }

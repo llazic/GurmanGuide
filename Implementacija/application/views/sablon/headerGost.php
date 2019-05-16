@@ -1,153 +1,216 @@
+<!--Autor: Nikola Bozovic 2016/0439-->
 <html>
+	<head>
+		<title><?php echo $title?></title>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<link rel="icon" href="../images/icon.png">
+		<style>
+			body{
+				background-color:rgb(198, 219, 192);
+				font-family: "Arial Black", Gadget, sans-serif;
+			}
 
-<head>
-	<title>GurmanGuide</title>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<link rel="icon" href="../images/icon.png">
-	<style>
-		body{
-			background-color:rgb(198, 219, 192);
-			font-family: "Arial Black", Gadget, sans-serif;
+			.logo{
+				position: absolute;
+				margin-top: 20px;
+				margin-left: 30px;
+			}
 
-		}
-		* {
-		  box-sizing: border-box;
-		}
+			.headerH{
+				position: absolute;
+				clear: both;
+				top: 0;
+				left: 0;
+				right: 0;
+				background-color: #efefef;
+				height: 170px;
+			}
 
-		input[type=text] {
-		  width: 60%;
-		  padding : 20px;
-		  border: 2px solid #ccc;
-			margin-left: 40%;
-			height: 50px;
-		  border-radius: 4px;
-		  resize: vertical;
-		}
-		h1{
-			text-align: center;
-			font-size: 45px;
-			letter-spacing: 2px;
-			font-weight: bold;
-		}
-		.card {
-		  background-color: white;
-			border-radius: 10px;
-		  padding: 25px;
-		  margin-left: 23%;
-			margin-right: 20%;
-			margin-top: 2%;
-			margin-bottom: 2%;
-			width: 55%
-		}
-		.topnav {
-		  overflow: hidden;
-		  background-color: #333;
-		}
+			.footer{
+				position: absolute;
+				clear: both;
+				height: 70px;
+				left: 0;
+				right: 0;
+				align: bottom;
+				background-color: #efefef;
+				text-align: center;
+			}
 
-		.topnav a {
-		  float: right;
-		  display: block;
-		  color: #f2f2f2;
-		  text-align: center;
-		  padding: 14px 16px;
-		  text-decoration: none;
-		}
+			.title{
+				margin-top: 200px;
+				text-align: center;
+				font-size: 30px;
+			}
 
-		.topnav a:hover {
-		  background-color: #ddd;
-		  color: black;
-		}
-		.header {
-		  padding: 30px;
-			margin-left: 25%;
-			margin-right: 25%;
+			table.center {
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
+			
+			.polje {
+  				text-align:center;
+			}
+			
+			a{
+				color:black;
+			}
 
-		}
-		.row:after {
-		  content: "";
-		  display: table;
-		  clear: both;
-		}
-		.leftcolumn {
-		  float: left;
-		  width: 60%;
-		}
+			.mojprofil{
+				text-align: right;
+				margin-right: 50px;
+				margin-top: 70px;
+			}
 
-		.rightcolumn {
-		  float: left;
-		  width: 40%;
-		  padding-left: 20px;
-		}
-		.row:after {
-		  content: "";
-		  display: table;
-		  clear: both;
-		}
-		@media screen and (max-width: 800px) {
-		  .leftcolumn, .rightcolumn {
-			width: 100%;
-			padding: 0;
-		  }
-		}
-		.dropbtn {
-		  background-color: #333;
-			border-radius: 10px;
-		  color: white;
-		  padding: 14px;
+                        * {
+                          box-sizing: border-box;
+                        }
 
-		  font-size: 16px;
-		  border: none;
-		  cursor: pointer;
-			text-align: center;
-		}
-		.topnav .dropdown{
-			display: inline-block;
-		}
-		.dropdown {
-		  position: relative;
-		  display: inline-block;
-		}
+                        .pretraga {
+                          width: 60%;
+                          padding : 20px;
+                          border: 2px solid #ccc;
+                                margin-left: 40%;
+                                height: 50px;
+                          border-radius: 4px;
+                          resize: vertical;
+                        }
+                        
+                        h1{
+                                text-align: center;
+                                font-size: 45px;
+                                letter-spacing: 2px;
+                                font-weight: bold;
+                        }
+                        .card {
+                          background-color: white;
+                                border-radius: 10px;
+                          padding: 25px;
+                          margin-left: 23%;
+                                margin-right: 20%;
+                                margin-top: 2%;
+                                margin-bottom: 2%;
+                                width: 55%
+                        }
+                        .topnav {
+                          overflow: hidden;
+                          background-color: #333;
+                        }
 
-		.dropdown-content {
-		  display: none;
-		  position: absolute;
-		  background-color: #f2f2f2;
-			border-radius: 10px;
-		  min-width: 160px;
-		  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-		  z-index: 1;
-		}
+                        .topnav a {
+                          float: right;
+                          display: block;
+                          color: #f2f2f2;
+                          text-align: center;
+                          padding: 14px 16px;
+                          text-decoration: none;
+                        }
 
-		.dropdown-content a {
-		  color: black;
-		  padding: 12px 16px;
-		  text-decoration: none;
-		  display: block;
-			border-radius: 10px;
-		}
+                        .topnav a:hover {
+                          background-color: #ddd;
+                          color: black;
+                        }
+                        .header {
+                            padding: 30px;
+                            margin-left: 25%;
+                            margin-right: 25%;
 
-		.dropdown-content a:hover {background-color: #333; color: white;border-radius: 10px;}
+                        }
+                        .row:after {
+                          content: "";
+                          display: table;
+                          clear: both;
+                        }
+                        .leftcolumn {
+                          float: left;
+                          width: 60%;
+                        }
 
-		.dropdown:hover .dropdown-content {
-		  display: block;
-			border-radius: 10px;
-		}
+                        .rightcolumn {
+                          float: left;
+                          width: 40%;
+                          padding-left: 20px;
+                        }
+                        .row:after {
+                          content: "";
+                          display: table;
+                          clear: both;
+                        }
+                        @media screen and (max-width: 800px) {
+                          .leftcolumn, .rightcolumn {
+                                width: 100%;
+                                padding: 0;
+                          }
+                        }
+                        .dropbtn {
+                          background-color: #333;
+                                border-radius: 10px;
+                          color: white;
+                          padding: 14px;
 
-		.dropdown:hover .dropbtn {
-		  background-color: white;
-			color: black;
-			border-radius: 10px;
-		}
-		.lugano {
-			font-family:"Georgia",serif;
-			font-style:italic;
-		}
-	</style>
-</head>
+                          font-size: 16px;
+                          border: none;
+                          cursor: pointer;
+                                text-align: center;
+                        }
+                        .topnav .dropdown{
+                                display: inline-block;
+                        }
+                        .dropdown {
+                          position: relative;
+                          display: inline-block;
+                        }
 
-<body>
-	<div class="topnav">
-		<a href="registracijaGurmana.html">Postani Gurman</a>
-		<a href="registracijaRestorana.html">Registruj restoran</a>
-		<a href="login.html">Prijavi se</a>
-	</div>
+                        .dropdown-content {
+                          display: none;
+                          position: absolute;
+                          background-color: #f2f2f2;
+                                border-radius: 10px;
+                          min-width: 160px;
+                          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                          z-index: 1;
+                        }
+
+                        .dropdown-content a {
+                          color: black;
+                          padding: 12px 16px;
+                          text-decoration: none;
+                          display: block;
+                                border-radius: 10px;
+                        }
+
+                        .dropdown-content a:hover {background-color: #333; color: white;border-radius: 10px;}
+
+                        .dropdown:hover .dropdown-content {
+                          display: block;
+                                border-radius: 10px;
+                        }
+
+                        .dropdown:hover .dropbtn {
+                          background-color: white;
+                                color: black;
+                                border-radius: 10px;
+                        }
+                        .lugano {
+                                font-family:"Georgia",serif;
+                                font-style:italic;
+                        }
+                        
+                       .center{
+                            text-align:center;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="headerH">
+			<a href="land.html">
+			<img src="../images/logo.png" width="300" class="logo">
+			<div class="mojprofil">
+				<a href="<?php echo site_url('C_Gost/prijaviSe');?>" align="right"> Prijavi se</a> &nbsp;
+				<a href="<?php echo site_url('C_Gost/registrujRestoran');?>" align="right"> Registruj restoran</a> &nbsp;
+				<a href="<?php echo site_url('C_Gost/registrujGurmana');?>" align="right"> Postani Gurman</a>
+			</div>
+		</a>
+		</div>

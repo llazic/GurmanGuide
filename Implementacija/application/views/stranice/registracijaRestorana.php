@@ -1,0 +1,132 @@
+            <style>
+			body{
+				background-color:rgb(198, 219, 192);
+				font-family: "Arial Black", Gadget, sans-serif;
+			}
+
+			.logo{
+				position: absolute;
+				margin-top: 20px;
+				margin-left: 30px;
+			}
+
+			.header{
+				position: absolute;
+				clear: both;
+				top: 0;
+				left: 0;
+				right: 0;
+				background-color: #efefef;
+				height: 170px;
+			}
+
+			.footer{
+				position: absolute;
+				clear: both;
+				height: 70px;
+				left: 0;
+				right: 0;
+				align: bottom;
+				background-color: #efefef;
+				text-align: center;
+			}
+
+			.title{
+				margin-top: 200px;
+				text-align: center;
+				font-size: 30px;
+			}
+
+			.tblcrt {
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
+
+			.polje {
+				text-align:center;
+			}
+
+			.mojprofil{
+				text-align: right;
+				margin-right: 50px;
+				margin-top: 70px;
+			}
+
+			a{
+				color:black;
+			}
+
+			.tekst{
+				resize:none;
+			}
+		</style>
+
+		<p class="title"> Registracija restorana </p>
+
+		<table class="tblcrt" cellspacing="15" cellpadding="5">
+			<tr>
+				<td> Korisničko ime: </td>
+				<td><input type="text" name="korimerestoran" size="50" placeholder="&nbsp;Unesite korisničko ime" ></td>
+			</tr>
+			<tr>
+				<td> Lozinka: </td>
+				<td><input type="password" name="lozinkarestoran" size="50" placeholder="&nbsp;Unesite lozinku" ></td>
+			</tr>
+			<tr>
+				<td> Potvrdi lozinku: </td>
+				<td><input type="password" name="lozinkarestoran" size="50" placeholder="&nbsp;Ponovo unesite lozinku" ></td>
+			</tr>
+			<tr>
+				<td> E-mail: </td>
+				<td><input type="text" name="email" size="50" placeholder="&nbsp;Unesite e-mail"></td>
+			</tr>
+			<tr>
+				<td> Kontakt telefon: </td>
+				<td><input type="text" name="telefon" size="50" placeholder="&nbsp;Unesite kontakt telefon" ></td>
+			</tr>
+			<tr>
+				<td> Naziv restorana: </td>
+				<td><input type="text" name="nazivrestorana" size="50" placeholder="&nbsp;Unesite naziv restorana" ></td>
+			</tr>
+			<tr>
+				<td> Radno vreme: </td>
+				<td><textarea cols="47" rows="7" class="tekst" placeholder="&nbsp;Unesite radno vreme" ></textarea></td>
+			</tr>
+			<tr>
+				<td> Adresa: </td>
+				<td><input type="text" name="adresarestorana" size="50" placeholder="&nbsp;Unesite adresu"></td>
+			</tr>
+			<tr>
+				<td> Grad: </td>
+				<td><input type="text" name="gradrestorana" size="50" placeholder="&nbsp;Unesite grad" ></td>
+			</tr>
+			<tr>
+				<td> Država: </td>
+				<td><input type="text" name="drzavarestorana" size="50" placeholder="&nbsp;Unesite državu" ></td>
+			</tr>
+			<tr>
+				<td> Slika: </td>
+				<td><input type="file" name="slikarestoran" accept="image/gif, image/jpeg, image/png"></td>
+			</tr>
+		</table>
+		<table class="center" cellspacing="50">
+			<tr>
+				<td class="polje"><input type="submit" name="potvrdi" value="Registruj se" ></td>
+			</tr>
+		</table>
+
+		<!-- ovde ubacujete ono sto hocete da bude ispod naslova-->
+		<!-- ostavite dovoljan broj <br/> posle toga sto ubacujete da bi footer bio skroz dole-->
+
+		<br/><br/><br/><br/><br/>
+
+
+
+		<div class="footer">
+			<br/>
+			<a href="kontakt.html"> Kontakt</a>&nbsp;
+			<a href="onama.html"> O nama</a>
+		</div>
+	</body>
+</html>
