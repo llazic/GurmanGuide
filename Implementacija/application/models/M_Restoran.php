@@ -110,4 +110,35 @@ class M_Restoran extends CI_Model{
             return null;
         }*/
     }
+    
+    public function poslednjiId() {
+        $this->db->select('max(korisnik.IdKorisnik) as poslednjiId');
+        $this->db->from('korisnik');
+        
+        return $this->db->get()->row();
+    }
+    
+    public function unesiRestoran($restoran) {
+        $podaciKorisnik = array(
+            'IdKorisnik' => $restoran->IdKorisnik,
+            'KorisnickoIme' => $restoran->KorisnickoIme,
+            'Lozinka' => $restoran->Lozinka,
+            'Email' => $restoran->Email
+        );
+
+        $this->db->insert('korisnik', $podaciKorisnik);
+        
+        $podaciRestoran = array(
+            'IdKorisnik' => $restoran->IdKorisnik,
+            'Telefon' => $restoran->Telefon,
+            'Naziv' => $restoran->Naziv,
+            'Adresa' => $restoran->Adresa,
+            'IdGrad' => $restoran->IdGrad,
+            'RadnoVreme' => $restoran->RadnoVreme,
+            'IdSlika' => $restoran->IdSlika,
+            'Pregledano' => $restoran->Pregledano
+        );
+
+        $this->db->insert('restoran', $podaciRestoran);
+    }
 }

@@ -16,4 +16,10 @@ class M_Grad extends CI_Model{
         parent::__construct();
     }
     
+    public function gohvatiSveGradove() {
+        $this->db->select('*');
+        $this->db->from('grad');
+        
+        return $this->db->get()->result();
+    }
 }

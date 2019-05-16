@@ -59,7 +59,7 @@
 <?php if(isset($poruka))
         echo "<center><font color='red' size='3'>$poruka</font></center><br>";
 ?>
-<form name="loginform" action="<?php echo site_url('C_Gost/proveraRegistracije') ?>" method="post" enctype="multipart/form-data">
+<form name="loginform" action="<?php echo site_url('C_Gost/proveraRegistracijeGurman') ?>" method="post" enctype="multipart/form-data">
     <table class="tblcrt" cellspacing="15" cellpadding="5">
        <tr>
           <td align="top">Korisničko ime:</td>
