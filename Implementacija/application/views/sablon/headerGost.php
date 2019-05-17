@@ -77,7 +77,7 @@
                           resize: vertical;
                         }
                         
-                        h1{
+                        .naslovH1 {
                                 text-align: center;
                                 font-size: 45px;
                                 letter-spacing: 2px;

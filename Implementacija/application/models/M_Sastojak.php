@@ -16,4 +16,14 @@ class M_Sastojak extends CI_Model{
         parent::__construct();
     }
     
+    //paramertar funkcije je id jela
+    public function dohvatiSastojkeJela($id) {
+        $this->db->select('s.IdSastojak as Id, s.Naziv as Naziv');
+        $this->db->from('ima_sastojak is, sastojak s');
+        $this->db->where('is.IdSastojak = s.IdSastojak');
+        $this->db->where('is.IdJelo', $id);
+        
+        return $this->db->get()->result();
+    }
+    
 }

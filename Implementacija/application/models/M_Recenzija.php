@@ -16,4 +16,13 @@ extends CI_Model{
     public function __construct() {
         parent::__construct();
     }
+    
+    //input parametar: idJela
+    public function dohvatiJednuRecenziju($id) {
+        $this->db->select("*");
+        $this->db->from('recenzija');
+        $this->db->where('IdJelo', $id);
+        
+        return $this->db->get()->row();
+    }
 }

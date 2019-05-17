@@ -32,4 +32,12 @@ class M_Slika extends CI_Model{
         $this->db->insert('slika', $podaciSlika);
     }
     
+    public function dohvatiPutanju($id) {
+        $this->db->select('Putanja');
+        $this->db->from('slika');
+        $this->db->where('IdSlika', $id);
+        
+        return $this->db->get()->row();
+    }
+    
 }

@@ -16,4 +16,13 @@ class M_Jelo extends CI_Model{
         parent::__construct();
     }
     
+    public function dohvatiJelaPoNazivu($pattern) {
+        $this->db->select('*');
+        $this->db->from('jelo');
+        $this->db->like('Naziv', $pattern);
+        $this->db->where('Pregledano', 'P');
+        
+        return $this->db->get()->result();
+    }
+    
 }

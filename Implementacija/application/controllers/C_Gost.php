@@ -35,6 +35,9 @@ class C_Gost extends CI_Controller{
         $this->load->model("M_Slika");
         $this->load->model("M_Grad");
         $this->load->model("M_Restoran");
+        $this->load->model("M_Jelo");
+        $this->load->model("M_Recenzija");
+        $this->load->model("M_Sastojak");
     }
     
     public function index(){
@@ -42,9 +45,9 @@ class C_Gost extends CI_Controller{
         $this->load->view('stranice/main.php');
     }
     
-    public function registrujGurmana($poruka = null, $informacije = null) {
+    public function registrujGurmana($poruka = null) {
         $this->load->view("sablon/headerGost.php", ['title' => 'Registracija']);
-        $this->load->view('stranice/registracijaGurmana.php', ['poruka' => $poruka, 'informacije' => $informacije]);
+        $this->load->view('stranice/registracijaGurmana.php', ['poruka' => $poruka]);
     }
     
     public function registrujRestoran() {
@@ -161,7 +164,7 @@ class C_Gost extends CI_Controller{
             //ako je uploadovana slika
             if (isset($_FILES['slikagurman']) && $_FILES['slikagurman']['error'] != UPLOAD_ERR_NO_FILE) {
                 
-                $putanjaDoFoldera = "./uploads/gurman/" ."$id";
+                $putanjaDoFoldera = "http://localhost/GurmanGuide/Implementacija/uploads/gurman/" ."$id";
                 if (($putanjaDoSlike = $this->upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
                     $this->registrujGurmana("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
@@ -275,7 +278,7 @@ class C_Gost extends CI_Controller{
             //ako je uploadovana slika
             if (isset($_FILES['slikarestoran']) && $_FILES['slikarestoran']['error'] != UPLOAD_ERR_NO_FILE) {
                 
-                $putanjaDoFoldera = "./uploads/restoran/" ."$id";
+                $putanjaDoFoldera = "http://localhost/GurmanGuide/Implementacija/uploads/restoran/" ."$id";
                 if (($putanjaDoSlike = $this->upload($putanjaDoFoldera, "profil", "slikarestoran")) == null) {
                     $this->registrujRestoran("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
@@ -316,6 +319,51 @@ class C_Gost extends CI_Controller{
             
             $this->prijaviSe("Uspešno ste se registrovali. Možete se prijaviti.");
         }        
+    }
+    
+    public function pretragaJelaPoNazivu($val) {
+        $input = $val;
+        $jela = $this->M_Jelo->dohvatiJelaPoNazivu($input);
+        
+        $niz = [];
+        
+        foreach ($jela as $jelo) {
+            $klasa = new stdClass();
+            $klasa->IdJelo = $jelo->IdJelo;
+            $klasa->IdRestoran = $jelo->IdKorisnik;
+            $klasa->Opis = $jelo->Opis;
+            $klasa->Naziv = $jelo->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+            $klasa->Recenzija = $this->M_Recenzija->dohvatiJednuRecenziju($jelo->IdJelo);
+            
+            if ($klasa->Recenzija == null) {
+                $klasa->Recenzija = "Nema recenzije za ovo jelo.";
+            } else {
+                $klasa->Recenzija = $klasa->Recenzija->Komentar;
+            }
+            
+            $klasa->Restoran = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik)->imeRestorana;
+            
+            $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+            
+            $sastojciString = "";
+            
+            for ($i = 0; $i < count($sastojci); $i++) {
+                $sastojciString .= $sastojci[$i]->Naziv;
+                
+                if ($i != (count($sastojci) - 1)) {
+                    $sastojciString .= ", ";
+                }
+                
+            }
+            
+            $klasa->Sastojci = $sastojciString;
+            
+            $niz [] = $klasa;
+        }
+        
+        $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
     }
     
 }
