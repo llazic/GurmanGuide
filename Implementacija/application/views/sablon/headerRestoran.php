@@ -35,7 +35,7 @@
 				background-color: #efefef;
 				text-align: center;
 			}
-
+			
 			.title{
 				margin-top: 200px;
 				text-align: center;
@@ -72,17 +72,17 @@
 				resize:none;
 			}
                         
-                        .center{
-                            text-align: center;
-                        }
+			.center{
+                text-align: center;
+            }
                         
-                        .sredina{
+            .sredina{
 				margin-left:auto;
 				margin-right:auto;
 				vertical-align:middle;
 			}
                         
-                        .box{
+            .box{
 			    background-color: white;
 				width: 50%;
 				border: 1px solid darkgray;
@@ -91,28 +91,28 @@
 				overflow:auto;
 			}
                         
-                        .slika{
+            .slika{
 				float:left;
 			}
                         
-                        .star{
+            .star{
 				margin-top: 2px;
 				margin-right: 5px;
 				height: 20px;
 				width: 20px;
 			}
                         
-                        .stil {
+            .stil {
 				font-family:"Georgia",serif;
 				font-style:italic;
 			}
                         
-                        .border {
+            .border {
 				padding:1px;
 				border:4px solid #021a40;
 			}
                         
-                        .gore{
+            .gore{
 				vertical-align:top;
 			}
 		</style>

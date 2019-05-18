@@ -366,4 +366,20 @@ class C_Gost extends CI_Controller{
         $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
     }
     
+    function pregledProfilaGurmana($idGurman) {
+        $gurman = $this->M_Gurman->dohvatiGurmana($idGurman);
+        $recenzije = $this->M_Recenzija->dohvatiRecenzijeGurmana($idGurman);
+
+        $info['korime'] = $gurman->KorisnickoIme;
+        $info['lozinka'] = $gurman->Lozinka;
+        $info['email'] = $gurman->Email;
+        $info['ime'] = $gurman->Ime;
+        $info['prezime'] = $gurman->Prezime;
+        $info['pol'] = $gurman->Pol;
+        $info['recenzije'] = $recenzije;
+        
+        $this->load->view('sablon/headerGost.php', ['title' => 'Pregled profila']);
+        $this->load->view('stranice/pregledGurmana.php', $info);
+        $this->load->view('sablon/footer.php');
+    }
 }

@@ -42,6 +42,26 @@
 				text-align: center;
 				font-size: 30px;
 			}
+			
+			.box{
+			    background-color: white;
+				width: 50%;
+				border: 1px solid darkgray;
+				padding: 10px;
+				margin: auto;
+				overflow:auto;
+			}
+			
+			.slika{
+				float:left;
+			}
+			
+			.star{
+				margin-top: 2px;
+				margin-right: 5px;
+				height: 20px;
+				width: 20px;
+			}
 
 			table.center {
 				margin-left:auto;

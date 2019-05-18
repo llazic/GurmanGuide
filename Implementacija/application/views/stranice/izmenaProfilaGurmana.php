@@ -10,12 +10,12 @@
 			<tr>
 				<td>Lozinka:</td>
 				<td><?php echo "<font color='red' size='2'>" .form_error('lozinkagurman') ."</font>"?>
-                                    <input type="password" name="lozinkagurman" size="50" placeholder="&nbsp;Unesite lozinku" value="<?php echo set_value('lozinka', $lozinka); ?>"></td>
+                                    <input type="password" name="lozinkagurman" size="50" placeholder="&nbsp;Unesite lozinku" value="<?php echo set_value('lozinkagurman', $lozinka); ?>"></td>
 			</tr>
 			<tr>
 				<td>Potvrdi lozinku:</td>
 				<td><?php echo "<font color='red' size='2'>" .form_error('potvrdalozinkegurman') ."</font>"?>
-                                    <input type="password" name="potvrdalozinkegurman" size="50" placeholder="&nbsp;Ponovo unesite lozinku" value="<?php echo set_value('lozinka', $lozinka); ?>"></td>
+                                    <input type="password" name="potvrdalozinkegurman" size="50" placeholder="&nbsp;Ponovo unesite lozinku" value="<?php echo set_value('potvrdalozinkegurman', $lozinka); ?>"></td>
 			</tr>
 			<tr>
 				<td>E-mail:</td>
