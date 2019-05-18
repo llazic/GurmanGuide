@@ -1,4 +1,4 @@
-<p class="title"> Recenzija </p>
+<p class="title"> Recenzija </p> 
 <?php if(isset($poruka))
         echo "<center><font color='red' size='3'>$poruka</font></center><br>";
 ?>
@@ -10,19 +10,25 @@
                                     <td> <?php echo $nazivJela?> </td>
                             </tr>
                             <tr>
+                                    <td> Restoran: </td>
+                                    <td> <?php echo $nazivRestorana?> </td>
+                            </tr>
+                            <tr>
                                     <td> Unesite ocenu: </td>
                                     <td>
-                                                    <input type="radio" name="rate" value="1"> 1
-                                                    &nbsp;<input type="radio" name="rate" value="2"> 2
-                                                    &nbsp;<input type="radio" name="rate" value="3"> 3
-                                                    &nbsp;<input type="radio" name="rate" value="4"> 4
-                                                    &nbsp;<input type="radio" name="rate" value="5" checked="true"> 5
+                                                    <input type="radio" name="rate" value="1" <?php if (isset($ocena) && $ocena == 1) {echo 'checked="true"';}?>> 1
+                                                    &nbsp;<input type="radio" name="rate" value="2" <?php if (isset($ocena) && $ocena == 2) {echo 'checked="true"';}?>> 2
+                                                    &nbsp;<input type="radio" name="rate" value="3" <?php if (isset($ocena) && $ocena == 3) {echo 'checked="true"';}?>> 3
+                                                    &nbsp;<input type="radio" name="rate" value="4" <?php if (isset($ocena) && $ocena == 4) {echo 'checked="true"';}?>> 4
+                                                    &nbsp;<input type="radio" name="rate" value="5" <?php if (isset($ocena) && $ocena != 5) {} else {echo 'checked="true"';} ?>> 5
 
                                     </td>
                             </tr>
                             <tr>
                                     <td class="vertikalno"> Unesite komentar: </td>
-                                    <td><textarea cols="50" rows="20" class="tekst" name="komentar" placeholder="&nbsp;Unesite Vaš komentar" ></textarea></td>
+                                    <td>
+                                        <textarea cols="50" rows="20" class="tekst" name="komentar" placeholder="&nbsp;Unesite Vaš komentar"><?php if (isset($komentar)) {echo $komentar;}?></textarea>
+                                    </td>
                             </tr>
                     </table>
                     <table class="center" cellspacing="50">

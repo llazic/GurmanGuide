@@ -16,9 +16,9 @@
                             echo '<img src="http://localhost/GurmanGuide/images/star.png" class="star" align="right">';
                         }
                         echo '</p>';
-                        echo '<font class="stil">';
+                        echo '<font class="stil">"';
                         echo $recenzija->Komentar;//ILI OVDE STAVITI LINK
-                        echo '</font>';
+                        echo '"</font>';
                         echo '</div> <br/>';
                     }
                 ?>

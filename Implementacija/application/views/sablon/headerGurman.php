@@ -94,6 +94,10 @@
 				margin-right:auto;
 				vertical-align:middle;
 			}
+                        .stil {
+				font-family:"Georgia",serif;
+				font-style:italic;
+			}
 		</style>
 	</head>
 	<body>
@@ -101,6 +105,7 @@
                     <a href="<?php echo site_url('C_Gurman/index');?>"> <img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo"> </a>
 			<div class="mojprofil">
                             <a href="<?php echo site_url('C_Gurman/izmenaProfila');?>" align="right"> Moj profil</a> &nbsp;
+                            <a href="<?php echo site_url('C_Gurman/prikaziRecenzije')?>" align="right"> Moje recenzije</a> &nbsp;
 				<a href="<?php echo site_url('C_Gurman/izlogujSe');?>" align="right"> Izloguj se </a>
 			</div>
 		</div>

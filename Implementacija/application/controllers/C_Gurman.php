@@ -146,11 +146,25 @@ class C_Gurman extends CI_Controller {
 
     function postaviPromeniRecenziju($idJelo, $poruka = null){
         $jelo = $this->M_Jelo->dohvatiJelo($idJelo);
+        $restoran = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik);
+        $korisnik = $this->session->userdata('korisnik');
+        $recenzija = $this->M_Recenzija->dohvatiRecenziju($korisnik->id, $jelo->IdJelo);
+        
+        $ocena = null;
+        $komentar = null;
+        
+        if($recenzija != null){
+            $ocena = $recenzija->Ocena;
+            $komentar = $recenzija->Komentar;
+        }
         
         $info = array(
             'poruka' => $poruka, 
             'idJelo' => $jelo->IdJelo, 
-            'nazivJela' => $jelo->Naziv
+            'nazivJela' => $jelo->Naziv,
+            'ocena' => $ocena,
+            'komentar' => $komentar,
+            'nazivRestorana' => $restoran->imeRestorana
         );
         
         $this->load->view('sablon/headerGurman.php', ['title' => 'Recenzija']);
@@ -175,5 +189,13 @@ class C_Gurman extends CI_Controller {
             $this->index('Uspesno ste ostavili recenziju. Nakon odobrenja ce biti prikazana!');
         }
     }
-
+    
+    function prikaziRecenzije(){
+        $korisnik = $this->session->userdata('korisnik');
+        $info['recenzije'] = $this->M_Recenzija->dohvatiRecenzijeGurmana($korisnik->id);
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Pregled profila']);
+        $this->load->view('stranice/recenzijeGurman.php', $info);
+        $this->load->view('sablon/footer.php');
+    }
 }
