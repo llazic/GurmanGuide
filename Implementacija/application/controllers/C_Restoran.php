@@ -134,6 +134,25 @@ class C_Restoran extends CI_Controller{
         $this->load->view('stranice/onama.php');
         $this->load->view('sablon/footer.php');
     }
+    
+    function pregledProfilaGurmana($idGurman) {
+        $gurman = $this->M_Gurman->dohvatiGurmana($idGurman);
+        $recenzije = $this->M_Recenzija->dohvatiRecenzijeGurmana($idGurman);
+        
+        
+        $info['slikagurman'] = $this->M_Slika->dohvatiPutanju($gurman->IdSlika)->Putanja;
+        $info['korime'] = $gurman->KorisnickoIme;
+        $info['lozinka'] = $gurman->Lozinka;
+        $info['email'] = $gurman->Email;
+        $info['ime'] = $gurman->Ime;
+        $info['prezime'] = $gurman->Prezime;
+        $info['pol'] = $gurman->Pol;
+        $info['recenzije'] = $recenzije;
+        
+        $this->load->view('sablon/headerGost.php', ['title' => 'Pregled profila']);
+        $this->load->view('stranice/pregledGurmana.php', $info);
+        $this->load->view('sablon/footer.php');
+    }
 }
 
 

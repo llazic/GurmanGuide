@@ -369,7 +369,9 @@ class C_Gost extends CI_Controller{
     function pregledProfilaGurmana($idGurman) {
         $gurman = $this->M_Gurman->dohvatiGurmana($idGurman);
         $recenzije = $this->M_Recenzija->dohvatiRecenzijeGurmana($idGurman);
-
+        
+        
+        $info['slikagurman'] = $this->M_Slika->dohvatiPutanju($gurman->IdSlika)->Putanja;
         $info['korime'] = $gurman->KorisnickoIme;
         $info['lozinka'] = $gurman->Lozinka;
         $info['email'] = $gurman->Email;

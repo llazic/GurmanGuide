@@ -1,6 +1,6 @@
 <p class="title"> <?php echo $ime." ".$prezime?></p>
 
-		<p style="text-align:center;"><img src="../Images/avatar2.png" width="350" class="border"/></p>
+<p style="text-align:center;"><img src="<?php echo $slikagurman?>" width="350" class="border"/></p>
 		<p style="text-align:center;"><font>
 			Korisničko ime:&nbsp;<?php echo $korime?><br></br>
 		</p>
@@ -13,13 +13,13 @@
                         echo '<p>';
                         echo $recenzija->NazivJela;
                         for ($i = 0; $i < $recenzija->Ocena; $i++){
-                            echo '<img src="http://localhost/GurmanGuide/Implementacija/images/star.png" class="star" align="right">';
+                            echo '<img src="http://localhost/GurmanGuide/images/star.png" class="star" align="right">';
                         }
                         echo '</p>';
                         echo '<font class="stil">';
                         echo $recenzija->Komentar;//ILI OVDE STAVITI LINK
                         echo '</font>';
-                        echo '</div>';
+                        echo '</div> <br/>';
                     }
                 ?>
 <!--		<div class="box"> <a href="#"> <img src="../Images/calzone1.png" class="slika" style="width:120px;height:120px;margin-right:40px;"/> </a>
