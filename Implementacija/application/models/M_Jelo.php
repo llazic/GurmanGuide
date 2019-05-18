@@ -25,4 +25,11 @@ class M_Jelo extends CI_Model{
         return $this->db->get()->result();
     }
     
+    public function dohvatiJelo($idJelo){
+        $this->db->from('jelo');
+        $this->db->where('IdJelo', $idJelo);
+        
+        return $this->db->get()->row();
+    }
+    
 }

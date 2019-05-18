@@ -76,7 +76,7 @@ class C_Gurman extends CI_Controller {
         $this->load->view('sablon/footer.php');
     }
 
-    public function sacuvajIzmene() {
+    public function sacuvajIzmeneProfila() {
         $info['sifra'] = $this->input->post("lozinkagurman");
         //$info['sifraPotvrda'] = $this->input->post("potvrdalozinkegurman");
         $info['ime'] = $this->input->post("imegurman");
@@ -138,9 +138,42 @@ class C_Gurman extends CI_Controller {
         $info['pol'] = $gurman->Pol;
         $info['recenzije'] = $recenzije;
         
-        $this->load->view('sablon/headerGost.php', ['title' => 'Pregled profila']);
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Pregled profila']);
         $this->load->view('stranice/pregledGurmana.php', $info);
         $this->load->view('sablon/footer.php');
+    }
+    
+
+    function postaviPromeniRecenziju($idJelo, $poruka = null){
+        $jelo = $this->M_Jelo->dohvatiJelo($idJelo);
+        
+        $info = array(
+            'poruka' => $poruka, 
+            'idJelo' => $jelo->IdJelo, 
+            'nazivJela' => $jelo->Naziv
+        );
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Recenzija']);
+        $this->load->view('stranice/postavljanjeRecenzije.php', $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    //ukoliko ne postoji recenzija ulogovanog korisnika za dato jelo pravi novu
+    //u suprotnom menja postojecu
+    function sacuvajRecenziju($idJelo){
+        $korisnik = $this->session->userdata('korisnik');
+        $ocena = $this->input->post('rate');
+        $komentar = $this->input->post('komentar');
+        
+        if (isset($ocena) == false || $komentar == ''){
+            $poruka = '';
+            if (isset($ocena) == false) $poruka .= 'Niste uneli ocenu. ';
+            if ($komentar == '') $poruka .= 'Niste ostavili komentar. ';
+            $this->postaviPromeniRecenziju($idJelo, $poruka);
+        } else {
+            $this->M_Recenzija->napraviIzmeniRecenziju($korisnik->id, $idJelo, $ocena, $komentar);
+            $this->index('Uspesno ste ostavili recenziju. Nakon odobrenja ce biti prikazana!');
+        }
     }
 
 }

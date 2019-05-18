@@ -57,7 +57,7 @@ class C_Administrator extends CI_Controller{
         $info['pol'] = $gurman->Pol;
         $info['recenzije'] = $recenzije;
         
-        $this->load->view('sablon/headerGost.php', ['title' => 'Pregled profila']);
+        $this->load->view('sablon/headerAdmin.php', ['title' => 'Pregled profila']);
         $this->load->view('stranice/pregledGurmana.php', $info);
         $this->load->view('sablon/footer.php');
     }

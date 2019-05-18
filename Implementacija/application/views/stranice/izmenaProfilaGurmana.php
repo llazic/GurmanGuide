@@ -1,5 +1,5 @@
 <p class="title"> Moj profil </p>
-<form name="profil" action="<?php echo site_url('C_Gurman/sacuvajIzmene')?>" method="POST">
+<form name="profil" action="<?php echo site_url('C_Gurman/sacuvajIzmeneProfila')?>" method="POST">
 		<table class="center" cellspacing="15" cellpadding="5">
 			<tr>
 				<td align="top">Korisničko ime:</td>
