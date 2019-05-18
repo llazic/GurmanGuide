@@ -42,17 +42,17 @@ class M_Restoran extends CI_Model{
         $this->db->where('IdKorisnik', $promenljive['id']);
         $this->db->update('Korisnik');
         
-        $this->db->set('Naziv', $promenljive['imeestorana']);
-        $this->db->set('Adresa', $promenljive['adresaestorana']);
-        $this->db->set('RadnoVreme', $promenljive['radnoreme']);
-        $this->db->set('Telefon', $promenljive['telefona']);
+        $this->db->set('Naziv', $promenljive['imerestorana']);
+        $this->db->set('Adresa', $promenljive['adresarestorana']);
+        $this->db->set('RadnoVreme', $promenljive['radnovreme']);
+        $this->db->set('Telefon', $promenljive['telefon']);
         $this->db->where('IdKorisnik', $promenljive['id']);
         $this->db->update('Restoran');
         
         $this->db->select('IdGrad');
         $this->db->from('restoran');
         $this->db->where('IdKorisnik', $promenljive['id']);
-        $idGrad = $this->db->get()->row();
+        $idGrad = $this->db->get()->row()->IdGrad;
         
         $this->M_Grad->azuriranjeGrada($promenljive, $idGrad);
         

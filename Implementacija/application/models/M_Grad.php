@@ -30,8 +30,8 @@ class M_Grad extends CI_Model{
         
         $this->db->select('IdDrzava');
         $this->db->from('grad');
-        $this->db->where('Grad', $idGrad);
-        $idDrzava = $this->db->get()->row();
+        $this->db->where('IdGrad', $idGrad);
+        $idDrzava = $this->db->get()->row()->IdDrzava;
         
         $this->M_Drzava->azuriranjeDrzave($promenljive, $idDrzava);
     }

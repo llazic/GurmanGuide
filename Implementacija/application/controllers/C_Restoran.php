@@ -119,8 +119,8 @@ class C_Restoran extends CI_Controller{
         if ($this->form_validation->run() == FALSE) {
             $this->izmenaRestorana();
         } else {
-            $korisnik = $this->session->userdata('korisnik');
-            $promenljive['id'] = $korisnik->id;
+            //$korisnik = $this->session->userdata('korisnik');
+            $promenljive['id'] = 3;
             $this->M_Restoran->azuriranjeRestorana($promenljive);
             $this->index('Uspesno napravljene izmene.');
         }
