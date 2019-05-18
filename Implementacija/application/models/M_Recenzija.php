@@ -25,4 +25,26 @@ extends CI_Model{
         
         return $this->db->get()->row();
     }
+    
+    //dohvata samo pregledane recenzije
+    //dohvata i jela i slike jela koje je gurman ocenio
+    public function dohvatiRecenzijeGurmana($idGurman){
+//        $this->db->from('recenzija');
+//        $this->db->where('IdKorisnik', $idGurman);
+//        $this->db->where('Pregledano', 'P');
+//        
+//        $recenzije = $this->db->get()->result();
+        
+        $query = $this->db->query("select r.IdKorisnik, r.Ocena, "
+                . "r.Komentar, r.IdJelo, r.Pregledano, j.Naziv as NazivJela, "
+                . "j.Opis, j.IdKorisnik as IdRestoran, j.IdSlika, "
+                . "j.Pregledano, s.Putanja as PutanjaSlike "
+                . "from recenzija r, jelo j, slika s "
+                . "where r.IdKorisnik = ".$idGurman." "
+                . "and r.Pregledano = 'P' "
+                . "and r.IdJelo = j.IdJelo "
+                . "and j.IdSlika = s.IdSlika");
+        
+        return $query->result();
+    }
 }

@@ -45,7 +45,7 @@ class C_Gurman extends CI_Controller {
         $promenljive['ime'] = $gurman->Ime;
         $promenljive['prezime'] = $gurman->Prezime;
         $promenljive['pol'] = $gurman->Pol;
-                
+
         $this->load->view('sablon/headerGurman.php', ['title' => 'Moj profil']);
         $this->load->view('stranice/izmenaProfilaGurmana.php', $promenljive);
         $this->load->view('sablon/footer.php');
@@ -77,7 +77,7 @@ class C_Gurman extends CI_Controller {
         $info['ime'] = $this->input->post("imegurman");
         $info['prezime'] = $this->input->post("prezimegurman");
         $info['pol'] = $this->input->post("pol");
-        //$info['slika'] = $this->input->post("slikagurman");
+        $info['slika'] = $this->input->post("slikagurman");
 
         $this->form_validation->set_rules('lozinkagurman', 'Sifra', 'required', array('required' => 'Niste uneli šifru'));
         $this->form_validation->set_rules('potvrdalozinkegurman', 'Potvrda sifre', 'required|matches[lozinkagurman]', array('required' => 'Niste uneli potvrdu šifre', 'matches' => 'Šifre koje ste uneli se ne poklapaju'));
@@ -85,15 +85,39 @@ class C_Gurman extends CI_Controller {
         $this->form_validation->set_rules('prezimegurman', 'Prezime', 'required|trim', array('required' => 'Niste uneli prezime.'));
         $this->form_validation->set_rules('pol', 'Pol', 'required', array('required' => 'Niste odabrali pol'));
         //provera za sliku?
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->izmenaProfila();
-        } else {
-            $korisnik = $this->session->userdata('korisnik');
-            $info['id'] = $korisnik->id;
-            $this->M_Gurman->azuriranjeGurmana($info);
-            $this->index('Uspesno napravljene izmene.');
-        }
+//        if ($this->form_validation->run() == FALSE) {
+//            $this->izmenaProfila();
+//        } else {
+        $korisnik = $this->session->userdata('korisnik');
+//            
+//            if (!file_exists("./uploads/gurman/" ."$korisnik->id")) {
+//                mkdir("./uploads/gurman/" ."$korisnik->id", 0777, true);
+//            }
+//            
+//            //ako je uploadovana slika
+//            if (isset($_FILES['slikagurman']) && $_FILES['slikagurman']['error'] != UPLOAD_ERR_NO_FILE) {
+//                
+//                $putanjaDoFoldera = "http://localhost/GurmanGuide/Implementacija/uploads/gurman/" ."$id";
+//                if (($putanjaDoSlike = $this->upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
+//                    $this->registrujGurmana("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
+//                            . "Podržani formati: gif, jpg, png. <br />"
+//                            . "Maksimalna veličina 1000 bajtova. <br />"
+//                            . "Maksimalna rezolucija 2048x1024px.");
+//                } else {
+//                    $poslednjaSlika = $this->M_Slika->poslednjiId()->poslednjiId;
+//                    $slikaId = $poslednjaSlika + 1;
+//                    
+//                    $slika = new stdClass();
+//                    $slika->IdSlika = $slikaId;
+//                    $slika->Putanja = $putanjaDoSlike;
+//                    $this->M_Slika->unesiSliku($slika);
+//                }
+//            }
+        $info['id'] = $korisnik->id;
+        $this->M_Gurman->azuriranjeGurmana($info);
+        $this->index('Uspesno napravljene izmene.');
+//        }
     }
+
 
 }
