@@ -12,8 +12,8 @@
 	</tr>
 	<tr>
             <td class="gore"> Radno vreme: </td>
-            <td>
-		<table class="sredina">
+            <td><?php echo $radnoVreme; ?>
+		<!--<table class="sredina">
                      <tr>
 			<td> ponedeljak </td>
 			<td> 10:00-00:00 </td>
@@ -42,7 +42,7 @@
 			<td> nedelja </td>
 			<td> 10:00-00:00 </td>
                     </tr>
-		</table>
+		</table>-->
             </td>
 	</tr>
 	<tr>

@@ -23,6 +23,7 @@ class C_Restoran extends CI_Controller{
             case 'gurman': redirect('C_Gurman'); break;
             case 'admin': redirect('C_Admin'); break;
         }
+        
     }
     
     public function index(){ //u indexu da se ide na land
@@ -32,26 +33,40 @@ class C_Restoran extends CI_Controller{
     }
     
     public function izmenaRestorana(){
+        $korisnik = $this->session->userdata('korisnik');
         $restoran = $this->M_Restoran->dohvatiRestoran(3);
         
+        $info['korime'] = $restoran->korime;
+        $info['lozinka'] = $restoran->lozinka;
+        $info['email'] = $restoran->email;
+        $info['brTelefona'] = $restoran->brTelefona;
+        $info['imeRestorana'] = $restoran->imeRestorana;
+        $info['radnoVreme'] = $restoran->radnoVreme;
+        $info['adresaRestorana'] = $restoran->adresaRestorana;
+        $info['gradRestorana'] = $restoran->gradRestorana;
+        $info['drzavaRestorana'] = $restoran->drzavaRestorana;
        // $this->M_Restoran->proveriIzmene($restoran);
         $this->load->view('sablon/headerRestoran.php', ['title'=>'Pretraga']);
-        $this->load->view('stranice/izmenaRestorana.php', $restoran);
+        $this->load->view('stranice/izmenaRestorana.php', $info);
         $this->load->view('sablon/footer.php');
     }
     
     public function pregledRestorana(){
+        $korisnik = $this->session->userdata('korisnik');
         $restoran = $this->M_Restoran->dohvatiRestoran(3);
-        /*$promenljive['brTelefona'] = $restoran->Telefon;
-        $promenljive['imeRestorana'] = $restoran->Naziv;
-        $promenljive['adresaRestorana'] = $restoran->Adresa;
-        $promenljive['radnovreme'] = $restoran->RadnoVreme;
-        $promenljive['gradRestorana'] = $restoran->Grad;
-        $promenljive['drzavaRestorana'] = $restoran->Drzava;*/
-        //$promenljive['slika'] = dohvatiti sliku;
+        
+        $info['korime'] = $restoran->korime;
+        $info['lozinka'] = $restoran->lozinka;
+        $info['email'] = $restoran->email;
+        $info['brTelefona'] = $restoran->brTelefona;
+        $info['imeRestorana'] = $restoran->imeRestorana;
+        $info['radnoVreme'] = $restoran->radnoVreme;
+        $info['adresaRestorana'] = $restoran->adresaRestorana;
+        $info['gradRestorana'] = $restoran->gradRestorana;
+        $info['drzavaRestorana'] = $restoran->drzavaRestorana;
                 
         $this->load->view('sablon/headerRestoran.php', ['title'=>'Pretraga']);
-        $this->load->view('stranice/pregledRestorana.php', $restoran);
+        $this->load->view('stranice/pregledRestorana.php', $info);
         $this->load->view('sablon/footer.php');
     }
     
@@ -68,6 +83,50 @@ class C_Restoran extends CI_Controller{
         $this->load->view('stranice/kontakt.php');
         $this->load->view('sablon/footer.php');
     }
+    
+       
+    public function regex_check($str) {
+        if (preg_match("/[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})/i", $str))
+        {
+            return TRUE;
+        }
+        else
+        {
+            $this->form_validation->set_message('regex_check', 'Mejl nije u očekivanom formatu');
+            return FALSE;
+        }
+    }
+    
+    public function sacuvajIzmeneRestorana(){
+        $promenljive['lozinkarestoran'] = $this->input->post('lozinkarestoran');
+        $potvrdalozinkerestoran = $this->input->post('potvrdalozinkerestoran');
+        $promenljive['telefon'] = $this->input->post('telefon');
+        $promenljive['imerestorana'] = $this->input->post('imerestorana');
+        $promenljive['radnovreme'] = $this->input->post('radnovreme');
+        $promenljive['adresarestorana'] = $this->input->post('adresarestorana');
+        $promenljive['gradrestorana'] = $this->input->post('gradrestorana');
+        $promenljive['drzavarestorana'] = $this->input->post('drzavarestorana');
+        
+        $this->form_validation->set_rules('lozinkarestoran', 'Sifra', 'required', array('required' => 'Niste uneli šifru.'));
+        $this->form_validation->set_rules('potvrdalozinkerestoran', 'Potvrda sifre', 'required|matches[lozinkarestoran]', array('required' => 'Niste uneli potvrdu šifre.', 'matches' => 'Šifre koje ste uneli se ne poklapaju.'));
+        $this->form_validation->set_rules('telefon', 'Telefon', 'required|trim', array('required' => 'Niste uneli broj telefona.'));
+        $this->form_validation->set_rules('imerestorana', 'Naziv', 'required|trim', array('required' => 'Niste uneli naziv restorana.'));
+        $this->form_validation->set_rules('radnovreme', 'Radno Vreme', 'required', array('required' => 'Niste uneli radno vreme.'));
+        $this->form_validation->set_rules('adresarestorana', 'Adresa', 'required', array('required' => 'Niste uneli adresu.'));
+        $this->form_validation->set_rules('gradrestorana', 'Grad', 'required', array('required' => 'Niste uneli grad.'));
+        $this->form_validation->set_rules('drzavarestorana', 'Drzava', 'required', array('required' => 'Niste uneli državu.'));
+        
+        if ($this->form_validation->run() == FALSE) {
+            $this->izmenaRestorana();
+        } else {
+            $korisnik = $this->session->userdata('korisnik');
+            $promenljive['id'] = $korisnik->id;
+            $this->M_Restoran->azuriranjeRestorana($promenljive);
+            $this->index('Uspesno napravljene izmene.');
+        }
+        
+    }
+ 
     
     public function onama(){
         //proveriti ko je ulogovan i uraditi redirekt

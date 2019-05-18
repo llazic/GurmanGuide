@@ -22,4 +22,17 @@ class M_Grad extends CI_Model{
         
         return $this->db->get()->result();
     }
+    
+    public function azuriranjeGrada($promenljive, $idGrad){
+        $this->db->set('Naziv', $promenljive['gradrestorana']);
+        $this->db->where('IdGrad', $idGrad);
+        $this->db->update('Grad');
+        
+        $this->db->select('IdDrzava');
+        $this->db->from('grad');
+        $this->db->where('Grad', $idGrad);
+        $idDrzava = $this->db->get()->row();
+        
+        $this->M_Drzava->azuriranjeDrzave($promenljive, $idDrzava);
+    }
 }

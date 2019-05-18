@@ -16,4 +16,11 @@ class M_Drzava extends CI_Model{
         parent::__construct();
     }
     
+    public function azuriranjeDrzave($promenljive, $idDrzava){
+        $this->db->set('Naziv', $promenljive['drzavarestorana']);
+        $this->db->where('IdDrzava', $idDrzava);
+        $this->db->update('Drzava');
+        
+    }
+    
 }
