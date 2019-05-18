@@ -164,20 +164,21 @@ class C_Gost extends CI_Controller{
             //ako je uploadovana slika
             if (isset($_FILES['slikagurman']) && $_FILES['slikagurman']['error'] != UPLOAD_ERR_NO_FILE) {
                 
-                $putanjaDoFoldera = "http://localhost/GurmanGuide/Implementacija/uploads/gurman/" ."$id";
-                if (($putanjaDoSlike = $this->upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
+                $putanjaDoFoldera = "./uploads/gurman/" ."$id";
+                if (($nazivSlike = $this->upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
                     $this->registrujGurmana("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
                             . "Maksimalna veličina 1000 bajtova. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
-                } {
+                    return;
+                } else {
                    
                     $poslednjaSlika = $this->M_Slika->poslednjiId()->poslednjiId;
                     $slikaId = $poslednjaSlika + 1;
                     
                     $slika = new stdClass();
                     $slika->IdSlika = $slikaId;
-                    $slika->Putanja = $putanjaDoSlike;
+                    $slika->Putanja = "http://localhost/GurmanGuide/Implementacija/uploads/gurman/" .$id ."/" .$nazivSlike;
                     $this->M_Slika->unesiSliku($slika);
                 }
             }
@@ -236,7 +237,7 @@ class C_Gost extends CI_Controller{
             } else {
                 //upload uspesan
                 $ekstenzija = $this->upload->data('file_ext');
-                return $putanja ."/" ."$imeSlike" ."$ekstenzija";
+                return "$imeSlike" ."$ekstenzija";
             }
         } else {
             return null;
@@ -278,20 +279,21 @@ class C_Gost extends CI_Controller{
             //ako je uploadovana slika
             if (isset($_FILES['slikarestoran']) && $_FILES['slikarestoran']['error'] != UPLOAD_ERR_NO_FILE) {
                 
-                $putanjaDoFoldera = "http://localhost/GurmanGuide/Implementacija/uploads/restoran/" ."$id";
-                if (($putanjaDoSlike = $this->upload($putanjaDoFoldera, "profil", "slikarestoran")) == null) {
+                $putanjaDoFoldera = "./uploads/restoran/" ."$id";
+                if (($nazivSlike = $this->upload($putanjaDoFoldera, "profil", "slikarestoran")) == null) {
                     $this->registrujRestoran("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
                             . "Maksimalna veličina 1000 bajtova. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
-                } {
+                    return;
+                } else {
                    
                     $poslednjaSlika = $this->M_Slika->poslednjiId()->poslednjiId;
                     $slikaId = $poslednjaSlika + 1;
                     
                     $slika = new stdClass();
                     $slika->IdSlika = $slikaId;
-                    $slika->Putanja = $putanjaDoSlike;
+                    $slika->Putanja = "http://localhost/GurmanGuide/Implementacija/uploads/restoran/" .$id ."/" .$nazivSlike;
                     $this->M_Slika->unesiSliku($slika);
                 }
             }

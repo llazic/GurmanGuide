@@ -3,9 +3,9 @@
         <script type="text/javascript">
            window.onload = function () {
                 document.getElementById('search').onchange = function () {
-                document.getElementById('l1').setAttribute( 'href', 'pretragaJelaPoNazivu/' + this.value);
-                document.getElementById('l2').setAttribute( 'href', 'pretragaJelaPoSastojku/' + this.value);
-                document.getElementById('l3').setAttribute( 'href', 'pretragaJelaPoRestoranu/' + this.value);
+                document.getElementById('l1').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoNazivu/' + this.value);
+                document.getElementById('l2').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoSastojku/' + this.value);
+                document.getElementById('l3').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoRestoranu/' + this.value);
                 };
             };
         </script>
