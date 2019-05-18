@@ -14,10 +14,33 @@
 class C_Administrator extends CI_Controller{
     public function __construct() {
         parent::__construct();
+        
+        $korisnik = $this->session->userdata('korisnik');
+        
+        if ($korisnik == null){
+            $korisnik = new stdClass();
+            $korisnik->tipKorisnika = 'gost';
+            $this->session->set_userdata('korisnik', $korisnik);
+        }
+        switch ($korisnik->tipKorisnika) {
+            case 'gost': redirect('C_Gost');
+                break;
+            case 'restoran': redirect('C_Restoran');
+                break;
+            case 'gurman': redirect('C_Gurman');
+                break;
+        }
     }
     
     public function index(){
         
+    }
+    
+    public function izlogujSe() {
+        $korisnik = new stdClass();
+        $korisnik->tipKorisnika = 'gost';
+        $this->session->set_userdata('korisnik', $korisnik);
+        redirect('C_Gost');
     }
     
     function pregledProfilaGurmana($idGurman) {

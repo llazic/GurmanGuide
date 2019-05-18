@@ -15,10 +15,14 @@ class C_Gurman extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-//        $korisnik = new stdClass();
-//        $korisnik->tipKorisnika = 'gurman';
-//        $this->session->set_userdata('korisnik', $korisnik);
+        
         $korisnik = $this->session->userdata('korisnik');
+        
+        if ($korisnik == null){
+            $korisnik = new stdClass();
+            $korisnik->tipKorisnika = 'gost';
+            $this->session->set_userdata('korisnik', $korisnik);
+        }
         switch ($korisnik->tipKorisnika) {
             case 'gost': redirect('C_Gost');
                 break;
@@ -52,6 +56,7 @@ class C_Gurman extends CI_Controller {
     }
 
     public function izlogujSe() {
+        $korisnik = new stdClass();
         $korisnik->tipKorisnika = 'gost';
         $this->session->set_userdata('korisnik', $korisnik);
         redirect('C_Gost');
