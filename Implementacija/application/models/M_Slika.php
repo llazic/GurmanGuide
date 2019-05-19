@@ -39,5 +39,10 @@ class M_Slika extends CI_Model{
         
         return $this->db->get()->row();
     }
-    
+     
+    public function promeniPutanjuSlike($idSlika, $putanja){
+        $this->db->set('Putanja', $putanja);
+        $this->db->where('IdSlika', $idSlika);
+        $this->db->update('slika');
+    }
 }

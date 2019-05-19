@@ -43,15 +43,11 @@ class M_Gurman extends CI_Model{
         $this->db->set('Ime', $info['ime']);
         $this->db->set('Prezime', $info['prezime']);
         $this->db->set('Pol', $info['pol']);
+        if (isset($info['idSlika'])){
+            $this->db->set('IdSlika', $info['idSlika']);
+        }
         $this->db->where('IdKorisnik', $info['id']);
         $this->db->update('Gurman');
-        
-//        za slike
-//        $gurman = $this->dohvatiGurmana($info['id']);
-//        
-//        $this->db->set('Putanja', $info['slika']);        
-//        $this->db->where('IdSlika', $gurman->IdSlika);
-//        $this->db->update('Slika');
     }
     
     public function proveraKorImena($korime) {
