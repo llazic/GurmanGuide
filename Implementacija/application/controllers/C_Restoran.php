@@ -153,6 +153,48 @@ class C_Restoran extends CI_Controller{
         $this->load->view('stranice/pregledGurmana.php', $info);
         $this->load->view('sablon/footer.php');
     }
+    
+    public function unosJela(){
+        $uneto['naziv'] = $this->input->post('naziv');
+        $uneto['opisjela'] = $this->input->post('opisjela');
+        
+        $this->load->view('sablon/headerRestoran.php', ['title'=>'Unos jela']);
+        $this->load->view('stranice/unosJela.php', $uneto);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function unesiJelo(){
+        //var_dump($_POST);
+        
+        $uneto['naziv'] = $this->input->post('naziv');
+        $uneto['opisjela'] = $this->input->post('opisjela');
+        $uneto['idKorisnik'] = 3;
+        
+        $poslednjiId = $this->M_Jelo->poslednjiId()->poslednjiId;
+        $uneto['idJela'] = $poslednjiId + 1;
+        foreach($_POST as $key => $value){
+            if (strlen(strstr($key, "name"))>0){
+                
+                $ime = strtolower($value);
+                /*$this->db->select('IdSastojak');
+                $this->db->from('sastojak');
+                $this->db->where('Naziv', $ime);*/
+                
+                $query = $this->db->query("SELECT IdSastojak "
+                        . "FROM sastojak "
+                . "WHERE Naziv = '". $ime."' ");
+                
+                //$idSastojak = $this->db->get->row();
+                
+             /*   if ($idSastojak != null){
+                    
+                } else {*/
+                    $this->M_Jelo->dodajNemaSastojka($uneto, $ime);
+               // }
+               // echo $value;
+            }
+        }
+    }
 }
 
 

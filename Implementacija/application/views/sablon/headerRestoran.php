@@ -3,7 +3,27 @@
 		<title><?php $title?></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<link rel="icon" href="http://localhost/GurmanGuide/images/icon.png">
-		<style>
+		<script language="Javascript">
+                    function append()
+                    {
+
+                                var noviSastojak = document.getElementById('noviSastojak').value;
+                                document.getElementById('noviSastojak').value = '';
+                        var i = parseInt(document.getElementById( "iCheckboxes" ).value);
+                        var cb = document.createElement( "input" );
+                        cb.type = "checkbox";
+                                //cb.onclick = "remove(" + i + ")";
+                        cb.id = "id"+i;
+                        cb.name = "name"+i;
+                                cb.value = noviSastojak;
+                        cb.checked = true;
+                        var text = document.createTextNode(noviSastojak);
+                        document.getElementById( 'append' ).appendChild( text );
+                        document.getElementById( 'append' ).appendChild( cb );
+                        document.getElementById( "iCheckboxes" ).value = parseInt(document.getElementById( "iCheckboxes" ).value) + 1;
+                     }
+                </script>
+                <style>
 			body{
 				background-color:rgb(198, 219, 192);
 				font-family: "Arial Black", Gadget, sans-serif;
@@ -115,6 +135,12 @@
             .gore{
 				vertical-align:top;
 			}
+                        
+                        table.center {
+         margin-left:auto;
+         margin-right:auto;
+         vertical-align:middle;
+         }
 		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	</head>

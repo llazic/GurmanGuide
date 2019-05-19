@@ -56,7 +56,7 @@
     </table>
     <table class="tblctr" cellspacing="50">
 	<tr>
-            <td class="polje"><a href="Unos jela/unosJela.html"><input type="button" name="dodajJelo" value="Dodaj jelo"></a></td>
+            <td class="polje"><a href="<?php echo site_url('C_Restoran/unosJela')?>"><input type="button" name="dodajJelo" value="Dodaj jelo"></a></td>
 	</tr>
 	<tr>
             <td class="polje"><input type="submit" name="izmeni" value="Sačuvaj izmene"></td>

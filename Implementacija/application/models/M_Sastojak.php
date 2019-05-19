@@ -26,4 +26,11 @@ class M_Sastojak extends CI_Model{
         return $this->db->get()->result();
     }
     
+    public function poslednjiId() {
+        $this->db->select('max(sastojak.IdSastojak) as poslednjiId');
+        $this->db->from('sastojak');
+        
+        return $this->db->get()->row();
+    }
+    
 }
