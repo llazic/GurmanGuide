@@ -175,4 +175,18 @@ class M_Restoran extends CI_Model{
 
         $this->db->insert('restoran', $podaciRestoran);
     }
+    
+    //input: naziv restorana
+    //output: jela tog restorana
+    public function dohvatiJelaRestorana($pattern) {
+        $this->db->select('j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika');
+        $this->db->from('restoran r, jelo j');
+        $this->db->like('r.Naziv', $pattern);
+        $this->db->where('r.IdKorisnik = j.IdKorisnik');
+        $this->db->where('j.Pregledano', 'P');
+        $this->db->where('r.Pregledano', 'P');
+        
+        return $this->db->get()->result();
+    }
+    
 }
