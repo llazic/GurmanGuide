@@ -46,4 +46,24 @@ class M_Sastojak extends CI_Model{
         return $this->db->get()->result();
     }
     
+    public function postojiSastojak($imeSastojka){
+        
+        $this->db->select('IdSastojak');
+        $this->db->from('sastojak');
+        $this->db->like('Naziv', $imeSastojka);
+        
+        return $this->db->get()->row();
+    }
+    
+    public function dodajSastojak($imeSastojka){
+        $poslednjiId = $this->M_Sastojak->poslednjiId()->poslednjiId;
+        $idSastojka = $poslednjiId + 1;
+                
+        $this->db->set('IdSastojak', $idSastojka);
+        $this->db->set('Naziv', $imeSastojka);
+        $this->db->insert('sastojak');
+        
+        return $idSastojka;
+    }
+    
 }

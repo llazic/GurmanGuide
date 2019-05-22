@@ -33,34 +33,42 @@ class M_Jelo extends CI_Model{
         return $this->db->get()->row();
     }
     
-
-    public function dodajNemaSastojka($uneto, $ime){
-                    $poslednjiId = $this->M_Sastojak->poslednjiId()->poslednjiId;
-                    $uneto['idSastojka'] = $poslednjiId + 1;    
-                
-                    $this->db->set('IdSastojak', $uneto['idSastojka']);
-                    $this->db->set('Naziv', $ime);
-                    $this->db->insert('sastojak');
-                    
-                    $this->db->set('IdJelo', $uneto['idJela']);
-                    $this->db->set('IdKorisnik', $uneto['idKorisnik']);
-                    $this->db->set('Naziv', $uneto['naziv']);
-                    $this->db->set('Opis', $uneto['opisjela']);
-                    $this->db->set('Pregledano', 'N');
-                    $this->db->set('IdSlika', 3);
-                    $this->db->insert('jelo');
-                    
-                    
-                    $this->db->set('IdJelo', $uneto['idJela']);
-                    $this->db->set('IdSastojak', $uneto['idSastojka']);
-                    $this->db->insert('ima_sastojak');
+    public function proveriNazivJela($uneto){
+        $this->db->select('jelo.IdJelo as IdJelo');
+        $this->db->from('jelo');
+        $this->db->like('Naziv', $uneto['naziv']);
+        $this->db->where('IdKorisnik', $uneto['idKorisnik']);
+        
+        return $this->db->get()->row();
     }
+    
+    public function napraviJelo($uneto){
+        $this->db->set('IdJelo', $uneto['idJela']);
+        $this->db->set('IdKorisnik', $uneto['idKorisnik']);
+        $this->db->set('Naziv', $uneto['naziv']);
+        $this->db->set('Opis', $uneto['opisjela']);
+        $this->db->set('Pregledano', 'N');
+        $this->db->set('IdSlika', 3);
+        $this->db->insert('jelo');
+    }
+    
+    public function poveziSastojakSaJelom($idSastojka, $idJela){
+        $this->db->set('IdJelo', $idJela);
+        $this->db->set('IdSastojak', $idSastojka);
+        $this->db->insert('ima_sastojak');
+    }
+    
 
     public function dohvatiJelo($idJelo){
         $this->db->from('jelo');
         $this->db->where('IdJelo', $idJelo);
         
         return $this->db->get()->row();
+    }
+    
+    public function obrisiJelo($idJela){
+        $this->db->where('IdJelo', $idJela);
+        $this->db->delete('jelo');
     }
     
 

@@ -11,31 +11,34 @@
  *
  * @author Dunja
  */
-class C_Restoran extends CI_Controller{
+class C_Restoran extends CI_Controller {
+
     public function __construct() {
         parent::__construct();
         $korisnik = new stdClass();
         $korisnik->tipKorisnika = 'restoran';
         $this->session->set_userdata('korisnik', $korisnik);
         $korisnik = $this->session->userdata('korisnik');
-        switch($korisnik->tipKorisnika){
-            case 'gost': redirect('C_Gost'); break;
-            case 'gurman': redirect('C_Gurman'); break;
-            case 'admin': redirect('C_Admin'); break;
+        switch ($korisnik->tipKorisnika) {
+            case 'gost': redirect('C_Gost');
+                break;
+            case 'gurman': redirect('C_Gurman');
+                break;
+            case 'admin': redirect('C_Admin');
+                break;
         }
-        
     }
-    
-    public function index(){ //u indexu da se ide na land
-        $this->load->view('sablon/headerRestoran.php', ['title'=>'Pretraga']);
+
+    public function index() { //u indexu da se ide na land
+        $this->load->view('sablon/headerRestoran.php', ['title' => 'Pretraga']);
         //dodati sredisnji deo
         $this->load->view('sablon/footer.php');
     }
-    
-    public function izmenaRestorana(){
+
+    public function izmenaRestorana() {
         $korisnik = $this->session->userdata('korisnik');
         $restoran = $this->M_Restoran->dohvatiRestoran(3);
-        
+
         $info['korime'] = $restoran->korime;
         $info['lozinka'] = $restoran->lozinka;
         $info['email'] = $restoran->email;
@@ -45,16 +48,16 @@ class C_Restoran extends CI_Controller{
         $info['adresaRestorana'] = $restoran->adresaRestorana;
         $info['gradRestorana'] = $restoran->gradRestorana;
         $info['drzavaRestorana'] = $restoran->drzavaRestorana;
-       // $this->M_Restoran->proveriIzmene($restoran);
-        $this->load->view('sablon/headerRestoran.php', ['title'=>'Pretraga']);
+        // $this->M_Restoran->proveriIzmene($restoran);
+        $this->load->view('sablon/headerRestoran.php', ['title' => 'Pretraga']);
         $this->load->view('stranice/izmenaRestorana.php', $info);
         $this->load->view('sablon/footer.php');
     }
-    
-    public function pregledRestorana(){
+
+    public function pregledRestorana() {
         $korisnik = $this->session->userdata('korisnik');
         $restoran = $this->M_Restoran->dohvatiRestoran(3);
-        
+
         $info['korime'] = $restoran->korime;
         $info['lozinka'] = $restoran->lozinka;
         $info['email'] = $restoran->email;
@@ -64,40 +67,36 @@ class C_Restoran extends CI_Controller{
         $info['adresaRestorana'] = $restoran->adresaRestorana;
         $info['gradRestorana'] = $restoran->gradRestorana;
         $info['drzavaRestorana'] = $restoran->drzavaRestorana;
-                
-        $this->load->view('sablon/headerRestoran.php', ['title'=>'Pretraga']);
+
+        $this->load->view('sablon/headerRestoran.php', ['title' => 'Pretraga']);
         $this->load->view('stranice/pregledRestorana.php', $info);
         $this->load->view('sablon/footer.php');
     }
-    
-    public function izlogujse(){
+
+    public function izlogujse() {
         //echo 'izlogujse'; dodati i set userdata na Gost
         $korisnik->tipKorisnika = 'gost';
-        $this->session->set_userdata('korisnik',$korisnik);
+        $this->session->set_userdata('korisnik', $korisnik);
         redirect('C_Gost');
     }
-    
-    public function kontakt(){
+
+    public function kontakt() {
         //proveriti ko je ulogovan i uraditi redirekt
-        $this->load->view('sablon/headerRestoran.php', ['title'=>'Kontakt']);
+        $this->load->view('sablon/headerRestoran.php', ['title' => 'Kontakt']);
         $this->load->view('stranice/kontakt.php');
         $this->load->view('sablon/footer.php');
     }
-    
-       
+
     public function regex_check($str) {
-        if (preg_match("/[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})/i", $str))
-        {
+        if (preg_match("/[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})/i", $str)) {
             return TRUE;
-        }
-        else
-        {
+        } else {
             $this->form_validation->set_message('regex_check', 'Mejl nije u očekivanom formatu');
             return FALSE;
         }
     }
-    
-    public function sacuvajIzmeneRestorana(){
+
+    public function sacuvajIzmeneRestorana() {
         $promenljive['lozinkarestoran'] = $this->input->post('lozinkarestoran');
         $potvrdalozinkerestoran = $this->input->post('potvrdalozinkerestoran');
         $promenljive['telefon'] = $this->input->post('telefon');
@@ -106,7 +105,7 @@ class C_Restoran extends CI_Controller{
         $promenljive['adresarestorana'] = $this->input->post('adresarestorana');
         $promenljive['gradrestorana'] = $this->input->post('gradrestorana');
         $promenljive['drzavarestorana'] = $this->input->post('drzavarestorana');
-        
+
         $this->form_validation->set_rules('lozinkarestoran', 'Sifra', 'required', array('required' => 'Niste uneli šifru.'));
         $this->form_validation->set_rules('potvrdalozinkerestoran', 'Potvrda sifre', 'required|matches[lozinkarestoran]', array('required' => 'Niste uneli potvrdu šifre.', 'matches' => 'Šifre koje ste uneli se ne poklapaju.'));
         $this->form_validation->set_rules('telefon', 'Telefon', 'required|trim', array('required' => 'Niste uneli broj telefona.'));
@@ -115,7 +114,7 @@ class C_Restoran extends CI_Controller{
         $this->form_validation->set_rules('adresarestorana', 'Adresa', 'required', array('required' => 'Niste uneli adresu.'));
         $this->form_validation->set_rules('gradrestorana', 'Grad', 'required', array('required' => 'Niste uneli grad.'));
         $this->form_validation->set_rules('drzavarestorana', 'Drzava', 'required', array('required' => 'Niste uneli državu.'));
-        
+
         if ($this->form_validation->run() == FALSE) {
             $this->izmenaRestorana();
         } else {
@@ -124,22 +123,20 @@ class C_Restoran extends CI_Controller{
             $this->M_Restoran->azuriranjeRestorana($promenljive);
             $this->index('Uspesno napravljene izmene.');
         }
-        
     }
- 
-    
-    public function onama(){
+
+    public function onama() {
         //proveriti ko je ulogovan i uraditi redirekt
-        $this->load->view('sablon/headerRestoran.php', ['title'=>'O nama']);
+        $this->load->view('sablon/headerRestoran.php', ['title' => 'O nama']);
         $this->load->view('stranice/onama.php');
         $this->load->view('sablon/footer.php');
     }
-    
+
     function pregledProfilaGurmana($idGurman) {
         $gurman = $this->M_Gurman->dohvatiGurmana($idGurman);
         $recenzije = $this->M_Recenzija->dohvatiRecenzijeGurmana($idGurman);
-        
-        
+
+
         $info['slikagurman'] = $this->M_Slika->dohvatiPutanju($gurman->IdSlika)->Putanja;
         $info['korime'] = $gurman->KorisnickoIme;
         $info['lozinka'] = $gurman->Lozinka;
@@ -148,54 +145,69 @@ class C_Restoran extends CI_Controller{
         $info['prezime'] = $gurman->Prezime;
         $info['pol'] = $gurman->Pol;
         $info['recenzije'] = $recenzije;
-        
+
         $this->load->view('sablon/headerRestoran.php', ['title' => 'Pregled profila']);
         $this->load->view('stranice/pregledGurmana.php', $info);
         $this->load->view('sablon/footer.php');
     }
-    
-    public function unosJela(){
-        $uneto['naziv'] = $this->input->post('naziv');
-        $uneto['opisjela'] = $this->input->post('opisjela');
-        
-        $this->load->view('sablon/headerRestoran.php', ['title'=>'Unos jela']);
-        $this->load->view('stranice/unosJela.php', $uneto);
+
+    public function unosJela($poruka = null) {
+
+        $this->load->view('sablon/headerRestoran.php', ['title' => 'Unos jela']);
+        $this->load->view('stranice/unosJela.php', ['poruka' => $poruka]);
         $this->load->view('sablon/footer.php');
     }
-    
-    public function unesiJelo(){
-        //var_dump($_POST);
-        
+
+    public function unesiJelo() {
+        var_dump($_POST);
+        $poruka = '';
         $uneto['naziv'] = $this->input->post('naziv');
         $uneto['opisjela'] = $this->input->post('opisjela');
         $uneto['idKorisnik'] = 3;
-        
-        $poslednjiId = $this->M_Jelo->poslednjiId()->poslednjiId;
-        $uneto['idJela'] = $poslednjiId + 1;
-        foreach($_POST as $key => $value){
-            if (strlen(strstr($key, "name"))>0){
+
+        $this->form_validation->set_rules('naziv', 'Naziv', 'required|trim', array('required' => 'Niste uneli naziv jela.'));
+        $this->form_validation->set_rules('opisjela', 'Opis', 'required|trim', array('required' => 'Niste uneli opis jela.'));
+
+
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->unosJela();
+        } else {
+
+            $postojiJelo = $this->M_Jelo->proveriNazivJela($uneto);
+            if ($postojiJelo != null) {
+                $poruka = 'Jelo sa datim imenom vec postoji!';
+                $this->unosJela($poruka);
+            } else {
+                $poslednjiId = $this->M_Jelo->poslednjiId()->poslednjiId;
+                $uneto['idJela'] = $poslednjiId + 1;
+                $this->M_Jelo->napraviJelo($uneto);
                 
-                $ime = strtolower($value);
-                /*$this->db->select('IdSastojak');
-                $this->db->from('sastojak');
-                $this->db->where('Naziv', $ime);*/
-                
-                $query = $this->db->query("SELECT IdSastojak "
-                        . "FROM sastojak "
-                . "WHERE Naziv = '". $ime."' ");
-                
-                //$idSastojak = $this->db->get->row();
-                
-             /*   if ($idSastojak != null){
-                    
-                } else {*/
-                    $this->M_Jelo->dodajNemaSastojka($uneto, $ime);
-               // }
-               // echo $value;
+                $brojacSastojaka = 0;
+                foreach ($_POST as $key => $value) {
+                    if (strlen(strstr($key, "name")) > 0) {
+                        $brojacSastojaka = $brojacSastojaka + 1;
+                        $imeSastojka = strtolower($value);
+
+                        $postojiSastojak = $this->M_Sastojak->postojiSastojak($imeSastojka);
+
+                        if ($postojiSastojak != null) {
+                            $idSastojka = $postojiSastojak->IdSastojak;
+                        } else {
+                            $idSastojka = $this->M_Sastojak->dodajSastojak($imeSastojka);
+                        }
+                        $this->M_Jelo->poveziSastojakSaJelom($idSastojka, $uneto['idJela']);
+                    } 
+                }
+                if ($brojacSastojaka == 0) {
+                    $this->M_Jelo->obrisiJelo($uneto['idJela']);
+                    $poruka = "Nisu uneti sastojci!";
+                    $this->unosJela($poruka);
+                } else {
+                    redirect('C_Restoran/index');
+                }
             }
         }
     }
+
 }
-
-
-
