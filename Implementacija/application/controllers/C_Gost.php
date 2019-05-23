@@ -41,24 +41,39 @@ class C_Gost extends CI_Controller{
     }
     
     public function index(){
+        $topJeloId = $this->M_Recenzija->dohvatiTopJelo();
+        $recenzija = $this->M_Recenzija->dohvatiTopRecenziju($topJeloId->IdJelo);
+        $jelo = $this->M_Jelo->dohvatiJelo($topJeloId->IdJelo);
+        
+        $klasa = new stdClass();
+        $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+        $klasa->IdJelo = $topJeloId->IdJelo;
+        $klasa->Komentar = $recenzija->Komentar;
+        $klasa->Ocena = $recenzija->Ocena;
+        $klasa->Naziv = $jelo->Naziv;
+        
         $this->load->view("sablon/headerGost.php", ['title' => 'GurmanGuide']);
-        $this->load->view('stranice/main.php');
+        $this->load->view('stranice/main.php', ['jelo' => $klasa]);
+        $this->load->view('sablon/footer.php');
     }
     
     public function registrujGurmana($poruka = null) {
         $this->load->view("sablon/headerGost.php", ['title' => 'Registracija']);
         $this->load->view('stranice/registracijaGurmana.php', ['poruka' => $poruka]);
+        $this->load->view('sablon/footer.php');
     }
     
     public function registrujRestoran() {
         $gradovi = $this->M_Grad->gohvatiSveGradove();
         $this->load->view("sablon/headerGost.php", ['title' => 'Registracija']);
         $this->load->view('stranice/registracijaRestorana.php', ['gradovi' => $gradovi]);
+        $this->load->view('sablon/footer.php');
     }
     
     public function prijaviSe($poruka = null) {
         $this->load->view("sablon/headerGost.php", ['title' => 'Login']);
         $this->load->view('stranice/login.php', ['poruka' => $poruka]);
+        $this->load->view('sablon/footer.php');
     }
     
     public function proveraPrijave() {
@@ -367,6 +382,7 @@ class C_Gost extends CI_Controller{
         
         $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
         $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
+        $this->load->view('sablon/footer.php');
     }
     
     function pretragaJelaPoSastojku($val) {
@@ -413,6 +429,7 @@ class C_Gost extends CI_Controller{
         
         $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
         $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
+        $this->load->view('sablon/footer.php');
     }
     
     function pretragaJelaPoRestoranu($val) {
@@ -460,6 +477,164 @@ class C_Gost extends CI_Controller{
         
         $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
         $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    function pretragaRestoranaPoNazivu($val) {
+        $input = str_replace('%20', ' ', $val);
+        $input = trim($input);
+        
+        $restorani = $this->M_Restoran->dohvatiRestoranePoNazivu($input);
+        
+        $niz = [];
+        
+        foreach ($restorani as $restoran) {
+            $klasa = new stdClass();
+            $klasa->IdKorisnik = $restoran->IdKorisnik;
+            $klasa->Telefon = $restoran->Telefon;
+            $klasa->Adresa = $restoran->Adresa;
+            $klasa->RadnoVreme = $restoran->RadnoVreme;
+            $klasa->Naziv = $restoran->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($restoran->IdSlika)->Putanja;
+            $klasa->IdGrad = $restoran->IdGrad;
+            $klasa->Grad = $this->M_Grad->dohvatiNazivGrada($restoran->IdGrad)->Naziv;
+            
+            $jelaRestorana = $this->M_Restoran->dohvatiJelaRestoranaId($restoran->IdKorisnik);
+            
+            $najboljaOcena = "-1";
+            $najboljeJelo = null;
+            foreach ($jelaRestorana as $jelo) {
+                if ($najboljaOcena < ($tempOcena = $this->M_Recenzija->ocenaJela($jelo->IdJelo))) {
+                    $najboljeJelo = $jelo;
+                    $najboljaOcena = $tempOcena;
+                }
+            }
+            
+            if ($najboljeJelo != null) {
+                $klasa->topJeloNaziv = $najboljeJelo->Naziv;
+                $klasa->topJeloId = $najboljeJelo->IdJelo;
+            } else {
+                $klasa->topJeloNaziv = "Restoran nema jela";
+                $klasa->topJeloId = -1;
+            }
+            
+            $niz [] = $klasa;
+        }
+        
+        $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrageRestoran.php", ['restorani' => $niz]);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaRestoranaPoAdresi($val) {
+        $input = str_replace('%20', ' ', $val);
+        $input = trim($input);
+        
+        $restorani = $this->M_Restoran->dohvatiRestoranePoAdresi($input);
+        
+        $niz = [];
+        
+        foreach ($restorani as $restoran) {
+            $klasa = new stdClass();
+            $klasa->IdKorisnik = $restoran->IdKorisnik;
+            $klasa->Telefon = $restoran->Telefon;
+            $klasa->Adresa = $restoran->Adresa;
+            $klasa->RadnoVreme = $restoran->RadnoVreme;
+            $klasa->Naziv = $restoran->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($restoran->IdSlika)->Putanja;
+            $klasa->IdGrad = $restoran->IdGrad;
+            $klasa->Grad = $this->M_Grad->dohvatiNazivGrada($restoran->IdGrad)->Naziv;
+            
+            $jelaRestorana = $this->M_Restoran->dohvatiJelaRestoranaId($restoran->IdKorisnik);
+            
+            $najboljaOcena = "-1";
+            $najboljeJelo = null;
+            foreach ($jelaRestorana as $jelo) {
+                if ($najboljaOcena < ($tempOcena = $this->M_Recenzija->ocenaJela($jelo->IdJelo))) {
+                    $najboljeJelo = $jelo;
+                    $najboljaOcena = $tempOcena;
+                }
+            }
+            
+            if ($najboljeJelo != null) {
+                $klasa->topJeloNaziv = $najboljeJelo->Naziv;
+                $klasa->topJeloId = $najboljeJelo->IdJelo;
+            } else {
+                $klasa->topJeloNaziv = "Restoran nema jela";
+                $klasa->topJeloId = -1;
+            }
+            
+            $niz [] = $klasa;
+        }
+        
+        $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrageRestoran.php", ['restorani' => $niz]);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function prikaziJelo($id) {
+        $jelo = $this->M_Jelo->dohvatiJelo($id);
+        $recenzije = $this->M_Recenzija->dohvatiRecenzijeJela($id);
+        
+        $klasa = new stdClass();
+        $klasa->Naziv = $jelo->Naziv;
+        $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+        
+        $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+            
+        $sastojciString = "";
+
+        for ($i = 0; $i < count($sastojci); $i++) {
+            $sastojciString .= $sastojci[$i]->Naziv;
+
+            if ($i != (count($sastojci) - 1)) {
+                $sastojciString .= ", ";
+            }
+
+        }
+        $klasa->Sastojci = $sastojciString;
+        
+        //Zaokruzivanje na jednu decimalu
+        $klasa->Ocena = round($this->M_Recenzija->ocenaJela($jelo->IdJelo)->ocena, 1);
+        $klasa->Opis = $jelo->Opis;
+        $klasa->IdRestoran = $jelo->IdKorisnik;
+        $klasa->imeRestorana = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik)->imeRestorana;
+        
+        //recenzije
+        $recenzije = $this->M_Recenzija->dohvatiRecenzijeJela($jelo->IdJelo);
+        
+        $niz = [];
+        
+        foreach ($recenzije as $recenzija) {
+            $objekat = new stdClass();
+            $objekat->Komentar = $recenzija->Komentar;
+            $gurman = $this->M_Gurman->dohvatiGurmana($recenzija->IdKorisnik);
+            $slikaGurmanaId = $gurman->IdSlika;
+            $objekat->Slika = $this->M_Slika->dohvatiPutanju($slikaGurmanaId)->Putanja;
+            $objekat->Ime = $gurman->Ime;
+            $objekat->Prezime = $gurman->Prezime;
+            
+            $niz [] = $objekat;
+        }
+        
+        
+        $this->load->view("sablon/headerGost.php", ['title' => $klasa->Naziv]);
+        $this->load->view("stranice/prikazJela.php", ['jelo' => $klasa, 'recenzije' => $niz]);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function kontakt(){
+        //proveriti ko je ulogovan i uraditi redirekt
+        $this->load->view('sablon/headerGost.php', ['title'=>'Kontakt']);
+        $this->load->view('stranice/kontakt.php');
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function onama(){
+        //proveriti ko je ulogovan i uraditi redirekt
+        $this->load->view('sablon/headerGost.php', ['title'=>'O nama']);
+        $this->load->view('stranice/onama.php');
+        $this->load->view('sablon/footer.php');
     }
     
     function pregledProfilaGurmana($idGurman) {

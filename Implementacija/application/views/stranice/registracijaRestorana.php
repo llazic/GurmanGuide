@@ -141,13 +141,3 @@
        </tr>
     </table>
 </form>
-<!-- ovde ubacujete ono sto hocete da bude ispod naslova-->
-<!-- ostavite dovoljan broj <br/> posle toga sto ubacujete da bi footer bio skroz dole-->
-<br/><br/><br/><br/><br/>
-<div class="footer">
-   <br/>
-   <a href="kontakt.html"> Kontakt</a>&nbsp;
-   <a href="onama.html"> O nama</a>
-</div>
-</body>
-</html>

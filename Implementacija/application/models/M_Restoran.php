@@ -59,35 +59,7 @@ class M_Restoran extends CI_Model{
         $idGrad = $this->db->get()->row()->IdGrad;
         
         $this->M_Grad->azuriranjeGrada($promenljive, $idGrad);
-        
-        /*
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "psibaza";
 
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-             die("Connection failed: " . $conn->connect_error);
-        } 
-
-        if ($telefon != $restoran->brTelefona){
-            $sql = "UPDATE restoran SET Telefon=".$telefon." WHERE id=2".$restoran->id." ";
-        }
-       // $sql = "UPDATE restoran SET lastname='Doe' WHERE id=".$restoran->id." ";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "Record updated successfully";
-        } else {
-            echo "Error updating record: " . $conn->error;
-        }
-
-        $conn->close();
-        if ($telefon != $restoran->brTelefona){
-            
-        }*/
     }
     
     public function dohvatiRestoran($id){
@@ -189,6 +161,41 @@ class M_Restoran extends CI_Model{
         $this->db->where('r.IdKorisnik = j.IdKorisnik');
         $this->db->where('j.Pregledano', 'P');
         $this->db->where('r.Pregledano', 'P');
+        
+        return $this->db->get()->result();
+    }
+    
+    //input: id restorana
+    //output: jela tog restorana
+    public function dohvatiJelaRestoranaId($id) {
+        $this->db->select('j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika');
+        $this->db->from('restoran r, jelo j');
+        $this->db->where('r.IdKorisnik', $id);
+        $this->db->where('r.IdKorisnik = j.IdKorisnik');
+        $this->db->where('j.Pregledano', 'P');
+        $this->db->where('r.Pregledano', 'P');
+        
+        return $this->db->get()->result();
+    }
+    
+    //input: naziv restorana
+    //output: restorani cije ime odgovara paramteru pattern
+    public function dohvatiRestoranePoNazivu($pattern) {
+        $this->db->select('*');
+        $this->db->from('restoran');
+        $this->db->like('Naziv', $pattern);
+        $this->db->where('Pregledano', 'P');
+        
+        return $this->db->get()->result();
+    }
+    
+    //input: adresa restorana
+    //output: restorani koji u svojoj adresi imaju ovaj pattern
+    public function dohvatiRestoranePoAdresi($pattern) {
+        $this->db->select('*');
+        $this->db->from('restoran');
+        $this->db->like('Adresa', $pattern);
+        $this->db->where('Pregledano', 'P');
         
         return $this->db->get()->result();
     }

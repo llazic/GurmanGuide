@@ -103,6 +103,6 @@ Top 3 jela:
 <br/><br/>
 <table class="sredina">
     <tr>
-	<td><a href="#"><input type="button" name="dugmeMeni" value="Pređi na meni restorana"></a></td>
+	<td><a href="<?php echo site_url('C_Restoran/prikaziMeniRestorana')?>"><input type="button" name="dugmeMeni" value="Pređi na meni restorana"></a></td>
     </tr>
 </table>

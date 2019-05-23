@@ -209,5 +209,57 @@ class C_Restoran extends CI_Controller {
             }
         }
     }
+    
+    public function pretragaJelaPoRestoranu($val) {
+        $input = str_replace('%20', ' ', $val);
+        $input = trim($input);
+        
+        $jela = $this->M_Restoran->dohvatiJelaRestorana($input);
+        
+        $niz = [];
+        
+        foreach ($jela as $jelo) {
+            $klasa = new stdClass();
+            $klasa->IdJelo = $jelo->IdJelo;
+            $klasa->IdRestoran = $jelo->IdKorisnik;
+            $klasa->Opis = $jelo->Opis;
+            $klasa->Naziv = $jelo->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+            $klasa->Recenzija = $this->M_Recenzija->dohvatiJednuRecenziju($jelo->IdJelo);
+            
+            if ($klasa->Recenzija == null) {
+                $klasa->Recenzija = "Nema recenzije za ovo jelo.";
+            } else {
+                $klasa->Recenzija = $klasa->Recenzija->Komentar;
+            }
+            
+            $klasa->Restoran = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik)->imeRestorana;
+            
+            $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+            
+            $sastojciString = "";
+            
+            for ($i = 0; $i < count($sastojci); $i++) {
+                $sastojciString .= $sastojci[$i]->Naziv;
+                
+                if ($i != (count($sastojci) - 1)) {
+                    $sastojciString .= ", ";
+                }
+                
+            }
+            
+            $klasa->Sastojci = $sastojciString;
+            
+            $niz [] = $klasa;
+        }
+        
+        $this->load->view("sablon/headerRestoran.php", ['title' => 'Meni restorana']);
+        $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz/*, 'naslovStranice' =>'Meni restorana'*/]);
+    }
+    
+    public function prikaziMeniRestorana(){
+        $imeRestorana = $this->M_Restoran->dohvatiRestoran(3)->imeRestorana;
+        $this->pretragaJelaPoRestoranu($imeRestorana);
+    }
 
 }

@@ -6,6 +6,8 @@
                 document.getElementById('l1').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoNazivu/' + this.value);
                 document.getElementById('l2').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoSastojku/' + this.value);
                 document.getElementById('l3').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoRestoranu/' + this.value);
+                document.getElementById('l4').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaRestoranaPoNazivu/' + this.value);
+                document.getElementById('l5').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaRestoranaPoAdresi/' + this.value);
                 };
             };
         </script>
@@ -26,8 +28,8 @@
 		<div class="dropdown">
 			<button class="dropbtn">Pretraga restorana</button>
 			<div class="dropdown-content">
-				<a href="<?php echo site_url('C_Gost/pretragaRestoranaPoNazivu');?>">po nazivu</a>
-				<a href="<?php echo site_url('C_Gost/pretragaRestoranaPoAdresi');?>">po adresi</a>
+				<a href="" id = "l4">po nazivu</a>
+  				<a href="" id = "l5">po adresi</a>
 			</div>
 		</div>
 	</div>
@@ -38,23 +40,17 @@
 <h1 class="naslovH1"><b>Gurmani preporučuju</b></h1>
 </div>
 
-<div class="card">
-	<img src="../Images/calzone1.png" alt="Calzone" style="float:left;width:120px;height:120px;margin-right:40px;"/>
-	<a href="prikazJela.html">Calzone</a>
-	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
-	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
-	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
-	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
-	<img src="../images/star.png" style="margin-top:2px; margin:right:5px; height:20px; width:20px;" align="right">
-	<p class="lugano">	"Danas poznati italijanski specijalitet, ali malo ko zna da je nastao za vreme starog Rima. Prvi čovek koji ju je probao bio je, ni manje ni više, nego Gaj Julije Cezar."
-</p>
-</div>
 
-
-
-
+<?php
+    echo "<div class='card'> <img src='$jelo->Putanja' style='float:left;width:120px;height:120px;margin-right:40px;'/>";
+    echo "<a href='";
+    echo site_url("C_Gost/prikaziJelo/$jelo->IdJelo");
+    echo "'>$jelo->Naziv</a>";
+    for ($i = 0; $i < $jelo->Ocena; $i++){
+        echo "<img src='http://localhost/GurmanGuide/images/star.png' style='margin-top:2px; margin:right:5px; height:20px; width:20px;' align='right'>";
+    }
+    echo "<p class='lugano'>$jelo->Komentar</p></div>";
+?>
 
 </body>
-
-
 </html>
