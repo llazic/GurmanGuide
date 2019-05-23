@@ -85,6 +85,7 @@ extends CI_Model{
 
     public function dohvatiNepregledaneRecenzije() {
             return   $this->db->select("*")->from('recenzija')->where('Pregledano', 'N')->result();
+    }
     //input: idJela
     //output: prosecna ocena jela
     public function ocenaJela($idJelo) {
