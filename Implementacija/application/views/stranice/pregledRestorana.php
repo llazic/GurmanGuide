@@ -1,5 +1,5 @@
 <p class="title"> <?php echo $imeRestorana; ?> </p>
-<p class="center"><img src="http://localhost/GurmanGuide/Images/madera.jpg" width="350" class="border"/></p>
+<p class="center"><img src="<?php echo $slikaRestorana?>" width="350" class="border"/></p>
 <p class="center">
     <table class="sredina" cellspacing="15" cellpadding="5">
 	<tr>
@@ -59,7 +59,28 @@
 <p class="center"><font>
 Top 3 jela:
 </p>
-<div class="box"><a href="#"> <img src="http://localhost/GurmanGuide/Images/calzone1.png" class="slika" alt="Calzone" style="width:120px;height:120px;margin-right:40px;"/></a>
+<?php
+        if (empty($jela) == false) { 
+            foreach ($jela as $jelo) {
+                echo "<div class='box'>";
+                    echo "<a href=";
+                        echo "#";
+                        echo "><img class='slika' src='$jelo->Putanja' style='width:120px;height:120px;margin-right:40px;' />";
+                    echo "</a>";
+                    echo "<p>";
+                        echo "$jelo->Naziv";
+                    echo "</p>";
+                    echo "<font class='stil'>";
+                        echo "$jelo->Opis";
+                    echo "</font>";
+                echo "</div>";
+                echo "</br>";
+            }
+        } else {
+            echo "<center>Ovaj restoran nema unetih jela.</center>";
+        }
+?>
+<!--<div class="box"><a href="#"> <img src="http://localhost/GurmanGuide/Images/calzone1.png" class="slika" alt="Calzone" style="width:120px;height:120px;margin-right:40px;"/></a>
     <p>
 	Calzone
 	<img src="http://localhost/GurmanGuide/images/star.png" class="star" align="right">
@@ -99,7 +120,7 @@ Top 3 jela:
     <font class="stil">
 	"Originalan recept za BBQ sos koji je napravio Sveti Sava dok je učio školu. Prenosio se sa kolena na koleno, a original se nalazi u kripti manastira Manasije."
     </font>
-</div>
+</div>-->
 <br/><br/>
 <table class="sredina">
     <tr>

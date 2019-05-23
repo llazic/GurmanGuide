@@ -36,7 +36,7 @@ class M_Jelo extends CI_Model{
     public function proveriNazivJela($uneto){
         $this->db->select('jelo.IdJelo as IdJelo');
         $this->db->from('jelo');
-        $this->db->like('Naziv', $uneto['naziv']);
+        $this->db->where('Naziv', $uneto['naziv']);
         $this->db->where('IdKorisnik', $uneto['idKorisnik']);
         
         return $this->db->get()->row();

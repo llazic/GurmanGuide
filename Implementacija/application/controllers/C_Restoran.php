@@ -67,9 +67,46 @@ class C_Restoran extends CI_Controller {
         $info['adresaRestorana'] = $restoran->adresaRestorana;
         $info['gradRestorana'] = $restoran->gradRestorana;
         $info['drzavaRestorana'] = $restoran->drzavaRestorana;
+        $info['slikaRestorana'] = $this->M_Slika->dohvatiPutanju($restoran->IdSlika)->Putanja;
+        
+        $input = str_replace('%20', ' ', $info['imeRestorana']);
+        $input = trim($input);
+        
+        $jela = $this->M_Restoran->dohvatiJelaRestorana($input);
+        
+        $niz = [];
+        
+        foreach ($jela as $jelo) {
+            $klasa = new stdClass();
+            $klasa->IdJelo = $jelo->IdJelo;
+            $klasa->IdRestoran = $jelo->IdKorisnik;
+            $klasa->Opis = $jelo->Opis;
+            $klasa->Naziv = $jelo->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+            
+      
+            $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+            
+            $sastojciString = "";
+            
+            for ($i = 0; $i < count($sastojci); $i++) {
+                $sastojciString .= $sastojci[$i]->Naziv;
+                
+                if ($i != (count($sastojci) - 1)) {
+                    $sastojciString .= ", ";
+                }
+                
+            }
+            
+            $klasa->Sastojci = $sastojciString;
+            
+            $niz [] = $klasa;
+        }
 
         $this->load->view('sablon/headerRestoran.php', ['title' => 'Pretraga']);
-        $this->load->view('stranice/pregledRestorana.php', $info);
+        $this->load->view('stranice/pregledRestorana.php', ['jela' => $niz, 'slikaRestorana' => $info['slikaRestorana'], 'korime' => $info['korime'], 'lozinka' =>$info['lozinka'], 'email' =>$info['email'],
+                                                            'brTelefona' => $info['brTelefona'], 'radnoVreme' =>$info['radnoVreme'], 'adresaRestorana' => $info['adresaRestorana'], 'gradRestorana' =>$info['gradRestorana'],
+                                                            'drzavaRestorana' =>$info['drzavaRestorana'], 'imeRestorana' =>$info['imeRestorana']]);
         $this->load->view('sablon/footer.php');
     }
 

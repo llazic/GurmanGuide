@@ -1,5 +1,5 @@
 <!--Dunja Culafic-->
-      <link rel="stylesheet" type="text/css" href="../../../../prototip/rezultatiPretrage.css">
+     <!--<link rel="stylesheet" type="text/css" href="../../../../prototip/rezultatiPretrage.css">-->
       <p class="title"> Meni restorana </p>
       <?php
         if (empty($jela) == false) { 
@@ -11,7 +11,7 @@
                 echo "<table width='100%'>";
                     echo "<tr>";
                         echo "<td width='25%' align='center''>";
-                            echo "<img class='slika' src='$jelo->Putanja'>";
+                            echo "<img class='slikaMeni' src='$jelo->Putanja'>";
                             echo "<a href=";
                             echo site_url("C_Restoran/izmeniJelo/$jelo->IdJelo"); 
                             echo " ><input type='button' name='izmeni'";

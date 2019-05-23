@@ -64,7 +64,7 @@ class M_Restoran extends CI_Model{
     
     public function dohvatiRestoran($id){
         
-        $query = $this->db->query("SELECT restoran.Naziv as imeRestorana, restoran.Telefon as brTelefona, restoran.Adresa as adresaRestorana, grad.Naziv as gradRestorana, drzava.Naziv as drzavaRestorana, korisnik.KorisnickoIme as korime, korisnik.Lozinka as lozinka, korisnik.Email as email, restoran.IdKorisnik as id, restoran.RadnoVreme as radnoVreme  "
+        $query = $this->db->query("SELECT restoran.Naziv as imeRestorana, restoran.Telefon as brTelefona, restoran.Adresa as adresaRestorana, grad.Naziv as gradRestorana, drzava.Naziv as drzavaRestorana, korisnik.KorisnickoIme as korime, korisnik.Lozinka as lozinka, korisnik.Email as email, restoran.IdKorisnik as id, restoran.RadnoVreme as radnoVreme, restoran.IdSlika as IdSlika  "
                 . "FROM restoran, grad, drzava, korisnik "
                 . "WHERE restoran.IdGrad = grad.IdGrad AND grad.IdDrzava = drzava.IdDrzava "
                 . "AND restoran.IdKorisnik = korisnik.IdKorisnik AND restoran.IdKorisnik = ". $id." ");
@@ -163,6 +163,16 @@ class M_Restoran extends CI_Model{
         $this->db->where('r.Pregledano', 'P');
         
         return $this->db->get()->result();
+    }
+    
+    public function dohvatiTopTriJelaRestorana($imeRestorana){
+        
+        $query = $this->db->query("SELECT j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika "
+                                . "FROM restoran r, jelo j "
+                                . "WHERE r.Naziv ='".$imeRestorana."' "
+                                . "AND r.IdKorisnik = j.IdKorisnik ");
+        return $query->get()->result();
+    
     }
     
     //input: id restorana

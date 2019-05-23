@@ -50,7 +50,7 @@ class M_Sastojak extends CI_Model{
         
         $this->db->select('IdSastojak');
         $this->db->from('sastojak');
-        $this->db->like('Naziv', $imeSastojka);
+        $this->db->where('Naziv', $imeSastojka);
         
         return $this->db->get()->row();
     }
