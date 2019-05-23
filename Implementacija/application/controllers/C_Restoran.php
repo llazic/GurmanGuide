@@ -254,12 +254,81 @@ class C_Restoran extends CI_Controller {
         }
         
         $this->load->view("sablon/headerRestoran.php", ['title' => 'Meni restorana']);
-        $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz/*, 'naslovStranice' =>'Meni restorana'*/]);
+        $this->load->view("stranice/meniRestoranaIzUglaRestorana.php", ['jela' => $niz]);
+        $this->load->view('sablon/footer.php');
     }
     
     public function prikaziMeniRestorana(){
         $imeRestorana = $this->M_Restoran->dohvatiRestoran(3)->imeRestorana;
         $this->pretragaJelaPoRestoranu($imeRestorana);
     }
+    
+    public function prikaziJelo($id) {
+        $jelo = $this->M_Jelo->dohvatiJelo($id);
+        $recenzije = $this->M_Recenzija->dohvatiRecenzijeJela($id);
+        
+        $klasa = new stdClass();
+        $klasa->Naziv = $jelo->Naziv;
+        $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+        
+        $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+            
+        $sastojciString = "";
 
+        for ($i = 0; $i < count($sastojci); $i++) {
+            $sastojciString .= $sastojci[$i]->Naziv;
+
+            if ($i != (count($sastojci) - 1)) {
+                $sastojciString .= ", ";
+            }
+
+        }
+        $klasa->Sastojci = $sastojciString;
+        
+        //Zaokruzivanje na jednu decimalu
+        $klasa->Ocena = round($this->M_Recenzija->ocenaJela($jelo->IdJelo)->ocena, 1);
+        $klasa->Opis = $jelo->Opis;
+        $klasa->IdRestoran = $jelo->IdKorisnik;
+        $klasa->imeRestorana = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik)->imeRestorana;
+        
+        //recenzije
+        $recenzije = $this->M_Recenzija->dohvatiRecenzijeJela($jelo->IdJelo);
+        
+        $niz = [];
+        
+        foreach ($recenzije as $recenzija) {
+            $objekat = new stdClass();
+            $objekat->Komentar = $recenzija->Komentar;
+            $gurman = $this->M_Gurman->dohvatiGurmana($recenzija->IdKorisnik);
+            $slikaGurmanaId = $gurman->IdSlika;
+            $objekat->Slika = $this->M_Slika->dohvatiPutanju($slikaGurmanaId)->Putanja;
+            $objekat->Ime = $gurman->Ime;
+            $objekat->Prezime = $gurman->Prezime;
+            
+            $niz [] = $objekat;
+        }
+        
+        
+        $this->load->view("sablon/headerRestoran.php", ['title' => $klasa->Naziv]);
+        $this->load->view("stranice/prikazJela.php", ['jelo' => $klasa, 'recenzije' => $niz]);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function izmeniJelo($idJela, $poruka=null){
+        $korisnik = $this->session->userdata('korisnik');
+        $jelo = $this->M_Jelo->dohvatiJelo($idJela);
+        
+        $info['naziv'] = $jelo->Naziv;
+        $info['opisjela'] = $jelo->Opis;
+        
+        $this->load->view("sablon/headerRestoran.php", ['title' => 'Izmena jela']);
+        $this->load->view("stranice/izmenaJela.php", ['poruka' => $poruka, 'naziv' => $info['naziv'], 'opisjela' => $info['opisjela'], 'idJela' => $idJela]);
+        $this->load->view("sablon/footer.php");
+    }
+    
+    public function ukloniJelo($idJela){
+            $this->M_Jelo->obrisiJelo($idJela);
+            $this->prikaziMeniRestorana();
+        
+    }
 }

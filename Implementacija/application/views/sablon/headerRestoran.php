@@ -7,8 +7,8 @@
                     function append()
                     {
 
-                                var noviSastojak = document.getElementById('noviSastojak').value;
-                                document.getElementById('noviSastojak').value = '';
+                        var noviSastojak = document.getElementById('noviSastojak').value;
+                        document.getElementById('noviSastojak').value = '';
                         var i = parseInt(document.getElementById( "iCheckboxes" ).value);
                         var cb = document.createElement( "input" );
                         cb.type = "checkbox";
@@ -93,16 +93,16 @@
 			}
                         
 			.center{
-                text-align: center;
-            }
+                                text-align: center;
+                        }
                         
-            .sredina{
+                        .sredina{
 				margin-left:auto;
 				margin-right:auto;
 				vertical-align:middle;
 			}
                         
-            .box{
+                        .box{
 			    background-color: white;
 				width: 50%;
 				border: 1px solid darkgray;
@@ -111,36 +111,36 @@
 				overflow:auto;
 			}
                         
-            .slika{
+                        .slika{
 				float:left;
 			}
                         
-            .star{
+                        .star{
 				margin-top: 2px;
 				margin-right: 5px;
 				height: 20px;
 				width: 20px;
 			}
                         
-            .stil {
+                        .stil {
 				font-family:"Georgia",serif;
 				font-style:italic;
 			}
                         
-            .border {
+                        .border {
 				padding:1px;
 				border:4px solid #021a40;
 			}
                         
-            .gore{
+                        .gore{
 				vertical-align:top;
 			}
                         
                         table.center {
-         margin-left:auto;
-         margin-right:auto;
-         vertical-align:middle;
-         }
+                            margin-left:auto;
+                            margin-right:auto;
+                            vertical-align:middle;
+                        }
 		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	</head>
