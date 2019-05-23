@@ -35,4 +35,14 @@ class M_Grad extends CI_Model{
         
         $this->M_Drzava->azuriranjeDrzave($promenljive, $idDrzava);
     }
+    
+    //input: idGrada ciji naziv zelimo
+    //output: Naziv grada ciji smo idGrada prosledili
+    public function dohvatiNazivGrada($idGrad) {
+        $this->db->select('Naziv');
+        $this->db->from('Grad');
+        $this->db->where('IdGrad', $idGrad);
+        
+        return $this->db->get()->row();
+    }
 }

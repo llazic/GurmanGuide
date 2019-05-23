@@ -26,6 +26,15 @@ extends CI_Model{
         return $this->db->get()->row();
     }
     
+    //input parametar: idJela
+    public function dohvatiRecenzijeJela($id) {
+        $this->db->select("*");
+        $this->db->from('recenzija');
+        $this->db->where('IdJelo', $id);
+        $this->db->where('Pregledano', 'P');
+        
+        return $this->db->get()->result();
+    }
     
     public function dohvatiRecenziju($idKorisnik, $idJelo){
         $this->db->from('recenzija');
@@ -72,5 +81,42 @@ extends CI_Model{
                 . "and j.IdSlika = s.IdSlika");
         
         return $query->result();
+    }
+    
+    //input: idJela
+    //output: prosecna ocena jela
+    public function ocenaJela($idJelo) {
+        $this->db->select('avg(Ocena) as ocena');
+        $this->db->from('recenzija');
+        $this->db->where('IdJelo', $idJelo);
+        $this->db->where('Pregledano', 'P');
+        
+        return $this->db->get()->row();
+    }
+    
+    //Ovaj upit mora da se lepse uradi -> MAX(AVG)
+    //Moze da se promeni da vrati sve prosecne ocene, a onda se programski nadje maks avg vrednosti
+    //output: IdJela sa najvecom prosecnom ocenom
+    //ovo se korisiti za main
+    public function dohvatiTopJelo() {
+        $this->db->select('IdJelo');
+        $this->db->from('recenzija');
+        $this->db->group_by('IdJelo');
+        $this->db->order_by('avg(Ocena)', 'DESC');
+        
+        return $this->db->get()->row();
+    }
+    
+    //input: jelo ciju recenziju zelimo
+    //output: bilo koja recenzija unetog jela koja ima ocenu vecu ili jednaku sa 4
+    public function dohvatiTopRecenziju($idJelo) {
+        $this->db->select('*');
+        $this->db->from('recenzija');
+        $this->db->where('IdJelo', $idJelo);
+        $this->db->where('Ocena >= 4');
+        $this->db->where('Pregledano', 'P');
+        $this->db->order_by('rand()');
+        
+        return $this->db->get()->row();
     }
 }

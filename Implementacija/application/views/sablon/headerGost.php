@@ -111,7 +111,9 @@
                                 margin-right: 20%;
                                 margin-top: 2%;
                                 margin-bottom: 2%;
-                                width: 55%
+                                width: 55%;
+                                height: 170px;
+                                 
                         }
                         .topnav {
                           overflow: hidden;
@@ -220,7 +222,12 @@
                        .center{
                             text-align:center;
 			}
-
+                        
+                        .sredina{
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
 		</style>
 	</head>
 	<body>
