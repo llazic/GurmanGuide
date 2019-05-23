@@ -9,7 +9,7 @@
 /**
  * Description of C_Administrator
  *
- * @author Lazar
+ * @author Nikola
  */
 class C_Administrator extends CI_Controller{
     public function __construct() {
@@ -33,9 +33,25 @@ class C_Administrator extends CI_Controller{
     }
     
     public function index(){
-        
+         $this->load->view('sablon/headerAdmin.php', ['title' => 'Pregled profila']);
+         //fali nesto ovde
+          $this->load->view('sablon/footer.php');
     }
-    
+    public function upravljanje_jelima() {
+        $jela = $this->M_Jelo->dohvatiNepregledanaJela();
+        $sastojci = NULL;
+        $rest = NULL;
+        if($jela!=NULL){
+            foreach ($jela as $jelo) {
+                $sastojci[ $jelo->IdJelo ] = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+                $rest[$jelo->IdJelo] = $this->M_Restoran->dohvatiIme($jelo->IdKorisnik);
+             
+            }
+        }
+        $this->load->view('sablon/headerAdmin.php', ['title' => 'Pregled profila']);
+        $this->load->view('stranice/upravljanjeJelima.php',['jela'=>$jela,'sastojci'=>$sastojci,'restoran'=>$rest]);
+        $this->load->view('sablon/footer.php');
+    }
     public function izlogujSe() {
         $korisnik = new stdClass();
         $korisnik->tipKorisnika = 'gost';

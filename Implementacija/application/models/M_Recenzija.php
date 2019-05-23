@@ -73,4 +73,8 @@ extends CI_Model{
         
         return $query->result();
     }
+    
+    public function dohvatiNepregledaneRecenzije() {
+            return   $this->db->select("*")->from('recenzija')->where('Pregledano', 'N')->result();      
+    }
 }

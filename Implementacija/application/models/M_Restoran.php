@@ -25,6 +25,10 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->row();
     }
     
+    public function dohvatiIme($id) {
+        return $this->db->select('Naziv')->from('restoran')->where('IdKorisnik', $id)->get()->row();
+    }
+    
     public function proveraSifre($korime, $sifra) {
         $this->db->select('*');
         $this->db->from('korisnik, restoran');

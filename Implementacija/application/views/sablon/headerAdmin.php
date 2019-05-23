@@ -116,11 +116,11 @@
 	</head>
 	<body>
 		<div class="header">
-			<a href="land.html"> <img src="../images/logo.png" width="300" class="logo"></a>
+			<a href="<?php echo site_url('C_Admin/index')?>"> <img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo"></a>
 			<div class="mojprofil">
-				<a href="upravljanjeRegistracijamaRestorana.html" align="right"> Upravljanje registracijama</a> &nbsp;
-				<a href="upravljanjeRecenzijama.html" align="right"> Upravljanje recenzijama</a> &nbsp;
-				<a href="upravljanjeJelima.html" align="right"> Upravljanje jelima</a> &nbsp;
-				<a href="land.html" align="right"> Izloguj se</a>
+				<a href="<?php echo site_url('C_Administrator/upravljanje_registracijama');?>" align="right"> Upravljanje registracijama</a> &nbsp;
+				<a href="<?php echo site_url('C_Administrator/upravljanje_recenzijama');?>" align="right"> Upravljanje recenzijama</a> &nbsp;
+				<a href="<?php echo site_url('C_Administrator/upravljanje_jelima');?>" align="right"> Upravljanje jelima</a> &nbsp;
+				<a href="<?php echo site_url('C_Administrator/izlogujSe');?>" align="right"> Izloguj se</a>
 			</div>
 		</div>

@@ -70,6 +70,8 @@ class M_Jelo extends CI_Model{
         $this->db->where('IdJelo', $idJela);
         $this->db->delete('jelo');
     }
-    
+     public function dohvatiNepregledanaJela() {
+            return $this->db->select("*")->from('jelo')->where('Pregledano', 'N')->get()->result();      
+    }
 
 }
