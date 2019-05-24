@@ -17,16 +17,36 @@ extends CI_Model{
         parent::__construct();
     }
 
-    //input parametar: idJela
+    /**
+     * Funckija za dohvatanje jedne recenzije jela, ciji ID se prosledjuje.
+     * 
+     * @param type $id ID jela cija recenzija se dohvata.
+     * @return stdClass Vraca objekat sa poljima IdKorisnik, Ocena, Komentar, IdJelo, Pregledano. 
+     * Ukoliko ne postoji ni jedna recenzija vraca se null.
+     */
     public function dohvatiJednuRecenziju($id) {
-        $this->db->select("*");
-        $this->db->from('recenzija');
-        $this->db->where('IdJelo', $id);
+       
+        $topOcena = $this->dohvatiTopOcenu($id);
+        
+        if ($topOcena != null) {
+            $this->db->select("*");
+            $this->db->from('recenzija');
+            $this->db->where('IdJelo', $id);
+            $this->db->where('Ocena', $topOcena);
 
-        return $this->db->get()->row();
+            return $this->db->get()->row();
+        } else {
+            return null;
+        }
     }
 
-    //input parametar: idJela
+    /**
+     * Funckija za dohvatanje svih pregledanih recenzija jela, ciji ID se prosledjuje.
+     * 
+     * @param type $id ID jela cija recenzija se dohvata.
+     * @return stdClass Vraca objekat sa poljima IdKorisnik, Ocena, Komentar, IdJelo, Pregledano. 
+     * Ukoliko ne postoji ni jedna recenzija vraca se null.
+     */
     public function dohvatiRecenzijeJela($id) {
         $this->db->select("*");
         $this->db->from('recenzija');
@@ -86,8 +106,14 @@ extends CI_Model{
     public function dohvatiNepregledaneRecenzije() {
             return   $this->db->select("*")->from('recenzija')->where('Pregledano', 'N')->result();
     }
-    //input: idJela
-    //output: prosecna ocena jela
+    
+    /**
+     * Funckija za dohvatanje prosecne ocene jela, ciji ID se prosledjuje.
+     * 
+     * @param type $idJelo
+     * @return stdClass Vraca objekat sa poljem ocena. 
+     * Ukoliko ne postoji ni jedna recenzija vraca se null.
+     */
     public function ocenaJela($idJelo) {
         $this->db->select('avg(Ocena) as ocena');
         $this->db->from('recenzija');
@@ -101,12 +127,20 @@ extends CI_Model{
     //Moze da se promeni da vrati sve prosecne ocene, a onda se programski nadje maks avg vrednosti
     //output: IdJela sa najvecom prosecnom ocenom
     //ovo se korisiti za main
+    /**
+     * Funkcija za dohvatanje jela na pocetnoj stranici. Funckija vraca bilo koje jelo cija je prosecna ocena veca od 4.
+     * 
+     * @return stdClass Vraca objekat sa poljem IdJelo
+     * Ukoliko takvo jelo ne postoji, vraca se null (ni jedno jelo se ne ispisuje na pocetnoj stranici).
+     */
     public function dohvatiTopJelo() {
         $this->db->select('IdJelo');
         $this->db->from('recenzija');
+        $this->db->where('Pregledano', 'P');
         $this->db->group_by('IdJelo');
-        $this->db->order_by('avg(Ocena)', 'DESC');
-
+        $this->db->having('avg(Ocena) >= 4');
+        $this->db->order_by('rand()');
+        
         return $this->db->get()->row();
     }
 
@@ -120,6 +154,22 @@ extends CI_Model{
         $this->db->where('Pregledano', 'P');
         $this->db->order_by('rand()');
 
+        return $this->db->get()->row();
+    }
+    
+    /**
+     * Funkcija za dohvatanje najbolje ocene nekog jela
+     * 
+     * @param type $idJelo ID jela ciju najbolju ocenu trazimo.
+     * @return stdClass Vraca objekat sa poljem topOcena
+     * Ukoliko ne postoji ni jedna pregledana recenzija, vraca se null
+     */
+    public function dohvatiTopOcenu($idJelo) {
+        $this->db->select('max(Ocena) as topOcena');
+        $this->db->from('recenzija');
+        $this->db->where('IdJelo', $idJelo);
+        $this->db->where('Pregledano', 'P');
+        
         return $this->db->get()->row();
     }
 }

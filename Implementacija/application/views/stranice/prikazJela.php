@@ -111,11 +111,16 @@
                             <div class='komentar'>";
                                 echo "<font class='ocena'>$jelo->Ocena</font>/5";
                       echo "</div>";
-                      echo "<div class='btn-group'>";
-                        echo "<button class='button' name='recenzijaBtn' onclick=\"location.href='";
-                        echo site_url("C_Gost/napisiRecenziju/");
-                        echo "'\">Napisi recenziju</button>";
-                      echo "</div>";
+                      //Dugme za ostavljanje recenzije prikazati samo ako je korisnik ulogovan!
+                      if (($this->session->userdata('korisnik')) != NULL) {
+                          if ($this->session->userdata('korisnik')->tipKorisnika == "gurman") {
+                            echo "<div class='btn-group'>";
+                              echo "<button class='button' name='recenzijaBtn' onclick=\"location.href='";
+                              echo site_url("C_Gost/napisiRecenziju/");
+                              echo "'\">Napisi recenziju</button>";
+                            echo "</div>";
+                          }
+                      }
                   echo "</td>";
                   echo "<td>";
                     echo "<div class='komentar'>
@@ -142,7 +147,13 @@
             foreach ($recenzije as $recenzija) {
                 echo "<div class='box'>
              <img src='$recenzija->Slika' class='slika' style='width:120px;height:120px;margin-right:40px;'/>";
-                echo "<p>$recenzija->Ime $recenzija->Prezime</p>";
+                echo "<p><a href='";
+                echo site_url("C_Gost/pregledProfilaGurmana/$recenzija->idK");
+                echo "'>$recenzija->kIme</a>";
+                for ($i = 0; $i < $recenzija->Ocena; $i++){
+                    echo "<img src='http://localhost/GurmanGuide/images/star.png' style='margin-top:2px; margin:right:5px; height:20px; width:20px;' align='right'>";
+                }
+                echo "</p>";
                 echo "<font class='stil'>'$recenzija->Komentar'</font>";
                 echo "</p>
                     </div>

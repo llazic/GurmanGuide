@@ -50,6 +50,13 @@ class M_Gurman extends CI_Model{
         $this->db->update('Gurman');
     }
     
+    /**
+     * Funckija za proveru korisnickog imena gurmana.
+     * 
+     * @param type $korime
+     * @return stdClass Vraca objekat sa poljima IdKorisnik, KorisnickoIme, Lozinka, Email
+     * Ime, Prezime, Pol, IdSlika ukoliko korisnicko ime postoji, inace vraca null.
+     */
     public function proveraKorImena($korime) {
         $this->db->select('*');
         $this->db->from('korisnik, gurman');
@@ -59,6 +66,14 @@ class M_Gurman extends CI_Model{
         return $this->db->get()->result();
     }
     
+    /**
+     * Funckija za proveru sifre korisnika.
+     * 
+     * @param type $korime Korisnicko ime korisnika
+     * @param type $sifra Sifra korisnika
+     * @return stdClass Vraca objekat sa poljima IdKorisnik, KorisnickoIme, Lozinka, Email
+     * Ime, Prezime, Pol, IdSlika ukoliko sifra odgovara korisnickom imenu, inace vraca null.
+     */
     public function proveraSifre($korime, $sifra) {
         $this->db->select('*');
         $this->db->from('korisnik, gurman');
@@ -69,6 +84,11 @@ class M_Gurman extends CI_Model{
         return $this->db->get()->row();
     }
     
+    /**
+     * Dohvata poslednji ID u tabeli korisnik
+     * 
+     * @return stdClass Objekat sa poljem poslednjiId
+     */
     public function poslednjiId() {
         $this->db->select('max(korisnik.IdKorisnik) as poslednjiId');
         $this->db->from('korisnik');
@@ -76,6 +96,12 @@ class M_Gurman extends CI_Model{
         return $this->db->get()->row();
     }
     
+    /**
+     * Funkcija za evidentiranje gurmana u bazi.
+     * 
+     * @param type $gurman Asocijativni niz sa kljucevima IdKorisnik, KorisnickoIme, Lozinka, Email
+     * Ime, Prezime, Pol, IdSlika i odgovarajucim vrednostima.
+     */
     public function unesiGurmana($gurman) {
         $podaciKorisnik = array(
             'IdKorisnik' => $gurman->IdKorisnik,

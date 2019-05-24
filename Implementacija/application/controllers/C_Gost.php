@@ -51,6 +51,9 @@ class C_Gost extends CI_Controller{
         $klasa->Komentar = $recenzija->Komentar;
         $klasa->Ocena = $recenzija->Ocena;
         $klasa->Naziv = $jelo->Naziv;
+        $gurman = $this->M_Gurman->dohvatiGurmana($recenzija->IdKorisnik);
+        $klasa->kIme = $gurman->KorisnickoIme;
+        $klasa->idK = $gurman->IdKorisnik;
         
         $this->load->view("sablon/headerGost.php", ['title' => 'GurmanGuide']);
         $this->load->view('stranice/main.php', ['jelo' => $klasa]);
@@ -349,7 +352,11 @@ class C_Gost extends CI_Controller{
             $klasa = new stdClass();
             $klasa->IdJelo = $jelo->IdJelo;
             $klasa->IdRestoran = $jelo->IdKorisnik;
-            $klasa->Opis = $jelo->Opis;
+            if ($jelo->Opis != null) {
+                $klasa->Opis = $jelo->Opis;
+            }else {
+                $klasa->Opis = "Trenutno ne postoji opis.";
+            }
             $klasa->Naziv = $jelo->Naziv;
             $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
             $klasa->Recenzija = $this->M_Recenzija->dohvatiJednuRecenziju($jelo->IdJelo);
@@ -375,7 +382,11 @@ class C_Gost extends CI_Controller{
                 
             }
             
-            $klasa->Sastojci = $sastojciString;
+            if ($sastojciString != "") {
+                $klasa->Sastojci = $sastojciString;
+            } else {
+            $klasa->Sastojci = "Sastojci trenutno nisu poznati.";
+            }
             
             $niz [] = $klasa;
         }
@@ -396,7 +407,11 @@ class C_Gost extends CI_Controller{
             $klasa = new stdClass();
             $klasa->IdJelo = $jelo->IdJelo;
             $klasa->IdRestoran = $jelo->IdKorisnik;
-            $klasa->Opis = $jelo->Opis;
+            if ($jelo->Opis != null) {
+                $klasa->Opis = $jelo->Opis;
+            }else {
+                $klasa->Opis = "Trenutno ne postoji opis.";
+            }
             $klasa->Naziv = $jelo->Naziv;
             $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
             $klasa->Recenzija = $this->M_Recenzija->dohvatiJednuRecenziju($jelo->IdJelo);
@@ -422,7 +437,11 @@ class C_Gost extends CI_Controller{
                 
             }
             
-            $klasa->Sastojci = $sastojciString;
+            if ($sastojciString != "") {
+                $klasa->Sastojci = $sastojciString;
+            } else {
+                $klasa->Sastojci = "Sastojci trenutno nisu poznati.";
+            }
             
             $niz [] = $klasa;
         }
@@ -444,7 +463,11 @@ class C_Gost extends CI_Controller{
             $klasa = new stdClass();
             $klasa->IdJelo = $jelo->IdJelo;
             $klasa->IdRestoran = $jelo->IdKorisnik;
-            $klasa->Opis = $jelo->Opis;
+            if ($jelo->Opis != null) {
+                $klasa->Opis = $jelo->Opis;
+            }else {
+                $klasa->Opis = "Trenutno ne postoji opis.";
+            }
             $klasa->Naziv = $jelo->Naziv;
             $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
             $klasa->Recenzija = $this->M_Recenzija->dohvatiJednuRecenziju($jelo->IdJelo);
@@ -470,7 +493,11 @@ class C_Gost extends CI_Controller{
                 
             }
             
-            $klasa->Sastojci = $sastojciString;
+           if ($sastojciString != "") {
+                $klasa->Sastojci = $sastojciString;
+            } else {
+                $klasa->Sastojci = "Sastojci trenutno nisu poznati.";
+            }
             
             $niz [] = $klasa;
         }
@@ -574,7 +601,6 @@ class C_Gost extends CI_Controller{
     
     public function prikaziJelo($id) {
         $jelo = $this->M_Jelo->dohvatiJelo($id);
-        $recenzije = $this->M_Recenzija->dohvatiRecenzijeJela($id);
         
         $klasa = new stdClass();
         $klasa->Naziv = $jelo->Naziv;
@@ -592,11 +618,19 @@ class C_Gost extends CI_Controller{
             }
 
         }
-        $klasa->Sastojci = $sastojciString;
+        if ($sastojciString != "") {
+            $klasa->Sastojci = $sastojciString;
+        } else {
+            $klasa->Sastojci = "Sastojci trenutno nisu poznati.";
+        }
         
         //Zaokruzivanje na jednu decimalu
         $klasa->Ocena = round($this->M_Recenzija->ocenaJela($jelo->IdJelo)->ocena, 1);
-        $klasa->Opis = $jelo->Opis;
+        if ($jelo->Opis != null) {
+            $klasa->Opis = $jelo->Opis;
+        }else {
+            $klasa->Opis = "Trenutno ne postoji opis.";
+        }
         $klasa->IdRestoran = $jelo->IdKorisnik;
         $klasa->imeRestorana = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik)->imeRestorana;
         
@@ -611,8 +645,9 @@ class C_Gost extends CI_Controller{
             $gurman = $this->M_Gurman->dohvatiGurmana($recenzija->IdKorisnik);
             $slikaGurmanaId = $gurman->IdSlika;
             $objekat->Slika = $this->M_Slika->dohvatiPutanju($slikaGurmanaId)->Putanja;
-            $objekat->Ime = $gurman->Ime;
-            $objekat->Prezime = $gurman->Prezime;
+            $objekat->kIme = $gurman->KorisnickoIme;
+            $objekat->idK = $gurman->IdKorisnik;
+            $objekat->Ocena = $recenzija->Ocena;
             
             $niz [] = $objekat;
         }
