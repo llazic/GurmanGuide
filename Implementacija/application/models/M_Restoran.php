@@ -50,6 +50,10 @@ class M_Restoran extends CI_Model{
         $this->db->set('Adresa', $promenljive['adresarestorana']);
         $this->db->set('RadnoVreme', $promenljive['radnovreme']);
         $this->db->set('Telefon', $promenljive['telefon']);
+        $this->db->set('Pregledano', 'N');
+        if (isset($promenljive['idSlika'])){
+            $this->db->set('IdSlika', $promenljive['idSlika']);
+        }
         $this->db->where('IdKorisnik', $promenljive['id']);
         $this->db->update('Restoran');
         
@@ -165,13 +169,15 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->result();
     }
     
-    public function dohvatiTopTriJelaRestorana($imeRestorana){
-        
-        $query = $this->db->query("SELECT j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika "
-                                . "FROM restoran r, jelo j "
-                                . "WHERE r.Naziv ='".$imeRestorana."' "
-                                . "AND r.IdKorisnik = j.IdKorisnik ");
-        return $query->get()->result();
+    public function dohvatiTopTriJelaRestorana($idRestorana){
+        $query = $this->db->query("SELECT j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika, sum(r.Ocena)/count(r.Ocena) as Ocena "
+                                . "FROM jelo j, recenzija r "
+                                . "WHERE j.IdKorisnik = ".$idRestorana." "
+                                . "AND j.Pregledano = 'P' "
+                                . "AND j.IdJelo = r.IdJelo "
+                                . "GROUP BY Naziv, Opis, IdJelo, IdKorisnik, IdSlika "
+                                . "ORDER BY Ocena DESC");
+        return $query->result();
     
     }
     
