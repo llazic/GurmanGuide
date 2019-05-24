@@ -37,7 +37,7 @@ class C_Administrator extends CI_Controller{
          //fali nesto ovde
           $this->load->view('sablon/footer.php');
     }
-    public function upravljanje_jelima() {
+    public function upravljanjeJelima() {
         $jela = $this->M_Jelo->dohvatiNepregledanaJela();
         $sastojci = NULL;
         $rest = NULL;

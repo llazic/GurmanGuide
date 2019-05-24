@@ -4,10 +4,10 @@
 		foreach ($jela as $jelo){
 			echo "<div class='box'>";
 			echo "<div class='btn-group-green'>";
-			echo "<button class='button'>Pregledano</button>";
+			echo "<button class='button' onclick='".site_url('C_Administrator/pregledaj_jelo/').$jelo->IdJelo."'>Pregledano</button>";
 			echo "</div>";
 			echo "<div class='btn-group-red'>";
-			echo "<button class='button'>Odbij</button>";
+			echo "<button class='button' onclick='".site_url('C_Administrator/obrisi_jelo/').$jelo->IdJelo."'>Obrisi</button>";
 			echo "</div>";
 			echo "<p>Restoran: <font class='stil'>";
 			echo $restoran[$jelo->IdJelo]->Naziv;
