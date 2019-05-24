@@ -15,10 +15,14 @@ class C_Restoran extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $korisnik = new stdClass();
-        $korisnik->tipKorisnika = 'restoran';
-        $this->session->set_userdata('korisnik', $korisnik);
+        
         $korisnik = $this->session->userdata('korisnik');
+        
+        if ($korisnik == null){
+            $korisnik = new stdClass();
+            $korisnik->tipKorisnika = 'gost';
+            $this->session->set_userdata('korisnik', $korisnik);
+        }
         switch ($korisnik->tipKorisnika) {
             case 'gost': redirect('C_Gost');
                 break;
@@ -30,14 +34,26 @@ class C_Restoran extends CI_Controller {
     }
 
     public function index() { //u indexu da se ide na land
-        $this->load->view('sablon/headerRestoran.php', ['title' => 'Pretraga']);
-        //dodati sredisnji deo
+        $topJeloId = $this->M_Recenzija->dohvatiTopJelo();
+        $recenzija = $this->M_Recenzija->dohvatiTopRecenziju($topJeloId->IdJelo);
+        $jelo = $this->M_Jelo->dohvatiJelo($topJeloId->IdJelo);
+        
+        $klasa = new stdClass();
+        $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+        $klasa->IdJelo = $topJeloId->IdJelo;
+        $klasa->Komentar = $recenzija->Komentar;
+        $klasa->Ocena = $recenzija->Ocena;
+        $klasa->Naziv = $jelo->Naziv;
+        
+        $this->load->view("sablon/headerRestoran.php", ['title' => 'GurmanGuide']);
+        $this->load->view('stranice/main.php', ['jelo' => $klasa]);
         $this->load->view('sablon/footer.php');
     }
 
-    public function izmenaRestorana() {
+    public function izmenaRestorana($poruka = null) {
         $korisnik = $this->session->userdata('korisnik');
-        $restoran = $this->M_Restoran->dohvatiRestoran(3);
+        $restoran = $this->M_Restoran->dohvatiRestoran($korisnik->id);
+        $slika = $this->M_Slika->dohvatiPutanju($restoran->IdSlika);
 
         $info['korime'] = $restoran->korime;
         $info['lozinka'] = $restoran->lozinka;
@@ -48,15 +64,17 @@ class C_Restoran extends CI_Controller {
         $info['adresaRestorana'] = $restoran->adresaRestorana;
         $info['gradRestorana'] = $restoran->gradRestorana;
         $info['drzavaRestorana'] = $restoran->drzavaRestorana;
-        // $this->M_Restoran->proveriIzmene($restoran);
-        $this->load->view('sablon/headerRestoran.php', ['title' => 'Pretraga']);
+        $info['slika'] = $slika->Putanja;
+        $info['poruka'] = $poruka;
+        
+        $this->load->view('sablon/headerRestoran.php', ['title' => 'Moj profil']);
         $this->load->view('stranice/izmenaRestorana.php', $info);
         $this->load->view('sablon/footer.php');
     }
 
     public function pregledRestorana() {
         $korisnik = $this->session->userdata('korisnik');
-        $restoran = $this->M_Restoran->dohvatiRestoran(3);
+        $restoran = $this->M_Restoran->dohvatiRestoran($korisnik->id);
 
         $info['korime'] = $restoran->korime;
         $info['lozinka'] = $restoran->lozinka;
@@ -72,16 +90,20 @@ class C_Restoran extends CI_Controller {
         $input = str_replace('%20', ' ', $info['imeRestorana']);
         $input = trim($input);
         
-        $jela = $this->M_Restoran->dohvatiJelaRestorana($input);
+        $jela = $this->M_Restoran->dohvatiTopTriJelaRestorana($korisnik->id);//$this->M_Restoran->dohvatiJelaRestorana($input);
         
         $niz = [];
         
+        $brojacJela = 0;
         foreach ($jela as $jelo) {
+            $brojacJela++;
+            if ($brojacJela == 4) break;
             $klasa = new stdClass();
             $klasa->IdJelo = $jelo->IdJelo;
             $klasa->IdRestoran = $jelo->IdKorisnik;
             $klasa->Opis = $jelo->Opis;
             $klasa->Naziv = $jelo->Naziv;
+            $klasa->Ocena = round($jelo->Ocena);
             $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
             
       
@@ -132,6 +154,31 @@ class C_Restoran extends CI_Controller {
             return FALSE;
         }
     }
+    
+    public function upload($putanja, $imeSlike, $vrstaSlike) {
+        if(!file_exists($putanja)) {
+           mkdir($putanja, 0777, true);
+        }
+        if (isset($_FILES["$vrstaSlike"]) && $_FILES["$vrstaSlike"]['error'] != UPLOAD_ERR_NO_FILE) {
+            $config['upload_path'] = $putanja;
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 1000;
+            $config['max_width'] = 2048;
+            $config['max_height'] = 1024;
+            $config['file_name'] = $imeSlike;
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload("$vrstaSlike")) {
+                //$message = (string)$this->upload->display_errors();
+                return null;
+            } else {
+                //upload uspesan
+                $ekstenzija = $this->upload->data('file_ext');
+                return "$imeSlike" ."$ekstenzija";
+            }
+        } else {
+            return null;
+        }
+    }
 
     public function sacuvajIzmeneRestorana() {
         $promenljive['lozinkarestoran'] = $this->input->post('lozinkarestoran');
@@ -155,8 +202,54 @@ class C_Restoran extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $this->izmenaRestorana();
         } else {
-            //$korisnik = $this->session->userdata('korisnik');
-            $promenljive['id'] = 3;
+            $korisnik = $this->session->userdata('korisnik');
+            $restoran = $this->M_Restoran->dohvatiRestoran($korisnik->id);
+            
+            if (isset($_FILES['slikarestoran']) && $_FILES['slikarestoran']['error'] != UPLOAD_ERR_NO_FILE) {
+                
+                if (file_exists("./uploads/restoran/".$korisnik->id."/profil.png")){
+                    unlink("./uploads/restoran/".$korisnik->id."/profil.png");
+                    rmdir("./uploads/restoran/".$korisnik->id);
+                }
+                if (file_exists("./uploads/restoran/".$korisnik->id."/profil.jpg")){
+                    unlink("./uploads/restoran/".$korisnik->id."/profil.jpg");
+                    rmdir("./uploads/restoran/".$korisnik->id);
+                }
+                if (file_exists("./uploads/restoran/".$korisnik->id."/profil.gif")){
+                    unlink("./uploads/restoran/".$korisnik->id."/profil.gif");
+                    rmdir("./uploads/restoran/".$korisnik->id);
+                }
+                
+                $putanjaDoFoldera = "./uploads/restoran/".$korisnik->id;
+                if (($nazivSlike = $this->upload($putanjaDoFoldera, "profil", "slikarestoran")) == null) {
+                    $this->izmenaRestorana("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
+                            . "Podržani formati: gif, jpg, png. <br />"
+                            . "Maksimalna veličina 1000 bajtova. <br />"
+                            . "Maksimalna rezolucija 2048x1024px.");
+                    return;
+                } else {
+                    if ($restoran->IdSlika == 2){
+                        //ako je do sada bila genericka slika
+                        //treba da se napravi nova slika
+                        $poslednjaSlika = $this->M_Slika->poslednjiId()->poslednjiId;
+                        $slikaId = $poslednjaSlika + 1;
+
+                        $slika = new stdClass();
+                        $slika->IdSlika = $slikaId;
+                        $slika->Putanja = "http://localhost/GurmanGuide/Implementacija/uploads/restoran/" .$korisnik->id ."/" .$nazivSlike;
+                        $this->M_Slika->unesiSliku($slika);
+                        
+                        
+                        $promenljive['idSlika'] = $slikaId;
+                    } else {
+                        //ako nije, samo menjamo putanju
+                        //mada da li je potrebno ako je ista putanja??
+                        $putanja = "http://localhost/GurmanGuide/Implementacija/uploads/restoran/" .$korisnik->id ."/" .$nazivSlike;
+                        $this->M_Slika->promeniPutanjuSlike($restoran->IdSlika, $putanja);
+                    }
+                }
+            }
+            $promenljive['id'] = $korisnik->id;
             $this->M_Restoran->azuriranjeRestorana($promenljive);
             $this->index('Uspesno napravljene izmene.');
         }
@@ -196,11 +289,12 @@ class C_Restoran extends CI_Controller {
     }
 
     public function unesiJelo() {
+        $korisnik = $this->session->userdata('korisnik');
         var_dump($_POST);
         $poruka = '';
         $uneto['naziv'] = $this->input->post('naziv');
         $uneto['opisjela'] = $this->input->post('opisjela');
-        $uneto['idKorisnik'] = 3;
+        $uneto['idKorisnik'] = $korisnik->id;
 
         $this->form_validation->set_rules('naziv', 'Naziv', 'required|trim', array('required' => 'Niste uneli naziv jela.'));
         $this->form_validation->set_rules('opisjela', 'Opis', 'required|trim', array('required' => 'Niste uneli opis jela.'));
@@ -247,11 +341,16 @@ class C_Restoran extends CI_Controller {
         }
     }
     
-    public function pretragaJelaPoRestoranu($val) {
+    public function pretragaJelaPoRestoranu($val, $meni = null) {
+        $korisnik = $this->session->userdata('korisnik');
         $input = str_replace('%20', ' ', $val);
         $input = trim($input);
         
-        $jela = $this->M_Restoran->dohvatiJelaRestorana($input);
+        if ($meni == null) { //rezultat pretrage
+            $jela = $this->M_Restoran->dohvatiJelaRestorana($input);
+        } else { // u slucaju da je rec o meniju restorana
+            $jela = $this->M_Restoran->dohvatiJelaRestoranaId($korisnik->id);
+        }
         
         $niz = [];
         
@@ -290,14 +389,39 @@ class C_Restoran extends CI_Controller {
             $niz [] = $klasa;
         }
         
-        $this->load->view("sablon/headerRestoran.php", ['title' => 'Meni restorana']);
-        $this->load->view("stranice/meniRestoranaIzUglaRestorana.php", ['jela' => $niz]);
-        $this->load->view('sablon/footer.php');
+        if ($meni != null){ // meni = 1 u slucaju da je potrebno ucitatu stranicu sa menijem restorana
+            $this->load->view("sablon/headerRestoran.php", ['title' => 'Meni restorana']);
+            $this->load->view("stranice/meniRestoranaIzUglaRestorana.php", ['jela' => $niz]);
+            $this->load->view('sablon/footer.php');
+        } else { //meni = null u slucaju da treba ucitati rezultat pretrage
+            $this->load->view("sablon/headerRestoran.php", ['title' => 'Rezultat pretrage']);
+            //$this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
+            $this->load->view('sablon/footer.php');
+        }
     }
     
     public function prikaziMeniRestorana(){
-        $imeRestorana = $this->M_Restoran->dohvatiRestoran(3)->imeRestorana;
-        $this->pretragaJelaPoRestoranu($imeRestorana);
+        $korisnik = $this->session->userdata('korisnik');
+        $imeRestorana = $this->M_Restoran->dohvatiRestoran($korisnik->id)->imeRestorana;
+        $this->pretragaJelaPoRestoranu($imeRestorana, 1);
+    }
+    
+    public function izmeniJelo($idJela, $poruka=null){
+        $korisnik = $this->session->userdata('korisnik');
+        $jelo = $this->M_Jelo->dohvatiJelo($idJela);
+        
+        $info['naziv'] = $jelo->Naziv;
+        $info['opisjela'] = $jelo->Opis;
+        
+        $this->load->view("sablon/headerRestoran.php", ['title' => 'Izmena jela']);
+        $this->load->view("stranice/izmenaJela.php", ['poruka' => $poruka, 'naziv' => $info['naziv'], 'opisjela' => $info['opisjela'], 'idJela' => $idJela]);
+        $this->load->view("sablon/footer.php");
+    }
+    
+    public function ukloniJelo($idJela){
+            $this->M_Jelo->obrisiJelo($idJela);
+            $this->prikaziMeniRestorana();
+        
     }
     
     public function prikaziJelo($id) {
@@ -351,21 +475,4 @@ class C_Restoran extends CI_Controller {
         $this->load->view('sablon/footer.php');
     }
     
-    public function izmeniJelo($idJela, $poruka=null){
-        $korisnik = $this->session->userdata('korisnik');
-        $jelo = $this->M_Jelo->dohvatiJelo($idJela);
-        
-        $info['naziv'] = $jelo->Naziv;
-        $info['opisjela'] = $jelo->Opis;
-        
-        $this->load->view("sablon/headerRestoran.php", ['title' => 'Izmena jela']);
-        $this->load->view("stranice/izmenaJela.php", ['poruka' => $poruka, 'naziv' => $info['naziv'], 'opisjela' => $info['opisjela'], 'idJela' => $idJela]);
-        $this->load->view("sablon/footer.php");
-    }
-    
-    public function ukloniJelo($idJela){
-            $this->M_Jelo->obrisiJelo($idJela);
-            $this->prikaziMeniRestorana();
-        
-    }
 }
