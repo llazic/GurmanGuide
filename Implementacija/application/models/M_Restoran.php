@@ -139,7 +139,15 @@ class M_Restoran extends CI_Model{
 //            return null;
 //        }
     }
-    
+    public function dohvatiNepregledaneRegistracije(){
+        
+        $query = $this->db->query("SELECT restoran.Naziv as imeRestorana, restoran.Telefon as brTelefona, restoran.Adresa as adresaRestorana, grad.Naziv as gradRestorana, drzava.Naziv as drzavaRestorana,  restoran.IdKorisnik as id, restoran.RadnoVreme as radnoVreme "
+                . "FROM restoran, grad, drzava "
+                . "WHERE restoran.IdGrad = grad.IdGrad AND grad.IdDrzava = drzava.IdDrzava AND restoran.Pregledano='N' ");
+        
+        return $query->result();
+       
+    }
     /**
      * Dohvata poslednji ID u tabeli korisnik
      * 
@@ -263,6 +271,16 @@ class M_Restoran extends CI_Model{
         $this->db->where('Pregledano', 'P');
         
         return $this->db->get()->result();
+    }
+    
+     public function postaviPregledano($id) {
+        $this->db->set('Pregledano', 'P');
+        $this->db->where('IdKorisnik', $id);
+        $this->db->update('restoran');
+    }
+    public function obrisiRegistraciju($id){
+        $this->db->where('IdKorisnik', $id);
+        $this->db->delete('restoran');
     }
     
 }

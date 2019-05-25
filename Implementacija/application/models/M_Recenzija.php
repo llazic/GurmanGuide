@@ -104,8 +104,29 @@ extends CI_Model{
     }
 
     public function dohvatiNepregledaneRecenzije() {
-            return   $this->db->select("*")->from('recenzija')->where('Pregledano', 'N')->result();
+        $query = $this->db->query("select kor.KorisnickoIme as NazKor, "
+                . "res.Naziv as NazRes, jel.Naziv as NazJel, "
+                . "rec.Komentar as Opis, rec.Ocena as Ocena, rec.IdKorisnik as IdKor, rec.IdJelo as IdJel "
+                . "from recenzija rec, jelo jel, restoran res, korisnik kor "
+                . "where kor.IdKorisnik = rec.IdKorisnik "
+                . "and rec.Pregledano = 'N' "
+                . "and rec.IdJelo = jel.IdJelo "
+                . "and jel.IdKorisnik = res.IdKorisnik");
+
+        return $query->result();
     }
+    public function postaviPregledano($idk,$idj) {
+        $this->db->set('Pregledano', 'P');
+        $this->db->where('IdKorisnik', $idk);
+        $this->db->where('IdJelo', $idj);
+        $this->db->update('recenzija');
+    }
+    public function obrisiRecenziju($idk,$idj){
+        $this->db->where('IdKorisnik', $idk);
+        $this->db->where('IdJelo', $idj);
+        $this->db->delete('recenzija');
+    }
+    
     
     /**
      * Funckija za dohvatanje prosecne ocene jela, ciji ID se prosledjuje.
