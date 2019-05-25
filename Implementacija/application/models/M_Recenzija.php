@@ -32,7 +32,7 @@ extends CI_Model{
             $this->db->select("*");
             $this->db->from('recenzija');
             $this->db->where('IdJelo', $id);
-            $this->db->where('Ocena', $topOcena);
+            $this->db->where('Ocena', $topOcena->topOcena);
 
             return $this->db->get()->row();
         } else {

@@ -50,6 +50,11 @@ class M_Gurman extends CI_Model{
         $this->db->update('Gurman');
     }
     
+    public function promeniSlikuGurmanu($idGurman, $idSlika){
+        $this->db->set('IdSlika', $idSlika);
+        $this->db->where('IdKorisnik', $idGurman);
+        $this->db->update('Gurman');
+    }
     /**
      * Funckija za proveru korisnickog imena gurmana.
      * 

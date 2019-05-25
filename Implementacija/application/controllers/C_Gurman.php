@@ -143,10 +143,16 @@ class C_Gurman extends CI_Controller {
                 
                 $putanjaDoFoldera = "./uploads/gurman/".$korisnik->id;
                 if (($nazivSlike = $this->upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
+                    if ($gurman->IdSlika != 1) {
+                        $prosliId = $gurman->IdSlika;
+                        $this->M_Gurman->promeniSlikuGurmanu($korisnik->id, 1);
+                        $this->M_Slika->obrisiSliku($prosliId);
+                    }
                     $this->izmenaProfila("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
                             . "Maksimalna veličina 1000 bajtova. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
+                    
                     return;
                 } else {
                     if ($gurman->IdSlika == 1){

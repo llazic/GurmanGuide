@@ -45,4 +45,9 @@ class M_Slika extends CI_Model{
         $this->db->where('IdSlika', $idSlika);
         $this->db->update('slika');
     }
+    
+    public function obrisiSliku($idSlike){
+        $this->db->where('IdSlika', $idSlike);
+        $this->db->delete('slika');
+    }
 }
