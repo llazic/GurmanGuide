@@ -750,6 +750,9 @@ class C_Gost extends CI_Controller{
         
         
         $korisnik = $this->session->userdata('korisnik');
+        if($idGurman == $korisnik->id){
+            redirect('C_Gurman/izmenaProfila');
+        }
         if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
             $this->load->view('sablon/headerGost.php', ['title' => 'Pregled profila']);
         } else if ($korisnik->tipKorisnika == 'gurman'){
