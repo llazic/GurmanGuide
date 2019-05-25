@@ -15,29 +15,19 @@ class C_Gost extends CI_Controller{
     public function __construct() {
         parent::__construct();
         
-        if (($this->session->userdata('korisnik')) != NULL) {
-            switch ($this->session->userdata('korisnik')->tipKorisnika) {
-                case 'gurman':
-                    redirect("C_Gurman");
-                    break;
-                case 'restoran':
-                    redirect("C_Restoran");
-                    break;
-                case 'admin':
-                    redirect("C_Administrator");
-                    break;
-            }
-        }
-        
-        $this->load->model("M_Gurman");
-        $this->load->model("M_Restoran");
-        $this->load->model("M_Administrator");
-        $this->load->model("M_Slika");
-        $this->load->model("M_Grad");
-        $this->load->model("M_Restoran");
-        $this->load->model("M_Jelo");
-        $this->load->model("M_Recenzija");
-        $this->load->model("M_Sastojak");
+//        if (($this->session->userdata('korisnik')) != NULL) {
+//            switch ($this->session->userdata('korisnik')->tipKorisnika) {
+//                case 'gurman':
+//                    redirect("C_Gurman");
+//                    break;
+//                case 'restoran':
+//                    redirect("C_Restoran");
+//                    break;
+//                case 'admin':
+//                    redirect("C_Administrator");
+//                    break;
+//            }
+//        }
     }
     
     public function index(){
@@ -391,7 +381,16 @@ class C_Gost extends CI_Controller{
             $niz [] = $klasa;
         }
         
-        $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        }
         $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
         $this->load->view('sablon/footer.php');
     }
@@ -446,7 +445,16 @@ class C_Gost extends CI_Controller{
             $niz [] = $klasa;
         }
         
-        $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        }
         $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
         $this->load->view('sablon/footer.php');
     }
@@ -502,7 +510,16 @@ class C_Gost extends CI_Controller{
             $niz [] = $klasa;
         }
         
-        $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        }
         $this->load->view("stranice/rezultatPretrage.php", ['jela' => $niz]);
         $this->load->view('sablon/footer.php');
     }
@@ -548,7 +565,16 @@ class C_Gost extends CI_Controller{
             $niz [] = $klasa;
         }
         
-        $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        }
         $this->load->view("stranice/rezultatPretrageRestoran.php", ['restorani' => $niz]);
         $this->load->view('sablon/footer.php');
     }
@@ -594,7 +620,16 @@ class C_Gost extends CI_Controller{
             $niz [] = $klasa;
         }
         
-        $this->load->view("sablon/headerGost.php", ['title' => 'Rezultat pretrage']);
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => 'Rezultat pretrage']);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        }
         $this->load->view("stranice/rezultatPretrageRestoran.php", ['restorani' => $niz]);
         $this->load->view('sablon/footer.php');
     }
@@ -653,21 +688,48 @@ class C_Gost extends CI_Controller{
         }
         
         
-        $this->load->view("sablon/headerGost.php", ['title' => $klasa->Naziv]);
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => $klasa->Naziv]);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => $klasa->Naziv]);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => $klasa->Naziv]);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => $klasa->Naziv]);
+        }
         $this->load->view("stranice/prikazJela.php", ['jelo' => $klasa, 'recenzije' => $niz]);
         $this->load->view('sablon/footer.php');
     }
     
     public function kontakt(){
         //proveriti ko je ulogovan i uraditi redirekt
-        $this->load->view('sablon/headerGost.php', ['title'=>'Kontakt']);
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => 'Kontakt']);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => 'Kontakt']);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => 'Kontakt']);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => 'Kontakt']);
+        }
         $this->load->view('stranice/kontakt.php');
         $this->load->view('sablon/footer.php');
     }
     
     public function onama(){
         //proveriti ko je ulogovan i uraditi redirekt
-        $this->load->view('sablon/headerGost.php', ['title'=>'O nama']);
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => 'O nama']);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => 'O nama']);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => 'O nama']);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => 'O nama']);
+        }
         $this->load->view('stranice/onama.php');
         $this->load->view('sablon/footer.php');
     }
@@ -686,7 +748,17 @@ class C_Gost extends CI_Controller{
         $info['pol'] = $gurman->Pol;
         $info['recenzije'] = $recenzije;
         
-        $this->load->view('sablon/headerGost.php', ['title' => 'Pregled profila']);
+        
+        $korisnik = $this->session->userdata('korisnik');
+        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
+            $this->load->view('sablon/headerGost.php', ['title' => 'Pregled profila']);
+        } else if ($korisnik->tipKorisnika == 'gurman'){
+            $this->load->view('sablon/headerGurman.php', ['title' => 'Pregled profila']);
+        } else if ($korisnik->tipKorisnika == 'restoran'){
+            $this->load->view('sablon/headerRestoran.php', ['title' => 'Pregled profila']);
+        } else if ($korisnik->tipKorisnika == 'admin'){
+            $this->load->view('sablon/headerAdmin.php', ['title' => 'Pregled profila']);
+        }
         $this->load->view('stranice/pregledGurmana.php', $info);
         $this->load->view('sablon/footer.php');
     }

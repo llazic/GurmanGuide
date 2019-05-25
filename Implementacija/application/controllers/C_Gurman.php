@@ -34,8 +34,22 @@ class C_Gurman extends CI_Controller {
     }
 
     public function index($poruka = null) {
+        $topJeloId = $this->M_Recenzija->dohvatiTopJelo();
+        $recenzija = $this->M_Recenzija->dohvatiTopRecenziju($topJeloId->IdJelo);
+        $jelo = $this->M_Jelo->dohvatiJelo($topJeloId->IdJelo);
+        
+        $klasa = new stdClass();
+        $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+        $klasa->IdJelo = $topJeloId->IdJelo;
+        $klasa->Komentar = $recenzija->Komentar;
+        $klasa->Ocena = $recenzija->Ocena;
+        $klasa->Naziv = $jelo->Naziv;
+        $gurman = $this->M_Gurman->dohvatiGurmana($recenzija->IdKorisnik);
+        $klasa->kIme = $gurman->KorisnickoIme;
+        $klasa->idK = $gurman->IdKorisnik;
+        
         $this->load->view('sablon/headerGurman.php', ['title' => 'Pretraga']);
-        //dodati pretragu kao sredinu
+        $this->load->view('stranice/main.php', ['poruka' => $poruka, 'jelo' => $klasa]);
         $this->load->view('sablon/footer.php');
     }
 
