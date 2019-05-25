@@ -18,6 +18,9 @@
                 }
            };
         </script>
+<?php if(isset($poruka))
+        echo "<center><font color='red' size='3'>$poruka</font></center><br>";
+?>
 <form name="forma" action="" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="leftcolumn">

@@ -89,56 +89,14 @@ class M_Restoran extends CI_Model{
                 . "AND restoran.IdKorisnik = korisnik.IdKorisnik AND restoran.IdKorisnik = ". $id." ");
         
         return $query->row();
-        //$this->db->from('restoran');
-        
-        
-        
-        
-        
-//        $this->db->select('IdKorisnik as id, Telefon as brTelefona, Naziv as imeRestorana, Adresa as adresaRestorana, RadnoVreme as radnoVreme, IdGrad as IdGrad');
-//        $this->db->from('restoran');
-//        $this->db->where('IdKorisnik', $id);
-//        
-//        $restoran = $this->db->get()->row();
-//
-//        if ($restoran != null){
-//            $this->db->from('grad');
-//            $this->db->where('IdGrad', $restoran->IdGrad);
-//            
-//            $korisnik = $this->db->get()->row();
-//            $restoran->gradRestorana = $korisnik->Naziv;
-//            $restoran->IdDrzava = $korisnik->IdDrzava;
-//            
-//            if ($korisnik != null){
-//                $this->db->from('drzava');
-//                $this->db->where('IdDrzava', $restoran->IdDrzava);
-//            
-//                $korisnik2 = $this->db->get()->row();
-//                $restoran->drzavaRestorana = $korisnik2->Naziv;
-//                    
-//                if ($korisnik2 != null){
-//                    $this->db->select('KorisnickoIme as korime, Lozinka as lozinka, Email as email');
-//                    $this->db->from('korisnik');
-//                    $this->db->where('IdKorisnik', $restoran->id);
-//                    
-//                    $korisnik3 = $this->db->get()->row();
-//                    
-//                    $restoran->korime = $korisnik3->korime;
-//                    $restoran->lozinka = $korisnik3->lozinka;
-//                    $restoran->email = $korisnik3->email;
-//                    
-//                    return $restoran;
-//                } else {
-//                    return null;
-//                }
-//            } else {
-//                return null;
-//            }
-//        } else {
-//            //ako postoji korisnik sa tim ID-jem ali nije gurman, vraca null
-//            return null;
-//        }
     }
+    
+    public function promeniSlikuRestoranu($idRestoran, $idSlika){
+        $this->db->set('IdSlika', $idSlika);
+        $this->db->where('IdKorisnik', $idRestoran);
+        $this->db->update('Restoran');
+    }
+    
     public function dohvatiNepregledaneRegistracije(){
         
         $query = $this->db->query("SELECT restoran.Naziv as imeRestorana, restoran.Telefon as brTelefona, restoran.Adresa as adresaRestorana, grad.Naziv as gradRestorana, drzava.Naziv as drzavaRestorana,  restoran.IdKorisnik as id, restoran.RadnoVreme as radnoVreme "
@@ -239,6 +197,10 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->result();
     }
     
+    //dohvata jela sa sve sastojcima i slikom
+    public function dohvatiJela($idRestoran){
+        
+    }
     /**
      * Dohvata sve restorane cije ime odgovara ulaznom parametru. Funkcija ne dohvata 
      * samo istoimene restorane, vec i restorane koja u svom nazivu imaju prosledjeni parametar.

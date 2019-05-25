@@ -2,7 +2,7 @@
      <!--<link rel="stylesheet" type="text/css" href="../../../../prototip/rezultatiPretrage.css">-->
       <p class="title"> Meni restorana </p>
       <?php
-        if (empty($jela) == false) { 
+        if (empty($jela) == false) {
             foreach ($jela as $jelo) {
                 echo "<div class='column'>";
                 echo "<h1><a href=";
