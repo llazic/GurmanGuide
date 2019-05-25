@@ -16,6 +16,13 @@ class M_Restoran extends CI_Model{
         parent::__construct();
     }
     
+    /**
+     * Funckija za proveru korisnickog imena restorana.
+     * 
+     * @param type $korime
+     * @return stdClass Vraca objekat sa poljima IdKorisnik, KorisnickoIme, Lozinka, Email,
+     * Telefon, Naziv, Adresa, IdGrad, IdSlika, RadnoVreme, Pregledano ukoliko korisnicko ime postoji, inace vraca null.
+     */
     public function proveraKorImena($korime) {
         $this->db->select('*');
         $this->db->from('korisnik, restoran');
@@ -29,6 +36,14 @@ class M_Restoran extends CI_Model{
         return $this->db->select('Naziv')->from('restoran')->where('IdKorisnik', $id)->get()->row();
     }
     
+    /**
+     * Funckija za proveru sifre korisnika.
+     * 
+     * @param type $korime Korisnicko ime korisnika
+     * @param type $sifra Sifra korisnika
+     * @return stdClass Vraca objekat sa poljima IdKorisnik, KorisnickoIme, Lozinka, Email,
+     * Telefon, Naziv, Adresa, IdGrad, IdSlika, RadnoVreme, Pregledano ukoliko korisnicko ime postoji, inace vraca null.
+     */
     public function proveraSifre($korime, $sifra) {
         $this->db->select('*');
         $this->db->from('korisnik, restoran');
@@ -50,6 +65,10 @@ class M_Restoran extends CI_Model{
         $this->db->set('Adresa', $promenljive['adresarestorana']);
         $this->db->set('RadnoVreme', $promenljive['radnovreme']);
         $this->db->set('Telefon', $promenljive['telefon']);
+        $this->db->set('Pregledano', 'N');
+        if (isset($promenljive['idSlika'])){
+            $this->db->set('IdSlika', $promenljive['idSlika']);
+        }
         $this->db->where('IdKorisnik', $promenljive['id']);
         $this->db->update('Restoran');
         
@@ -121,6 +140,11 @@ class M_Restoran extends CI_Model{
 //        }
     }
     
+    /**
+     * Dohvata poslednji ID u tabeli korisnik
+     * 
+     * @return stdClass Objekat sa poljem poslednjiId
+     */
     public function poslednjiId() {
         $this->db->select('max(korisnik.IdKorisnik) as poslednjiId');
         $this->db->from('korisnik');
@@ -128,6 +152,12 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->row();
     }
     
+    /**
+     * Funkcija za evidentiranje restorana u bazi.
+     * 
+     * @param type $restoran Asocijativni niz sa kljucevima IdKorisnik, KorisnickoIme, Lozinka, Email,
+     * Telefon, Naziv, Adresa, IdGrad, IdSlika, RadnoVreme, Pregledano i odgovarajucim vrednostima.
+     */
     public function unesiRestoran($restoran) {
         $podaciKorisnik = array(
             'IdKorisnik' => $restoran->IdKorisnik,
@@ -152,8 +182,14 @@ class M_Restoran extends CI_Model{
         $this->db->insert('restoran', $podaciRestoran);
     }
     
-    //input: naziv restorana
-    //output: jela tog restorana
+    /**
+     * Dohvata sva pregledana jela svih pregledanih restorana cije ime odgovra ulaznom parametru. Funkcija ne uzima u obzir 
+     * samo istoimene restorane, vec i restorane koja u svom nazivu imaju prosledjeni parametar.
+     * 
+     * @param type $pattern
+     * @return stdClass Objekti sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika ukoliko postoji takav restoran i
+     * jela u njemu, inace vraca null.
+     */
     public function dohvatiJelaRestorana($pattern) {
         $this->db->select('j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika');
         $this->db->from('restoran r, jelo j');
@@ -165,18 +201,25 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->result();
     }
     
-    public function dohvatiTopTriJelaRestorana($imeRestorana){
-        
-        $query = $this->db->query("SELECT j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika "
-                                . "FROM restoran r, jelo j "
-                                . "WHERE r.Naziv ='".$imeRestorana."' "
-                                . "AND r.IdKorisnik = j.IdKorisnik ");
-        return $query->get()->result();
+    public function dohvatiTopTriJelaRestorana($idRestorana){
+        $query = $this->db->query("SELECT j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika, sum(r.Ocena)/count(r.Ocena) as Ocena "
+                                . "FROM jelo j, recenzija r "
+                                . "WHERE j.IdKorisnik = ".$idRestorana." "
+                                . "AND j.Pregledano = 'P' "
+                                . "AND j.IdJelo = r.IdJelo "
+                                . "GROUP BY Naziv, Opis, IdJelo, IdKorisnik, IdSlika "
+                                . "ORDER BY Ocena DESC");
+        return $query->result();
     
     }
     
-    //input: id restorana
-    //output: jela tog restorana
+    /**
+     * Dohvata sva jela restorana koji ima prosledjeni ID
+     * 
+     * @param type $id
+     * @return stdClass Objekti sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika ukoliko postoji restoran sa
+     * prosledjenim ID-jem, inace vraca null.
+     */
     public function dohvatiJelaRestoranaId($id) {
         $this->db->select('j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika');
         $this->db->from('restoran r, jelo j');
@@ -188,8 +231,14 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->result();
     }
     
-    //input: naziv restorana
-    //output: restorani cije ime odgovara paramteru pattern
+    /**
+     * Dohvata sve restorane cije ime odgovara ulaznom parametru. Funkcija ne dohvata 
+     * samo istoimene restorane, vec i restorane koja u svom nazivu imaju prosledjeni parametar.
+     * 
+     * @param type $pattern
+     * @return stdClass Vraca objekte sa poljima IdKorisnik,
+     * Telefon, Naziv, Adresa, IdGrad, IdSlika, RadnoVreme, Pregledano ukoliko takvi restorani postoje, inace vraca null.
+     */
     public function dohvatiRestoranePoNazivu($pattern) {
         $this->db->select('*');
         $this->db->from('restoran');
@@ -199,8 +248,14 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->result();
     }
     
-    //input: adresa restorana
-    //output: restorani koji u svojoj adresi imaju ovaj pattern
+    /**
+     * Dohvata sve restorane cija adresa odgovara ulaznom parametru. Funkcija ne dohvata 
+     * samo istoimene adrese, vec i adrese koja u svom nazivu imaju prosledjeni parametar.
+     * 
+     * @param type $pattern
+     * @return stdClass Vraca objekte sa poljima IdKorisnik,
+     * Telefon, Naziv, Adresa, IdGrad, IdSlika, RadnoVreme, Pregledano ukoliko takvi restorani postoje, inace vraca null.
+     */
     public function dohvatiRestoranePoAdresi($pattern) {
         $this->db->select('*');
         $this->db->from('restoran');

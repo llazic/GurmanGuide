@@ -77,6 +77,17 @@
 				font-size: 15px;
 				font-family:"Arial", Gadget, sans-serif
 			}
+                        
+                        .row:after {
+                          content: "";
+                          display: table;
+                          clear: both;
+                        }
+                        
+                        .leftcolumn {
+                          float: left;
+                          width: 60%;
+                        }
 
 			.profil{
 				text-align: right;
@@ -243,6 +254,128 @@
                             margin-left:auto;
                             margin-right:auto;
                             vertical-align:middle;
+                        }
+                        
+                        .pretraga {
+                          width: 60%;
+                          padding : 20px;
+                          border: 2px solid #ccc;
+                          margin-left: 40%;
+                          height: 50px;
+                          border-radius: 4px;
+                          resize: vertical;
+                        }
+                        
+                        .rightcolumn {
+                          float: left;
+                          width: 40%;
+                          padding-left: 20px;
+                        }
+                        
+                        .dropbtn {
+                          background-color: #333;
+                                border-radius: 10px;
+                          color: white;
+                          padding: 14px;
+
+                          font-size: 16px;
+                          border: none;
+                          cursor: pointer;
+                                text-align: center;
+                        }
+                        
+                        .topnav .dropdown{
+                                display: inline-block;
+                        }
+                        .dropdown {
+                          position: relative;
+                          display: inline-block;
+                        }
+
+                        .dropdown-content {
+                          display: none;
+                          position: absolute;
+                          background-color: #f2f2f2;
+                                border-radius: 10px;
+                          min-width: 160px;
+                          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                          z-index: 1;
+                        }
+
+                        .dropdown-content a {
+                          color: black;
+                          padding: 12px 16px;
+                          text-decoration: none;
+                          display: block;
+                                border-radius: 10px;
+                        }
+
+                        .dropdown-content a:hover {background-color: #333; color: white;border-radius: 10px;}
+
+                        .dropdown:hover .dropdown-content {
+                          display: block;
+                                border-radius: 10px;
+                        }
+
+                        .dropdown:hover .dropbtn {
+                          background-color: white;
+                                color: black;
+                                border-radius: 10px;
+                        }
+                        
+                        .naslovH1 {
+                                text-align: center;
+                                font-size: 45px;
+                                letter-spacing: 2px;
+                                font-weight: bold;
+                        }
+                        
+                        * {
+                          box-sizing: border-box;
+                        }
+                        
+                        .topnav {
+                          overflow: hidden;
+                          background-color: #333;
+                        }
+
+                        .topnav a {
+                          float: right;
+                          display: block;
+                          color: #f2f2f2;
+                          text-align: center;
+                          padding: 14px 16px;
+                          text-decoration: none;
+                        }
+
+                        .topnav a:hover {
+                          background-color: #ddd;
+                          color: black;
+                        }
+                        
+                        @media screen and (max-width: 800px) {
+                          .leftcolumn, .rightcolumn {
+                                width: 100%;
+                                padding: 0;
+                          }
+                        }
+                        
+                        .lugano {
+                                font-family:"Georgia",serif;
+                                font-style:italic;
+                        }
+                        
+                        .card {
+                          background-color: white;
+                                border-radius: 10px;
+                          padding: 25px;
+                          margin-left: 23%;
+                                margin-right: 20%;
+                                margin-top: 2%;
+                                margin-bottom: 2%;
+                                width: 55%;
+                                height: 170px;
+                                 
                         }
 		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

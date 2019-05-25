@@ -230,7 +230,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body onload="clear()">
 		<div class="headerH">
                     <a href="<?php echo site_url('C_Gost/index')?>">
 			<img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo">

@@ -16,6 +16,13 @@ class M_Jelo extends CI_Model{
         parent::__construct();
     }
     
+    /**
+     * Dohvata pregledana jela cije ime odgovara prosledjenom parametru. Funkcija ne dohvata samo istoimena jela,
+     * vec jela koja u svom nazivu imaju prosledjeni parametar.
+     * 
+     * @param type $pattern Ime po kom se traze jela.
+     * @return stdClass Objekat sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika, Pregledano
+     */
     public function dohvatiJelaPoNazivu($pattern) {
         $this->db->select('*');
         $this->db->from('jelo');
@@ -24,8 +31,12 @@ class M_Jelo extends CI_Model{
         
         return $this->db->get()->result();
     }
-
     
+    /**
+     * Dohvata poslednji ID u bazi iz tabele jelo.
+     * 
+     * @return stdClass Objekat sa poljem poslednjiId
+     */
     public function poslednjiId() {
         $this->db->select('max(jelo.IdJelo) as poslednjiId');
         $this->db->from('jelo');
@@ -58,7 +69,6 @@ class M_Jelo extends CI_Model{
         $this->db->insert('ima_sastojak');
     }
     
-
     public function dohvatiJelo($idJelo){
         $this->db->from('jelo');
         $this->db->where('IdJelo', $idJelo);

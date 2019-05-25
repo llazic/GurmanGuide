@@ -16,6 +16,12 @@ class M_Grad extends CI_Model{
         parent::__construct();
     }
     
+    /**
+     * Funkcija za dohvatanje svih gradova iz baze
+     * 
+     * @return stdClass
+     * Vraca objekte sa poljima idDrzava, IdGrad, Naziv
+     */
     public function gohvatiSveGradove() {
         $this->db->select('*');
         $this->db->from('grad');
@@ -36,8 +42,12 @@ class M_Grad extends CI_Model{
         $this->M_Drzava->azuriranjeDrzave($promenljive, $idDrzava);
     }
     
-    //input: idGrada ciji naziv zelimo
-    //output: Naziv grada ciji smo idGrada prosledili
+    /**
+     * Funkcija za dohvatanje naziva grada
+     * 
+     * @param type $idGrad ID grada ciji naziv zelimo.
+     * @return stdClass objekat sa poljem Naziv
+     */
     public function dohvatiNazivGrada($idGrad) {
         $this->db->select('Naziv');
         $this->db->from('Grad');
