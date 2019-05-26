@@ -116,7 +116,7 @@
                           if ($this->session->userdata('korisnik')->tipKorisnika == "gurman") {
                             echo "<div class='btn-group'>";
                               echo "<button class='button' name='recenzijaBtn' onclick=\"location.href='";
-                              echo site_url("C_Gost/napisiRecenziju/");
+                              echo site_url("{$this->router->class}/postaviPromeniRecenziju/".$jelo->IdJela);
                               echo "'\">Napisi recenziju</button>";
                             echo "</div>";
                           }
@@ -134,7 +134,7 @@
                     echo "<div class='komentar'>
                              <p class='korisnik'>Ovo jelo ponosno nudi:</p>";
                              echo "<p><a title='Odvedi me u restoran' href=";
-                             echo site_url("C_Gost/prikaziRestoran/$jelo->IdRestoran");
+                             echo site_url("{$this->router->class}/prikaziRestoran/$jelo->IdRestoran");
                              echo ">$jelo->imeRestorana</a></p>";
                              echo "</div>
                         </td>
@@ -148,7 +148,7 @@
                 echo "<div class='box'>
              <img src='$recenzija->Slika' class='slika' style='width:120px;height:120px;margin-right:40px;'/>";
                 echo "<p><a href='";
-                echo site_url("C_Gost/pregledProfilaGurmana/$recenzija->idK");
+                echo site_url("{$this->router->class}/pregledProfilaGurmana/$recenzija->idK");
                 echo "'>$recenzija->kIme</a>";
                 for ($i = 0; $i < $recenzija->Ocena; $i++){
                     echo "<img src='http://localhost/GurmanGuide/images/star.png' style='margin-top:2px; margin:right:5px; height:20px; width:20px;' align='right'>";

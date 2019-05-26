@@ -64,6 +64,7 @@ class C_Zajednicki extends CI_Controller {
         $klasa = new stdClass();
         $klasa->Naziv = $jelo->Naziv;
         $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+        $klasa->IdJela = $id;
         
         $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
             
@@ -112,5 +113,200 @@ class C_Zajednicki extends CI_Controller {
         }
         
         return ['jelo' => $klasa, 'recenzije' => $niz];
+    }
+    
+    public function pretragaJelaPoNazivu($val) {
+        $input = str_replace('%20', ' ', $val);
+        $input = trim($input);
+        $jela = $this->M_Jelo->dohvatiJelaPoNazivu($input);
+        
+        $niz = [];
+        
+        foreach ($jela as $jelo) {
+            $klasa = new stdClass();
+            $klasa->IdJelo = $jelo->IdJelo;
+            $klasa->IdRestoran = $jelo->IdKorisnik;
+            if ($jelo->Opis != null) {
+                $klasa->Opis = $jelo->Opis;
+            }else {
+                $klasa->Opis = "Trenutno ne postoji opis.";
+            }
+            $klasa->Naziv = $jelo->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+            $klasa->Recenzija = $this->M_Recenzija->dohvatiJednuRecenziju($jelo->IdJelo);
+            
+            if ($klasa->Recenzija == null) {
+                $klasa->Recenzija = "Nema recenzije za ovo jelo.";
+            } else {
+                $klasa->Recenzija = $klasa->Recenzija->Komentar;
+            }
+            
+            $klasa->Restoran = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik)->imeRestorana;
+            
+            $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+            
+            $sastojciString = "";
+            
+            for ($i = 0; $i < count($sastojci); $i++) {
+                $sastojciString .= $sastojci[$i]->Naziv;
+                
+                if ($i != (count($sastojci) - 1)) {
+                    $sastojciString .= ", ";
+                }
+                
+            }
+            
+            if ($sastojciString != "") {
+                $klasa->Sastojci = $sastojciString;
+            } else {
+            $klasa->Sastojci = "Sastojci trenutno nisu poznati.";
+            }
+            
+            $niz [] = $klasa;
+        }
+        
+        return ['jela' => $niz];
+    }
+    
+    public function pretragaJelaPoRestoranu($val) {
+        $input = str_replace('%20', ' ', $val);
+        $input = trim($input);
+        
+        $jela = $this->M_Restoran->dohvatiJelaRestorana($input);
+        
+        $niz = [];
+        
+        foreach ($jela as $jelo) {
+            $klasa = new stdClass();
+            $klasa->IdJelo = $jelo->IdJelo;
+            $klasa->IdRestoran = $jelo->IdKorisnik;
+            if ($jelo->Opis != null) {
+                $klasa->Opis = $jelo->Opis;
+            }else {
+                $klasa->Opis = "Trenutno ne postoji opis.";
+            }
+            $klasa->Naziv = $jelo->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+            $klasa->Recenzija = $this->M_Recenzija->dohvatiJednuRecenziju($jelo->IdJelo);
+            
+            if ($klasa->Recenzija == null) {
+                $klasa->Recenzija = "Nema recenzije za ovo jelo.";
+            } else {
+                $klasa->Recenzija = $klasa->Recenzija->Komentar;
+            }
+            
+            $klasa->Restoran = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik)->imeRestorana;
+            
+            $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+            
+            $sastojciString = "";
+            
+            for ($i = 0; $i < count($sastojci); $i++) {
+                $sastojciString .= $sastojci[$i]->Naziv;
+                
+                if ($i != (count($sastojci) - 1)) {
+                    $sastojciString .= ", ";
+                }
+                
+            }
+            
+           if ($sastojciString != "") {
+                $klasa->Sastojci = $sastojciString;
+            } else {
+                $klasa->Sastojci = "Sastojci trenutno nisu poznati.";
+            }
+            
+            $niz [] = $klasa;
+        }
+        
+        return ['jela' => $niz];
+    }
+    
+    public function pretragaRestoranaPoNazivu($val) {
+        $input = str_replace('%20', ' ', $val);
+        $input = trim($input);
+        
+        $restorani = $this->M_Restoran->dohvatiRestoranePoNazivu($input);
+        
+        $niz = [];
+        
+        foreach ($restorani as $restoran) {
+            $klasa = new stdClass();
+            $klasa->IdKorisnik = $restoran->IdKorisnik;
+            $klasa->Telefon = $restoran->Telefon;
+            $klasa->Adresa = $restoran->Adresa;
+            $klasa->RadnoVreme = $restoran->RadnoVreme;
+            $klasa->Naziv = $restoran->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($restoran->IdSlika)->Putanja;
+            $klasa->IdGrad = $restoran->IdGrad;
+            $klasa->Grad = $this->M_Grad->dohvatiNazivGrada($restoran->IdGrad)->Naziv;
+            
+            $jelaRestorana = $this->M_Restoran->dohvatiJelaRestoranaId($restoran->IdKorisnik);
+            
+            $najboljaOcena = "-1";
+            $najboljeJelo = null;
+            foreach ($jelaRestorana as $jelo) {
+                if ($najboljaOcena < ($tempOcena = $this->M_Recenzija->ocenaJela($jelo->IdJelo))) {
+                    $najboljeJelo = $jelo;
+                    $najboljaOcena = $tempOcena;
+                }
+            }
+            
+            if ($najboljeJelo != null) {
+                $klasa->topJeloNaziv = $najboljeJelo->Naziv;
+                $klasa->topJeloId = $najboljeJelo->IdJelo;
+            } else {
+                $klasa->topJeloNaziv = "Restoran nema jela";
+                $klasa->topJeloId = -1;
+            }
+            
+            $niz [] = $klasa;
+        }
+        
+        return ['restorani' => $niz];
+    }
+    
+    public function pretragaRestoranaPoAdresi($val) {
+        $input = str_replace('%20', ' ', $val);
+        $input = trim($input);
+        
+        $restorani = $this->M_Restoran->dohvatiRestoranePoAdresi($input);
+        
+        $niz = [];
+        
+        foreach ($restorani as $restoran) {
+            $klasa = new stdClass();
+            $klasa->IdKorisnik = $restoran->IdKorisnik;
+            $klasa->Telefon = $restoran->Telefon;
+            $klasa->Adresa = $restoran->Adresa;
+            $klasa->RadnoVreme = $restoran->RadnoVreme;
+            $klasa->Naziv = $restoran->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($restoran->IdSlika)->Putanja;
+            $klasa->IdGrad = $restoran->IdGrad;
+            $klasa->Grad = $this->M_Grad->dohvatiNazivGrada($restoran->IdGrad)->Naziv;
+            
+            $jelaRestorana = $this->M_Restoran->dohvatiJelaRestoranaId($restoran->IdKorisnik);
+            
+            $najboljaOcena = "-1";
+            $najboljeJelo = null;
+            foreach ($jelaRestorana as $jelo) {
+                if ($najboljaOcena < ($tempOcena = $this->M_Recenzija->ocenaJela($jelo->IdJelo))) {
+                    $najboljeJelo = $jelo;
+                    $najboljaOcena = $tempOcena;
+                }
+            }
+            
+            if ($najboljeJelo != null) {
+                $klasa->topJeloNaziv = $najboljeJelo->Naziv;
+                $klasa->topJeloId = $najboljeJelo->IdJelo;
+            } else {
+                $klasa->topJeloNaziv = "Restoran nema jela";
+                $klasa->topJeloId = -1;
+            }
+            
+            $niz [] = $klasa;
+        }
+        
+        return ['restorani' => $niz];
     }
 }

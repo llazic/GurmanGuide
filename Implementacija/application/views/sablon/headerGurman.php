@@ -146,10 +146,6 @@
 				resize:none;
 			}
                         
-			.center{
-                                text-align: center;
-                        }
-                        
                         .sredina{
 				margin-left:auto;
 				margin-right:auto;

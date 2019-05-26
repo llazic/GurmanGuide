@@ -139,7 +139,7 @@ class C_Gurman extends C_Zajednicki {
                     }
                     $this->izmenaProfila("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
-                            . "Maksimalna veličina 1000 bajtova. <br />"
+                            . "Maksimalna veličina 1000 kilobajta. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
                     
                     return;
@@ -242,11 +242,43 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
-     public function prikaziJelo($id) {
+    public function prikaziJelo($id) {
         $info = parent::prikaziJelo($id);
         
         $this->load->view('sablon/headerGurman.php', ['title' => $info['jelo']->Naziv]);
         $this->load->view("stranice/prikazJela.php", $info);
         $this->load->view('sablon/footer.php');
-     }
+    }
+    
+    public function pretragaJelaPoNazivu($val) {
+        $info = parent::pretragaJelaPoNazivu($val);
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrage.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaJelaPoRestoranu($val) {
+        $info = parent::pretragaJelaPoRestoranu($val);
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrage.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaRestoranaPoNazivu($val) {
+        $info = parent::pretragaRestoranaPoNazivu($val);
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrageRestoran.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaRestoranaPoAdresi($val) {
+        $info = parent::pretragaRestoranaPoAdresi($val);
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrageRestoran.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
 }
