@@ -1,7 +1,9 @@
 <!--Nenad Babin-->
       <link rel="stylesheet" type="text/css" href="../../../../prototip/rezultatiPretrage.css">
-      <p class="title"> Rezultat pretrage </p>
       <?php
+        echo "<p class='title'>";
+        echo $naslov;
+        echo "</p>";
         if (empty($restorani) == false) { 
             foreach ($restorani as $restoran) {
                 echo "<div class='column'>";
@@ -28,7 +30,7 @@
                             echo "</div>";
                             echo "<div class='komentar'>";
                                 echo "<p><a title='Prikaži mi sva jela ovog restorana' href=";
-                                echo site_url("C_Gost/pretragaJelaPoRestoranu/$restoran->Naziv");
+                                echo site_url("C_Gost/prikaziMeniRestorana/$restoran->IdKorisnik");
                                 echo ">Prikaži mi sva jela restorana</a></p>";
                             echo "</div>";
                         echo "</td>";

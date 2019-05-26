@@ -42,6 +42,7 @@ class M_Sastojak extends CI_Model{
         $this->db->where('s.IdSastojak = is.IdSastojak');
         $this->db->where('is.IdJelo = j.IdJelo');
         $this->db->where('j.Pregledano', 'P');
+        $this->db->group_by('j.Naziv, j.Opis, j.IdJelo, j.IdKorisnik,, j.IdSlika');
         
         return $this->db->get()->result();
     }

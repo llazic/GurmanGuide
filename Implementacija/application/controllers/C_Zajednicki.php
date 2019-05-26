@@ -309,4 +309,58 @@ class C_Zajednicki extends CI_Controller {
         
         return ['restorani' => $niz];
     }
+    
+    function pretragaJelaPoSastojku($val) {
+        $input = str_replace('%20', ' ', $val);
+        $input = trim($input);
+        $jela = $this->M_Sastojak->dohvatiJelaZaSastojak($input);
+        
+        $niz = [];
+        
+        foreach ($jela as $jelo) {
+            $klasa = new stdClass();
+            $klasa->IdJelo = $jelo->IdJelo;
+            $klasa->IdRestoran = $jelo->IdKorisnik;
+            if ($jelo->Opis != null) {
+                $klasa->Opis = $jelo->Opis;
+            }else {
+                $klasa->Opis = "Trenutno ne postoji opis.";
+            }
+            $klasa->Naziv = $jelo->Naziv;
+            $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+            $klasa->Recenzija = $this->M_Recenzija->dohvatiJednuRecenziju($jelo->IdJelo);
+            
+            if ($klasa->Recenzija == null) {
+                $klasa->Recenzija = "Nema recenzije za ovo jelo.";
+            } else {
+                $klasa->Recenzija = $klasa->Recenzija->Komentar;
+            }
+            
+            $klasa->Restoran = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik)->imeRestorana;
+            
+            $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($jelo->IdJelo);
+            
+            $sastojciString = "";
+            
+            for ($i = 0; $i < count($sastojci); $i++) {
+                $sastojciString .= $sastojci[$i]->Naziv;
+                
+                if ($i != (count($sastojci) - 1)) {
+                    $sastojciString .= ", ";
+                }
+                
+            }
+            
+            if ($sastojciString != "") {
+                $klasa->Sastojci = $sastojciString;
+            } else {
+                $klasa->Sastojci = "Sastojci trenutno nisu poznati.";
+            }
+            
+            $niz [] = $klasa;
+        }
+        
+        return ['jela' => $niz];
+    }
+    
 }
