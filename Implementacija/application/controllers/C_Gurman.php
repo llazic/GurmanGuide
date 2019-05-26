@@ -1,5 +1,5 @@
 <?php
-
+include_once('C_Zajednicki.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +11,7 @@
  *
  * @author Lazar
  */
-class C_Gurman extends CI_Controller {
+class C_Gurman extends C_Zajednicki {
 
     public function __construct() {
         parent::__construct();
@@ -95,31 +95,6 @@ class C_Gurman extends CI_Controller {
         $this->load->view('sablon/footer.php');
     }
     
-    public function upload($putanja, $imeSlike, $vrstaSlike) {
-        if(!file_exists($putanja)) {
-           mkdir($putanja, 0777, true);
-        }
-        if (isset($_FILES["$vrstaSlike"]) && $_FILES["$vrstaSlike"]['error'] != UPLOAD_ERR_NO_FILE) {
-            $config['upload_path'] = $putanja;
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = 1000;
-            $config['max_width'] = 2048;
-            $config['max_height'] = 1024;
-            $config['file_name'] = $imeSlike;
-            $this->load->library('upload', $config);
-            if (!$this->upload->do_upload("$vrstaSlike")) {
-                //$message = (string)$this->upload->display_errors();
-                return null;
-            } else {
-                //upload uspesan
-                $ekstenzija = $this->upload->data('file_ext');
-                return "$imeSlike" ."$ekstenzija";
-            }
-        } else {
-            return null;
-        }
-    }
-    
     public function sacuvajIzmeneProfila() {
         $info['sifra'] = $this->input->post("lozinkagurman");
         //$info['sifraPotvrda'] = $this->input->post("potvrdalozinkegurman");
@@ -156,7 +131,7 @@ class C_Gurman extends CI_Controller {
                 }
                 
                 $putanjaDoFoldera = "./uploads/gurman/".$korisnik->id;
-                if (($nazivSlike = $this->upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
+                if (($nazivSlike = parent::upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
                     if ($gurman->IdSlika != 1) {
                         $prosliId = $gurman->IdSlika;
                         $this->M_Gurman->promeniSlikuGurmanu($korisnik->id, 1);
@@ -197,25 +172,14 @@ class C_Gurman extends CI_Controller {
         }
     }
     
-    function pregledProfilaGurmana($idGurman) {
+    public function pregledProfilaGurmana($idGurman) {
         $korisnik = $this->session->userdata('korisnik');
         
         if($idGurman == $korisnik->id){
             redirect('C_Gurman/izmenaProfila');
         }
         
-        $gurman = $this->M_Gurman->dohvatiGurmana($idGurman);
-        $recenzije = $this->M_Recenzija->dohvatiRecenzijeGurmana($idGurman);
-        
-        
-        $info['slikagurman'] = $this->M_Slika->dohvatiPutanju($gurman->IdSlika)->Putanja;
-        $info['korime'] = $gurman->KorisnickoIme;
-        $info['lozinka'] = $gurman->Lozinka;
-        $info['email'] = $gurman->Email;
-        $info['ime'] = $gurman->Ime;
-        $info['prezime'] = $gurman->Prezime;
-        $info['pol'] = $gurman->Pol;
-        $info['recenzije'] = $recenzije;
+        $info = parent::pregledProfilaGurmana($idGurman);
         
         $this->load->view('sablon/headerGurman.php', ['title' => 'Pregled profila']);
         $this->load->view('stranice/pregledGurmana.php', $info);
@@ -223,7 +187,7 @@ class C_Gurman extends CI_Controller {
     }
     
 
-    function postaviPromeniRecenziju($idJelo, $poruka = null){
+    public function postaviPromeniRecenziju($idJelo, $poruka = null){
         $jelo = $this->M_Jelo->dohvatiJelo($idJelo);
         $restoran = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik);
         $korisnik = $this->session->userdata('korisnik');
@@ -253,7 +217,7 @@ class C_Gurman extends CI_Controller {
     
     //ukoliko ne postoji recenzija ulogovanog korisnika za dato jelo pravi novu
     //u suprotnom menja postojecu
-    function sacuvajRecenziju($idJelo){
+    public function sacuvajRecenziju($idJelo){
         $korisnik = $this->session->userdata('korisnik');
         $ocena = $this->input->post('rate');
         $komentar = $this->input->post('komentar');
@@ -269,7 +233,7 @@ class C_Gurman extends CI_Controller {
         }
     }
     
-    function prikaziRecenzije(){
+    public function prikaziRecenzije(){
         $korisnik = $this->session->userdata('korisnik');
         $info['recenzije'] = $this->M_Recenzija->dohvatiRecenzijeGurmana($korisnik->id);
         
@@ -277,4 +241,12 @@ class C_Gurman extends CI_Controller {
         $this->load->view('stranice/recenzijeGurman.php', $info);
         $this->load->view('sablon/footer.php');
     }
+    
+     public function prikaziJelo($id) {
+        $info = parent::prikaziJelo($id);
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => $info['jelo']->Naziv]);
+        $this->load->view("stranice/prikazJela.php", $info);
+        $this->load->view('sablon/footer.php');
+     }
 }

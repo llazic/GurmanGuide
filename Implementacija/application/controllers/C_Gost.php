@@ -734,35 +734,5 @@ class C_Gost extends CI_Controller{
         $this->load->view('sablon/footer.php');
     }
     
-    function pregledProfilaGurmana($idGurman) {
-        $gurman = $this->M_Gurman->dohvatiGurmana($idGurman);
-        $recenzije = $this->M_Recenzija->dohvatiRecenzijeGurmana($idGurman);
-        
-        
-        $info['slikagurman'] = $this->M_Slika->dohvatiPutanju($gurman->IdSlika)->Putanja;
-        $info['korime'] = $gurman->KorisnickoIme;
-        $info['lozinka'] = $gurman->Lozinka;
-        $info['email'] = $gurman->Email;
-        $info['ime'] = $gurman->Ime;
-        $info['prezime'] = $gurman->Prezime;
-        $info['pol'] = $gurman->Pol;
-        $info['recenzije'] = $recenzije;
-        
-        
-        $korisnik = $this->session->userdata('korisnik');
-        if($idGurman == $korisnik->id){
-            redirect('C_Gurman/izmenaProfila');
-        }
-        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
-            $this->load->view('sablon/headerGost.php', ['title' => 'Pregled profila']);
-        } else if ($korisnik->tipKorisnika == 'gurman'){
-            $this->load->view('sablon/headerGurman.php', ['title' => 'Pregled profila']);
-        } else if ($korisnik->tipKorisnika == 'restoran'){
-            $this->load->view('sablon/headerRestoran.php', ['title' => 'Pregled profila']);
-        } else if ($korisnik->tipKorisnika == 'admin'){
-            $this->load->view('sablon/headerAdmin.php', ['title' => 'Pregled profila']);
-        }
-        $this->load->view('stranice/pregledGurmana.php', $info);
-        $this->load->view('sablon/footer.php');
-    }
+    
 }
