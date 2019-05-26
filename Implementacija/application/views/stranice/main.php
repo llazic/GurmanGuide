@@ -4,17 +4,17 @@
            function insert() {
                var input = document.getElementById('search').value;
                if (input != "") {
-                    document.getElementById('l1').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoNazivu/' + input);
-                    document.getElementById('l2').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoSastojku/' + input);
-                    document.getElementById('l3').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaJelaPoRestoranu/' + input);
-                    document.getElementById('l4').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaRestoranaPoNazivu/' + input);
-                    document.getElementById('l5').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/pretragaRestoranaPoAdresi/' + input);
+                    document.getElementById('l1').setAttribute( 'href', "http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/pretragaJelaPoNazivu/" + input);
+                    document.getElementById('l2').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/pretragaJelaPoSastojku/' + input);
+                    document.getElementById('l3').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/pretragaJelaPoRestoranu/' + input);
+                    document.getElementById('l4').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/pretragaRestoranaPoNazivu/' + input);
+                    document.getElementById('l5').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/pretragaRestoranaPoAdresi/' + input);
                 } else {
-                    document.getElementById('l1').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/index/');
-                    document.getElementById('l2').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/index/');
-                    document.getElementById('l3').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/index/');
-                    document.getElementById('l4').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/index/');
-                    document.getElementById('l5').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/C_Gost/index/');
+                    document.getElementById('l1').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/index/');
+                    document.getElementById('l2').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/index/');
+                    document.getElementById('l3').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/index/');
+                    document.getElementById('l4').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/index/');
+                    document.getElementById('l5').setAttribute( 'href', 'http://localhost/GurmanGuide/Implementacija/index.php/<?php echo "{$this->router->class}";?>/index/');
                 }
            };
         </script>
@@ -53,7 +53,7 @@
         echo "<div class='box'> <img class='slika'style='width:120px;height:120px;margin-right:40px;' src=' $jelo->Putanja'/>";
         echo "<p>";
         echo "<a href='";
-        echo site_url("C_Gost/prikaziJelo/$jelo->IdJelo");
+        echo site_url("{$this->router->class}/prikaziJelo/$jelo->IdJelo");
         echo "'>$jelo->Naziv</a>";
         for ($i = 0; $i < $jelo->Ocena; $i++){
             echo "<img src='http://localhost/GurmanGuide/images/star.png' style='margin-top:2px; margin:right:5px; height:20px; width:20px;' align='right'>";
@@ -62,7 +62,7 @@
         echo "<p class='lugano'>$jelo->Komentar</p>";
         echo "<p style='float:right'>";
         echo "<a href='";
-        echo site_url("C_Gost/pregledProfilaGurmana/$jelo->idK");
+        echo site_url("{$this->router->class}/pregledProfilaGurmana/$jelo->idK");
         echo "'>$jelo->kIme</a></p></div>";
     }
 
