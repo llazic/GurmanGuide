@@ -196,11 +196,7 @@ class M_Restoran extends CI_Model{
         
         return $this->db->get()->result();
     }
-    
-    //dohvata jela sa sve sastojcima i slikom
-    public function dohvatiJela($idRestoran){
-        
-    }
+
     /**
      * Dohvata sve restorane cije ime odgovara ulaznom parametru. Funkcija ne dohvata 
      * samo istoimene restorane, vec i restorane koja u svom nazivu imaju prosledjeni parametar.

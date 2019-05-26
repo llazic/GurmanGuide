@@ -12,12 +12,15 @@
                     echo "<tr>";
                         echo "<td width='25%' align='center''>";
                             echo "<img class='slikaMeni' src='$jelo->Putanja'>";
-                            echo "<a href=";
-                            echo site_url("C_Restoran/izmeniJelo/$jelo->IdJelo"); 
-                            echo " ><input type='button' name='izmeni'";
-                            echo " value=";
-                            echo "Izmeni";
-                            echo " ></a>";
+                            if(isset($dugmeIzmeni)){
+                                echo "<a href=";
+                                echo site_url("C_Restoran/izmeniJelo/$jelo->IdJelo"); 
+                                echo " >";
+                                echo "<input type='button' name='izmeni'";
+                                echo " value=";
+                                echo "Izmeni";
+                                echo " ></a>";
+                            }
                         echo "</td>";
                         echo "<td width='75%'>";
                             //Ovo da se menja

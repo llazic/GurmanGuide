@@ -384,7 +384,7 @@
 		<div class="header">
                     <a href="<?php echo site_url('C_Restoran/index');?>"><img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo"></a>
 			<div class="profil">
-                                <a href="<?php echo site_url('C_Restoran/prikaziMeniRestorana');?>" align="right"> Moja jela</a> &nbsp;
+                                <a href="<?php echo site_url('C_Restoran/izmenaMenijaRestorana');?>" align="right"> Moja jela</a> &nbsp;
                                 <a href="<?php echo site_url('C_Restoran/unosJela');?>" align="right"> Novo jelo</a> &nbsp;
 				<a href="<?php echo site_url('C_Restoran/izmenaRestorana');?>" align="right"> Moj profil</a> &nbsp;
 				<a href="<?php echo site_url('C_Restoran/izlogujse');?>" align="right"> Izloguj se</a>
