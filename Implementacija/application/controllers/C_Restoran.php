@@ -74,8 +74,8 @@ class C_Restoran extends CI_Controller {
 
     public function pregledRestorana($idRestorana) {
         $korisnik = $this->session->userdata('korisnik');
-        
-        if ($idRestorana == $korisnik->id){
+
+        if ($idRestorana == $korisnik->id) {
             redirect('C_Restoran/IzmenaRestorana');
         }
         $restoran = $this->M_Restoran->dohvatiRestoran($idRestorana);
@@ -300,7 +300,7 @@ class C_Restoran extends CI_Controller {
 
     public function unesiJelo() {
         $korisnik = $this->session->userdata('korisnik');
-        var_dump($_POST);
+
         $poruka = '';
         $uneto['naziv'] = $this->input->post('naziv');
         $uneto['opisjela'] = $this->input->post('opisjela');
@@ -311,11 +311,10 @@ class C_Restoran extends CI_Controller {
 
         $brojac = 0;
         foreach ($_POST as $key => $value) {
-            if (strlen(strstr($key, "name")) > 0) {
+            if (strpos($key, 'name') !== false) {
                 $brojac++;
             }
         }
-
 
         if ($this->form_validation->run() == FALSE || $brojac == 0) {
             $this->unosJela($brojac == 0 ? 'Niste uneli sastojke' : null);
@@ -331,7 +330,7 @@ class C_Restoran extends CI_Controller {
                 $uneto['idJela'] = $poslednjiId + 1;
 
 
-                if (!file_exists("./uploads/jelo/" .$uneto['idJela'])) {
+                if (!file_exists("./uploads/jelo/" . $uneto['idJela'])) {
                     mkdir("./uploads/jelo/" . $uneto['idJela'], 0777, true);
                 }
 
@@ -354,26 +353,26 @@ class C_Restoran extends CI_Controller {
                         $slika->IdSlika = $slikaId;
                         $slika->Putanja = "http://localhost/GurmanGuide/Implementacija/uploads/jelo/" . $uneto['idJela'] . "/" . $nazivSlike;
                         $this->M_Slika->unesiSliku($slika);
-                        
+
                         $uneto['idSlika'] = $slikaId;
                     }
                 }
-                
-                
+
                 $this->M_Jelo->napraviJelo($uneto);
-                
                 foreach ($_POST as $key => $value) {
-                    if (strlen(strstr($key, "name")) > 0) {
-                        $imeSastojka = strtolower($value);
+                    if (strpos($key, 'name') !== false) {
+                        if ($imeSastojka != "") {
+                            $imeSastojka = strtolower($value);
 
-                        $postojiSastojak = $this->M_Sastojak->postojiSastojak($imeSastojka);
+                            $postojiSastojak = $this->M_Sastojak->postojiSastojak($imeSastojka);
 
-                        if ($postojiSastojak != null) {
-                            $idSastojka = $postojiSastojak->IdSastojak;
-                        } else {
-                            $idSastojka = $this->M_Sastojak->dodajSastojak($imeSastojka);
+                            if ($postojiSastojak != null) {
+                                $idSastojka = $postojiSastojak->IdSastojak;
+                            } else {
+                                $idSastojka = $this->M_Sastojak->dodajSastojak($imeSastojka);
+                            }
+                            $this->M_Jelo->poveziSastojakSaJelom($idSastojka, $uneto['idJela']);
                         }
-                        $this->M_Jelo->poveziSastojakSaJelom($idSastojka, $uneto['idJela']);
                     }
                 }
                 redirect('C_Restoran/index');
@@ -451,13 +450,13 @@ class C_Restoran extends CI_Controller {
 
     public function prikaziMeniRestorana($idRestorana) {
         $korisnik = $this->session->userdata('korisnik');
-        
-        if ($idRestorana == $korisnik->id){
+
+        if ($idRestorana == $korisnik->id) {
             redirect('C_Restoran/izmenaMenijaRestorana');
         }
-        
+
         $jela = $this->M_Restoran->dohvatiJelaRestoranaId($idRestorana);
-        
+
 
         $niz = [];
 
@@ -505,17 +504,17 @@ class C_Restoran extends CI_Controller {
             $niz [] = $klasa;
         }
 
-            
-            $this->load->view("sablon/headerRestoran.php", ['title' => 'Meni restorana']);
-            $this->load->view("stranice/meniRestorana.php", ['jela' => $niz]);
-            $this->load->view('sablon/footer.php');
+
+        $this->load->view("sablon/headerRestoran.php", ['title' => 'Meni restorana']);
+        $this->load->view("stranice/meniRestorana.php", ['jela' => $niz]);
+        $this->load->view('sablon/footer.php');
     }
-    
-    public function izmenaMenijaRestorana(){
+
+    public function izmenaMenijaRestorana() {
         $korisnik = $this->session->userdata('korisnik');
-        
+
         $jela = $this->M_Restoran->dohvatiJelaRestoranaId($korisnik->id);
-        
+
         $niz = [];
 
         foreach ($jela as $jelo) {
@@ -560,23 +559,36 @@ class C_Restoran extends CI_Controller {
             $klasa->Sastojci = $sastojciString;
 
             $niz [] = $klasa;
-        }    
-            $this->load->view("sablon/headerRestoran.php", ['title' => 'Meni restorana']);
-            $this->load->view("stranice/meniRestorana.php", ['jela' => $niz, 'dugmeIzmeni' => 1]);
-            $this->load->view('sablon/footer.php');
+        }
+        $this->load->view("sablon/headerRestoran.php", ['title' => 'Meni restorana']);
+        $this->load->view("stranice/meniRestorana.php", ['jela' => $niz, 'dugmeIzmeni' => 1]);
+        $this->load->view('sablon/footer.php');
     }
 
     public function izmeniJelo($idJela, $poruka = null) {
         $korisnik = $this->session->userdata('korisnik');
         $jelo = $this->M_Jelo->dohvatiJelo($idJela);
-        $info['slika'] = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
 
-        $info['naziv'] = $jelo->Naziv;
-        $info['opisjela'] = $jelo->Opis;
+        $sastojci = $this->M_Sastojak->dohvatiSastojkeJela($idJela);
+        $najveciId = $this->M_Sastojak->poslednjiId()->poslednjiId + 1;
+
+        $info = array(
+            'slika' => $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja,
+            'naziv' => $jelo->Naziv,
+            'opisjela' => $jelo->Opis,
+            'idJela' => $idJela,
+            'poruka' => $poruka,
+            'sastojci' => $sastojci,
+            'najveciId' => $najveciId
+        );
 
         $this->load->view("sablon/headerRestoran.php", ['title' => 'Izmena jela']);
-        $this->load->view("stranice/izmenaJela.php", ['poruka' => $poruka, 'naziv' => $info['naziv'], 'opisjela' => $info['opisjela'], 'idJela' => $idJela, 'slika' => $info['slika']]);
+        $this->load->view("stranice/izmenaJela.php", $info);
         $this->load->view("sablon/footer.php");
+    }
+
+    public function sacuvajIzmeneJela() {
+        var_dump($_POST);
     }
 
     public function ukloniJelo($idJela) {

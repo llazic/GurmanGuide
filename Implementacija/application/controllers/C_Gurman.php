@@ -252,6 +252,16 @@ class C_Gurman extends C_Zajednicki {
     
     public function pretragaJelaPoNazivu($val) {
         $info = parent::pretragaJelaPoNazivu($val);
+        $info['naslov'] = 'Rezultat pretrage';
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrage.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaJelaPoSastojku($val) {
+        $info = parent::pretragaJelaPoSastojku($val);
+        $info['naslov'] = 'Rezultat pretrage';
         
         $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
         $this->load->view("stranice/rezultatPretrage.php", $info);
@@ -260,6 +270,7 @@ class C_Gurman extends C_Zajednicki {
     
     public function pretragaJelaPoRestoranu($val) {
         $info = parent::pretragaJelaPoRestoranu($val);
+        $info['naslov'] = 'Rezultat pretrage';
         
         $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
         $this->load->view("stranice/rezultatPretrage.php", $info);
@@ -268,6 +279,7 @@ class C_Gurman extends C_Zajednicki {
     
     public function pretragaRestoranaPoNazivu($val) {
         $info = parent::pretragaRestoranaPoNazivu($val);
+        $info['naslov'] = 'Rezultat pretrage';
         
         $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
         $this->load->view("stranice/rezultatPretrageRestoran.php", $info);
@@ -276,6 +288,7 @@ class C_Gurman extends C_Zajednicki {
     
     public function pretragaRestoranaPoAdresi($val) {
         $info = parent::pretragaRestoranaPoAdresi($val);
+        $info['naslov'] = 'Rezultat pretrage';
         
         $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
         $this->load->view("stranice/rezultatPretrageRestoran.php", $info);
