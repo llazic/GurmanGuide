@@ -9,7 +9,7 @@
 		</p>
                 <?php 
                     foreach($recenzije as $recenzija){
-                        echo '<div class="box"> <a href="#'./*UMETNUTI LINK KA JELU*/'"> <img src="'.$recenzija->PutanjaSlike.'" class="slika" style="width:120px;height:120px;margin-right:40px;"/> </a>';
+                        echo '<div class="box"><img src="'.$recenzija->PutanjaSlike.'" class="slika" style="width:120px;height:120px;margin-right:40px;"/>';
                         echo '<p><a href="'.site_url($this->router->class.'/prikaziJelo/'.$recenzija->IdJelo).'">';
                         echo $recenzija->NazivJela;
                         echo '</a>';
@@ -18,36 +18,8 @@
                         }
                         echo '</p>';
                         echo '<font class="stil">"';
-                        echo $recenzija->Komentar;//ILI OVDE STAVITI LINK
+                        echo $recenzija->Komentar;
                         echo '"</font>';
                         echo '</div> <br/>';
                     }
                 ?>
-<!--		<div class="box"> <a href="#"> <img src="../Images/calzone1.png" class="slika" style="width:120px;height:120px;margin-right:40px;"/> </a>
-						<p>
-							Calzone
-							<img src="../images/star.png" class="star" align="right">
-							<img src="../images/star.png" class="star" align="right">
-							<img src="../images/star.png" class="star" align="right">
-							<img src="../images/star.png" class="star" align="right">
-							<img src="../images/star.png" class="star" align="right">
-						</p>
-						<font class="stil">
-							"Fenomenalan i ocaravajuci ukus. Kada jednom probate, sigurno cete se vratiti da probate opet!"
-						</font>
-
-		</div>
-		<br/>
-		<div class="box"> <a href="#"> <img src="../Images/carbonara.jpeg" class="slika" style="width:120px;height:120px;margin-right:40px;"/> </a>
-						<p>
-							Pizza carbonara
-							<img src="../images/star.png" class="star" align="right">
-							<img src="../images/star.png" class="star" align="right">
-							<img src="../images/star.png" class="star" align="right">
-
-						</p>
-						<font class="stil">
-							"Jeo sam i bolje pice. Mozda mi samo nije legla..."
-						</font>
-
-		</div>-->

@@ -11,16 +11,26 @@
                         document.getElementById('noviSastojak').value = '';
                         var i = parseInt(document.getElementById( "iCheckboxes" ).value);
                         var cb = document.createElement( "input" );
-                        cb.type = "checkbox";
+                        cb.type = "hidden";
                                 //cb.onclick = "remove(" + i + ")";
                         cb.id = "id"+i;
                         cb.name = "name"+i;
-                                cb.value = noviSastojak;
-                        cb.checked = true;
-                        var text = document.createTextNode(noviSastojak);
-                        document.getElementById( 'append' ).appendChild( text );
+                        cb.value = noviSastojak;
+                        //cb.checked = true;
+                        
+			var text = '<font id="id' + (i+2) + '"> ' + noviSastojak + '<br/></font>';
+			var x = '<input type="button" id="id' + (i+1) + '" value="x" onclick="brisi(\'' + i + '\', \'' + (i+1) + '\', \'' + (i+2) + '\')"/>';
+                        
+                        document.getElementById( 'append' ).innerHTML += x;
+                        document.getElementById( 'append' ).innerHTML += text;
                         document.getElementById( 'append' ).appendChild( cb );
-                        document.getElementById( "iCheckboxes" ).value = parseInt(document.getElementById( "iCheckboxes" ).value) + 1;
+                        document.getElementById( "iCheckboxes" ).value = parseInt(document.getElementById( "iCheckboxes" ).value) + 3;
+                     }
+					 
+                     function brisi(id1, id2, id3){
+                        document.getElementById( 'append' ).removeChild(document.getElementById('id' + id1));
+			document.getElementById( 'append' ).removeChild(document.getElementById('id' + id2));
+			document.getElementById( 'append' ).removeChild(document.getElementById('id' + id3));
                      }
                 </script>
                 <style>

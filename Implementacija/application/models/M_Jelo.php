@@ -62,6 +62,8 @@ class M_Jelo extends CI_Model {
         $this->db->set('Pregledano', 'N');
         if (isset($uneto['idSlika'])) {
             $this->db->set('IdSlika', $uneto['idSlika']);
+        } else {
+            $this->db->set('IdSlika', 3);
         }
         $this->db->insert('jelo');
     }

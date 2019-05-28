@@ -3,7 +3,7 @@
         echo "<center><font color='red' size='3'>$poruka</font></center><br>";
 ?>
     <form action="<?php echo site_url('C_Restoran/unesiJelo')?>" name="form" id="form" method="post" enctype="multipart/form-data"> 
-      <table class="tblctr" cellspacing="15" cellpadding="5">
+      <table class="tblctr" cellspacing="15" cellpadding="5" width="40%">
          <tr>
             <td>Naziv jela:</td>
             <td><?php echo "<font color='red' size='2'>" .form_error('naziv') ."</font>"?>
@@ -15,13 +15,13 @@
                 <textarea cols="50" rows="20" class="tekst" placeholder="Unesite opis jela" value="" name="opisjela"><?php echo set_value('opisjela'); ?></textarea></td>
          </tr>
          <tr>
-            <td>Sastojci</td>
+            <td valign="top">Sastojci:</td>
             <td>
-                
-                    <div id="append" name="append"></div>
+                    
                     <input type="hidden" value="0" name="iCheckboxes" id="iCheckboxes">
                     <input type="text" value="" name="sastojci" id="noviSastojak">
-                    <input type="button" value="Dodaj sastojak" onclick="javascript:append()" />
+                    <input type="button" value="Dodaj sastojak" onclick="append()" />
+                    <div id="append" name="append"></div>
                     <!--<input type="submit" value="submit" />-->
                 <!--</form>-->
             </td>
