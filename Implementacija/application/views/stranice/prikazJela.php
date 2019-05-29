@@ -134,7 +134,7 @@
                     echo "<div class='komentar'>
                              <p class='korisnik'>Ovo jelo ponosno nudi:</p>";
                              echo "<p><a title='Odvedi me u restoran' href=";
-                             echo site_url("{$this->router->class}/prikaziRestoran/$jelo->IdRestoran");
+                             echo site_url("{$this->router->class}/pregledRestorana/$jelo->IdRestoran");
                              echo ">$jelo->imeRestorana</a></p>";
                              echo "</div>
                         </td>

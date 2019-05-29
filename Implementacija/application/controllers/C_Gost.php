@@ -148,8 +148,8 @@ class C_Gost extends C_Zajednicki{
         $prezime = $this->input->post("prezimegurman");
         $pol = $this->input->post("pol");
         
-        $this->form_validation->set_rules('korimegurman', 'Korisnicno ime', 'required|trim|is_unique[korisnik.KorisnickoIme]', array('required' => 'Niste uneli korisničko ime', 'is_unique' => 'Korisničko ime već postoji'));
-        $this->form_validation->set_rules('lozinkagurman', 'Sifra', 'required', array('required' => 'Niste uneli šifru'));
+        $this->form_validation->set_rules('korimegurman', 'Korisnicno ime', 'required|trim|is_unique[korisnik.KorisnickoIme]|min_length[4]|max_length[20]', array('required' => 'Niste uneli korisničko ime', 'is_unique' => 'Korisničko ime već postoji', 'min_length' => 'Korisničko ime mora imati bar 4 znaka.', 'max_length' => 'Korisničko ime ne sme biti duže od 20 znakova.'));
+        $this->form_validation->set_rules('lozinkagurman', 'Sifra', 'required|min_length[4]|max_length[20]', array('required' => 'Niste uneli šifru', 'min_length' => 'Šifra mora imati bar 4 znaka.', 'max_length' => 'Šifra ne sme biti duža od 20 znakova.'));
         $this->form_validation->set_rules('potvrdalozinkegurman', 'Potvrda sifre', 'required|matches[lozinkagurman]', array('required' => 'Niste uneli potvrdu šifre', 'matches' =>'Šifre koje ste uneli se ne poklapaju'));
         $this->form_validation->set_rules('email', 'Mejl', 'trim|required|is_unique[korisnik.Email]|callback_regex_check', array('required' => 'Niste uneli mejl', 'is_unique' => 'Mejl već koristi drugi korisnik'));
         $this->form_validation->set_rules('imegurman', 'Ime', 'required|trim', array('required' => 'Niste uneli ime'));
@@ -263,8 +263,8 @@ class C_Gost extends C_Zajednicki{
         $adresa = $this->input->post("adresarestorana");
         $idGrad = $this->input->post("grad");
         
-        $this->form_validation->set_rules('korimerestoran', 'Korisnicno ime', 'required|trim|is_unique[korisnik.KorisnickoIme]', array('required' => 'Niste uneli korisničko ime', 'is_unique' => 'Korisničko ime već postoji'));
-        $this->form_validation->set_rules('lozinkarestoran', 'Sifra', 'required', array('required' => 'Niste uneli šifru'));
+        $this->form_validation->set_rules('korimerestoran', 'Korisnicno ime', 'required|trim|is_unique[korisnik.KorisnickoIme]|min_length[4]|max_length[20]', array('required' => 'Niste uneli korisničko ime', 'is_unique' => 'Korisničko ime već postoji', 'min_length' => 'Korisničko ime mora imati bar 4 znaka.', 'max_length' => 'Korisničko ime ne sme biti duže od 20 znakova.'));
+        $this->form_validation->set_rules('lozinkarestoran', 'Sifra', 'required|min_length[4]|max_length[20]', array('required' => 'Niste uneli šifru', 'min_length' => 'Šifra mora imati bar 4 znaka.', 'max_length' => 'Šifra ne sme biti duža od 20 znakova.'));
         $this->form_validation->set_rules('potvrdalozinkerestoran', 'Potvrda sifre', 'required|matches[lozinkarestoran]', array('required' => 'Niste uneli potvrdu šifre', 'matches' =>'Šifre koje ste uneli se ne poklapaju'));
         $this->form_validation->set_rules('email', 'Mejl', 'trim|required|is_unique[korisnik.Email]|callback_regex_check', array('required' => 'Niste uneli mejl', 'is_unique' => 'Mejl već koristi drugi korisnik'));
         $this->form_validation->set_rules('telefon', 'Telefon', 'required|trim', array('required' => 'Niste uneli broj telefona'));
@@ -382,36 +382,29 @@ class C_Gost extends C_Zajednicki{
     }
     
     public function kontakt(){
-        //proveriti ko je ulogovan i uraditi redirekt
-        $korisnik = $this->session->userdata('korisnik');
-        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
-            $this->load->view('sablon/headerGost.php', ['title' => 'Kontakt']);
-        } else if ($korisnik->tipKorisnika == 'gurman'){
-            $this->load->view('sablon/headerGurman.php', ['title' => 'Kontakt']);
-        } else if ($korisnik->tipKorisnika == 'restoran'){
-            $this->load->view('sablon/headerRestoran.php', ['title' => 'Kontakt']);
-        } else if ($korisnik->tipKorisnika == 'admin'){
-            $this->load->view('sablon/headerAdmin.php', ['title' => 'Kontakt']);
-        }
+        $this->load->view('sablon/headerGost.php', ['title' => 'Kontakt']);
         $this->load->view('stranice/kontakt.php');
         $this->load->view('sablon/footer.php');
     }
     
     public function onama(){
-        //proveriti ko je ulogovan i uraditi redirekt
-        $korisnik = $this->session->userdata('korisnik');
-        if ($korisnik == null || $korisnik->tipKorisnika == 'gost') {
-            $this->load->view('sablon/headerGost.php', ['title' => 'O nama']);
-        } else if ($korisnik->tipKorisnika == 'gurman'){
-            $this->load->view('sablon/headerGurman.php', ['title' => 'O nama']);
-        } else if ($korisnik->tipKorisnika == 'restoran'){
-            $this->load->view('sablon/headerRestoran.php', ['title' => 'O nama']);
-        } else if ($korisnik->tipKorisnika == 'admin'){
-            $this->load->view('sablon/headerAdmin.php', ['title' => 'O nama']);
-        }
+        $this->load->view('sablon/headerGost.php', ['title' => 'O nama']);
         $this->load->view('stranice/onama.php');
         $this->load->view('sablon/footer.php');
     }
     
+    public function pregledRestorana($idRestorana) {
+        $info = parent::pregledRestorana($idRestorana);
+        $this->load->view('sablon/headerGost.php', ['title' => 'Restoran']);
+        $this->load->view('stranice/pregledRestorana.php', $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function prikaziMeniRestorana($idRestorana) {
+        $info = parent::prikaziMeniRestorana($idRestorana);
+        $this->load->view("sablon/headerGost.php", ['title' => 'Meni restorana']);
+        $this->load->view("stranice/meniRestorana.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
     
 }

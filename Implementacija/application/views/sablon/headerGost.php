@@ -228,6 +228,51 @@
 				margin-right:auto;
 				vertical-align:middle;
 			}
+                        /*Ovo je samo zbog meniRestorana.php ...*/
+                         .slikaMeni {
+                            border-radius: 8px;
+                            object-fit: cover;
+                            float: left;
+                            width: 290px;
+                            height: 200px;
+                        }
+                        
+                        .korisnik {
+                                font-size: 12px;
+                                color: #923b7a;
+                        }
+
+                        .komentar {
+                                border-style: ridge;
+                                border-color: #2d022b;
+                                border-width: 2px;
+                                margin-bottom: 10px;
+                                font-size: 13px;
+                                border-radius: 15px;
+                                padding-left: 5px;
+                                padding-right: 5px;
+                        }
+
+                        p.sastojci {
+                                font-size: 15px;
+                                font-style: italic;
+                        }
+                        .column {
+                            height: auto;
+                            width: auto;
+                            padding: 10px;
+                            border: 1px solid #000000;
+                            float: center;
+                            margin-left: 0px;
+                            margin-top: 10px;
+                            margin-right: 0px;
+                        }
+                        .column h1 {
+                                width: 300px;
+                                font-size: 20px;
+                                border-bottom: 1px solid #000000;
+                        }
+                        /*Ovo je samo zbog meniRestorana.php ...*/
 		</style>
 	</head>
 	<body onload="clear()">

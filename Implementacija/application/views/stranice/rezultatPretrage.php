@@ -25,7 +25,7 @@
                             echo "<div class='komentar'>";
                                 echo "<p class='korisnik'>Gde probati:</p>";
                                 echo "<p><a title='Odvedi me u restoran' href=";
-                                echo site_url("{$this->router->class}/prikaziRestoran/$jelo->IdRestoran");
+                                echo site_url("{$this->router->class}/pregledRestorana/$jelo->IdRestoran");
                                 echo ">$jelo->Restoran</a></p>";
                             echo "</div>";
                             echo "<div class='komentar'>";
