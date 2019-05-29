@@ -1,5 +1,5 @@
 <?php
-
+include_once('C_Zajednicki.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +11,7 @@
  *
  * @author Nikola
  */
-class C_Administrator extends CI_Controller {
+class C_Administrator extends C_Zajednicki {
 
     public function __construct() {
         parent::__construct();
@@ -33,9 +33,23 @@ class C_Administrator extends CI_Controller {
         }
     }
 
-    public function index() {
-        $this->load->view('sablon/headerAdmin.php', ['title' => 'Pregled profila']);
-        //fali nesto ovde
+    public function index($poruka = null) {
+        $topJeloId = $this->M_Recenzija->dohvatiTopJelo();
+        $recenzija = $this->M_Recenzija->dohvatiTopRecenziju($topJeloId->IdJelo);
+        $jelo = $this->M_Jelo->dohvatiJelo($topJeloId->IdJelo);
+        
+        $klasa = new stdClass();
+        $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
+        $klasa->IdJelo = $topJeloId->IdJelo;
+        $klasa->Komentar = $recenzija->Komentar;
+        $klasa->Ocena = $recenzija->Ocena;
+        $klasa->Naziv = $jelo->Naziv;
+        $gurman = $this->M_Gurman->dohvatiGurmana($recenzija->IdKorisnik);
+        $klasa->kIme = $gurman->KorisnickoIme;
+        $klasa->idK = $gurman->IdKorisnik;
+        
+        $this->load->view('sablon/headerAdmin.php', ['title' => 'Pretraga']);
+        $this->load->view('stranice/main.php', ['poruka' => $poruka, 'jelo' => $klasa]);
         $this->load->view('sablon/footer.php');
     }
 
@@ -129,5 +143,56 @@ class C_Administrator extends CI_Controller {
         $this->load->view('stranice/pregledGurmana.php', $info);
         $this->load->view('sablon/footer.php');
     }
-
+    public function prikaziJelo($id) {
+        $info = parent::prikaziJelo($id);
+        
+        $this->load->view('sablon/headerAdmin.php', ['title' => $info['jelo']->Naziv]);
+        $this->load->view("stranice/prikazJela.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaJelaPoNazivu($val) {
+        $info = parent::pretragaJelaPoNazivu($val);
+        $info['naslov'] = 'Rezultat pretrage';
+        
+        $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrage.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaJelaPoSastojku($val) {
+        $info = parent::pretragaJelaPoSastojku($val);
+        $info['naslov'] = 'Rezultat pretrage';
+        
+        $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrage.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaJelaPoRestoranu($val) {
+        $info = parent::pretragaJelaPoRestoranu($val);
+        $info['naslov'] = 'Rezultat pretrage';
+        
+        $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrage.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaRestoranaPoNazivu($val) {
+        $info = parent::pretragaRestoranaPoNazivu($val);
+        $info['naslov'] = 'Rezultat pretrage';
+        
+        $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrageRestoran.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pretragaRestoranaPoAdresi($val) {
+        $info = parent::pretragaRestoranaPoAdresi($val);
+        $info['naslov'] = 'Rezultat pretrage';
+        
+        $this->load->view('sablon/headerAdmin.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/rezultatPretrageRestoran.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
 }
