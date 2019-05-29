@@ -16,7 +16,12 @@ class M_Sastojak extends CI_Model{
         parent::__construct();
     }
     
-    //paramertar funkcije je id jela
+    /**
+     * Dohvata sve sastojke jela ciji ID se prosledi kao parametar funkcije.
+     * 
+     * @param type $id ID jela
+     * @return stdClass Povratna vrednost su objekti koji imaju polja Id i Naziv. Ukoliko jelo nema sastojke, vraca se null.
+     */
     public function dohvatiSastojkeJela($id) {
         $this->db->select('s.IdSastojak as Id, s.Naziv as Naziv');
         $this->db->from('ima_sastojak is, sastojak s');
@@ -26,6 +31,11 @@ class M_Sastojak extends CI_Model{
         return $this->db->get()->result();
     }
     
+    /**
+     * Dohvata poslednji ID iz table sastojak.
+     * 
+     * @return stdClass Povratna vrednost je objekat koji ima polje poslednjiId.
+     */
     public function poslednjiId() {
         $this->db->select('max(sastojak.IdSastojak) as poslednjiId');
         $this->db->from('sastojak');
@@ -33,8 +43,13 @@ class M_Sastojak extends CI_Model{
         return $this->db->get()->row();
     }
     
-    //input: naziv sastojka
-    //outpul: jela
+   /**
+    * Dohvata sva pregledana jela koja imaju sastojak cije ime se prosjedjuje kao parametar funckije. 
+    * 
+    * @param type $sastojak Ime sastojka
+    * @return stdClass Objekti sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika. Ukoliko za zadati sastojak ne postoji jelo,
+    * vraca se null.
+    */
     public function dohvatiJelaZaSastojak($sastojak) {
         $this->db->select('j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika');
         $this->db->from('sastojak s, ima_sastojak is, jelo j');

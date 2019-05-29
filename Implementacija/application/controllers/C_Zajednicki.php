@@ -392,8 +392,12 @@ class C_Zajednicki extends CI_Controller {
             $klasa = new stdClass();
             $klasa->IdJelo = $jelo->IdJelo;
             $klasa->IdRestoran = $jelo->IdKorisnik;
-            $klasa->Opis = $jelo->Opis;
             $klasa->Naziv = $jelo->Naziv;
+            if ($jelo->Opis != null) {
+                $klasa->Opis = $jelo->Opis;
+            } else {
+                $klasa->Opis = "Trenutno ne postoji opis.";
+            }
             $klasa->Ocena = round($jelo->Ocena);
             $klasa->Putanja = $this->M_Slika->dohvatiPutanju($jelo->IdSlika)->Putanja;
 

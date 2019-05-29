@@ -1,4 +1,4 @@
-<p class="title">Upravljanje Recenzijama </p>
+<p class="title">Upravljanje Registracijama </p>
 <?php
 if (empty($registracije) == false) {
     foreach ($registracije as $registracija) {
