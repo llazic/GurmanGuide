@@ -95,5 +95,27 @@ class M_Jelo extends CI_Model {
         $this->db->where('IdJelo', $id);
         $this->db->update('jelo');
     }
+    
+    public function promeniSlikuJelu($idJelo, $idSlika){
+        $this->db->set('IdSlika', $idSlika);
+        $this->db->where('IdJelo', $idJelo);
+        $this->db->update('jelo');
+    }
+    
+    public function obrisiSastojke($idJelo){
+        $this->db->where('IdJelo', $idJelo);
+        $this->db->delete('ima_sastojak');
+    }
+    
+    public function azuriranjeJela($promenljive){
+        $this->db->set('Naziv', $promenljive['naziv']);
+        $this->db->set('Opis', $promenljive['opisjela']);
+        $this->db->set('Pregledano', 'N');
+        if (isset($promenljive['idSlika'])){
+            $this->db->set('IdSlika', $promenljive['idSlika']);
+        }
+        $this->db->where('IdJelo', $promenljive['id']);
+        $this->db->update('jelo');
+    }
 
 }

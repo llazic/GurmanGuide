@@ -6,7 +6,7 @@
             foreach ($jela as $jelo) {
                 echo "<div class='column'>";
                 echo "<h1><a href=";
-                echo site_url("C_Restoran/prikaziJelo/$jelo->IdJelo");
+                echo site_url("{$this->router->class}/prikaziJelo/$jelo->IdJelo");
                 echo ">$jelo->Naziv</a></h1>";
                 echo "<table width='100%'>";
                     echo "<tr>";
@@ -14,7 +14,7 @@
                             echo "<img class='slikaMeni' src='$jelo->Putanja'>";
                             if(isset($dugmeIzmeni)){
                                 echo "<a href=";
-                                echo site_url("C_Restoran/izmeniJelo/$jelo->IdJelo"); 
+                                echo site_url("{$this->router->class}/izmeniJelo/$jelo->IdJelo"); 
                                 echo " >";
                                 echo "<input type='button' name='izmeni'";
                                 echo " value=";

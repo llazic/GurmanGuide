@@ -3,7 +3,7 @@
         echo "<center><font color='red' size='3'>$poruka</font></center><br>";
     ?>
     <p class="center"><img src="<?php echo $slika?>" width="350" class="border"/></p>
-    <form action="<?php echo site_url("{$this->router->class}/sacuvajIzmeneJela")?>" name="form" id="form" method="post" enctype="multipart/form-data"> 
+    <form action="<?php echo site_url("{$this->router->class}/sacuvajIzmeneJela/$idJela")?>" name="form" id="form" method="post" enctype="multipart/form-data"> 
       <table class="tblctr" cellspacing="15" cellpadding="5">
          <tr>
             <td>Naziv jela:</td>

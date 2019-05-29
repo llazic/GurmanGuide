@@ -67,4 +67,13 @@ class M_Sastojak extends CI_Model{
         return $idSastojka;
     }
     
+    public function proveraPovezani($imeSastojka, $idJela){
+        $this->db->from('ima_sastojak i, sastojak s');
+        $this->db->where('s.Naziv', $imeSastojka);
+        $this->db->where('s.IdSastojak = i.IdSastojak');
+        $this->db->where('i.IdJelo', $idJela);
+        
+        return $this->db->get->row();
+    }
+    
 }
