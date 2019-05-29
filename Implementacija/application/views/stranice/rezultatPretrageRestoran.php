@@ -8,7 +8,7 @@
             foreach ($restorani as $restoran) {
                 echo "<div class='column'>";
                 echo "<h1><a href=";
-                echo site_url("C_Gost/prikaziRestoran/$restoran->IdKorisnik");
+                echo site_url("{$this->router->class}/pregledRestorana/$restoran->IdKorisnik");
                 echo ">$restoran->Naziv</a></h1>";
                 echo "<table width='100%'>";
                     echo "<tr>";
@@ -25,12 +25,12 @@
                             echo "<div class='komentar'>";
                                 echo "<p class='korisnik'>Top jelo:</p>";
                                 echo "<p><a title='Prikaži mi jelo' href=";
-                                echo site_url("C_Gost/prikaziJelo/$restoran->topJeloId"); //ovo ispravi posle
+                                echo site_url("{$this->router->class}/prikaziJelo/$restoran->topJeloId"); //ovo ispravi posle
                                 echo ">$restoran->topJeloNaziv</a></p>"; //ovo ispravi posle
                             echo "</div>";
                             echo "<div class='komentar'>";
                                 echo "<p><a title='Prikaži mi sva jela ovog restorana' href=";
-                                echo site_url("C_Gost/prikaziMeniRestorana/$restoran->IdKorisnik");
+                                echo site_url("{$this->router->class}/prikaziMeniRestorana/$restoran->IdKorisnik");
                                 echo ">Prikaži mi sva jela restorana</a></p>";
                             echo "</div>";
                         echo "</td>";
