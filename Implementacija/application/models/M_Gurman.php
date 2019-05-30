@@ -9,7 +9,8 @@
 /**
  * Description of M_Gurman
  *
- * @author Lazar
+ * @author Lazar Lazic
+ * @vesrion 1.0
  */
 class M_Gurman extends CI_Model{
     public function __construct() {
