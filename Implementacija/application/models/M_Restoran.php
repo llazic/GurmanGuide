@@ -54,6 +54,14 @@ class M_Restoran extends CI_Model{
         return $this->db->get()->row();
     }
     
+    /**
+     * Funkcija koja sluzi za izmenu profila restorana, iz nje se dalje poziva funkcija iz modela M_Grad (kako bi se nastavilo sa izmenama profila)
+     * 
+     * @param type $promenljive Asocijativni niz sa poljima lozinkarestoran, id, imerestorana, adresarestorana, radnovreme,
+     * telefon, idSlika, gradrestorana i drzavarestorana
+     * 
+     * @return void
+     */
     
     public function azuriranjeRestorana($promenljive){
         
@@ -81,6 +89,14 @@ class M_Restoran extends CI_Model{
 
     }
     
+    /**
+     * Funkcija sluzi da vrati sve neophodne informacije o restoranu za dati id
+     * 
+     * @param int $id
+     * @return stdClass Objekti sa poljima imeRestorana, brTelefona, adresaRestorana, gradRestorana, 
+     * drzavaRestorana, korime, lozinka, email, id, radnoVreme, IdSlika -ukoliko postoji takav restoran, inace vraca null.
+     */
+    
     public function dohvatiRestoran($id){
         
         $query = $this->db->query("SELECT restoran.Naziv as imeRestorana, restoran.Telefon as brTelefona, restoran.Adresa as adresaRestorana, grad.Naziv as gradRestorana, drzava.Naziv as drzavaRestorana, korisnik.KorisnickoIme as korime, korisnik.Lozinka as lozinka, korisnik.Email as email, restoran.IdKorisnik as id, restoran.RadnoVreme as radnoVreme, restoran.IdSlika as IdSlika  "
@@ -90,6 +106,15 @@ class M_Restoran extends CI_Model{
         
         return $query->row();
     }
+    
+    /**
+     * Funkcija koja sluzi da restoranu sa datim id-ijem promeni sliku
+     * 
+     * @param int $idRestoran
+     * @param int $idSlika
+     * 
+     * @return null
+     */
     
     public function promeniSlikuRestoranu($idRestoran, $idSlika){
         $this->db->set('IdSlika', $idSlika);
@@ -166,6 +191,15 @@ class M_Restoran extends CI_Model{
         
         return $this->db->get()->result();
     }
+    
+    /**
+     * Funkcija sluzi da sortira jela restorana ciji je id prosledjen, po oceni koju imaju, od najbolje ocenjenog do najgore ocenjenog
+     * 
+     * @param int $idRestorana
+     * @return stdClass Objekti sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika, Ocena sortiranih po Ocena (opadajuce),
+     * u slucaju da ne postoje podaci koji zadovoljavaju zahteve upita, vraca null
+     * 
+     */
     
     public function dohvatiTopTriJelaRestorana($idRestorana){
         $query = $this->db->query("SELECT j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika, sum(r.Ocena)/count(r.Ocena) as Ocena "

@@ -44,6 +44,16 @@ class M_Jelo extends CI_Model {
 
         return $this->db->get()->row();
     }
+    
+    /**
+     *Funkcija koja sluzi za proveru naziva jela, odnosno da li jelo sa datim imenom vec postoji kod datog restorana
+     * 
+     * @param type $uneto Asocijativni niz sa poljima naziv, idKorisnik, opisjela
+     * 
+     * @return stdClass Objekat sa poljem IdJelo - u slucaju da postoji to jelo, u suprotnom vraca null
+     * 
+     * @return void
+     */
 
     public function proveriNazivJela($uneto) {
         $this->db->select('jelo.IdJelo as IdJelo');
@@ -54,6 +64,14 @@ class M_Jelo extends CI_Model {
         return $this->db->get()->row();
     }
 
+    /**
+     *Funkcija koja sluzi za pravljenje novog jela ulogovanog restorana
+     * 
+     * @param type $uneto Asocijativni niz sa poljima naziv, idKorisnik, opisjela, idSlika, idJela
+     * 
+     * @return void
+     */
+    
     public function napraviJelo($uneto) {
         $this->db->set('IdJelo', $uneto['idJela']);
         $this->db->set('IdKorisnik', $uneto['idKorisnik']);
@@ -67,12 +85,29 @@ class M_Jelo extends CI_Model {
         }
         $this->db->insert('jelo');
     }
+    
+    /**
+     *Funkcija koja sluzi za popunjavanje tabele ima_sastojak, odnosno pravi vezu izmedju sastojka i jela
+     * 
+     * @param int $idSastojka
+     * @param int $idJela
+     * 
+     * @return void
+     */
 
     public function poveziSastojakSaJelom($idSastojka, $idJela) {
         $this->db->set('IdJelo', $idJela);
         $this->db->set('IdSastojak', $idSastojka);
         $this->db->insert('ima_sastojak');
     }
+    
+    /**
+     *Funkcija koja sluzi za dohvatanje jela sa datim id-ijem
+     * 
+     * @param int $idJelo
+     * 
+     * @return stdClass Objekat sa poljem IdJelo, Naziv, Opis, IdKorisnik, IdSlika, Pregledano - u slucaju da postoji to jelo, u suprotnom vraca null
+     */
 
     public function dohvatiJelo($idJelo) {
         $this->db->from('jelo');
@@ -80,6 +115,14 @@ class M_Jelo extends CI_Model {
 
         return $this->db->get()->row();
     }
+    
+    /**
+     *Funkcija koja sluzi za brisanje jela sa datim id-ijem
+     * 
+     * @param int $idJela
+     * 
+     * @return void
+     */
 
     public function obrisiJelo($idJela) {
         $this->db->where('IdJelo', $idJela);
@@ -96,16 +139,41 @@ class M_Jelo extends CI_Model {
         $this->db->update('jelo');
     }
     
+    /**
+     * Funkcija koja sluzi da jelu sa datim id-ijem promeni sliku
+     * 
+     * @param int $idJelo
+     * @param int $idSlika
+     * 
+     * @return void
+     */
+    
     public function promeniSlikuJelu($idJelo, $idSlika){
         $this->db->set('IdSlika', $idSlika);
         $this->db->where('IdJelo', $idJelo);
         $this->db->update('jelo');
     }
     
+    /**
+     * Funkcija koja sluzi da izbrise povezanost datog jela sa sastojcima, iz tabele ima_sastojak
+     * 
+     * @param int $idJelo
+     * 
+     * @return void
+     */
+    
     public function obrisiSastojke($idJelo){
         $this->db->where('IdJelo', $idJelo);
         $this->db->delete('ima_sastojak');
     }
+    
+    /**
+     * Funkcija koja sluzi za izmenu jela ulogovanog restorana
+     * 
+     * @param type $promenljive Asocijativni niz sa poljima naziv, idSlika, opisjela, id
+     * 
+     * @return void
+     */
     
     public function azuriranjeJela($promenljive){
         $this->db->set('Naziv', $promenljive['naziv']);

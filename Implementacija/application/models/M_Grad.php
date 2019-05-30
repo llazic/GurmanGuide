@@ -29,6 +29,16 @@ class M_Grad extends CI_Model{
         return $this->db->get()->result();
     }
     
+    /**
+     *Funkcija koja sluzi za izmenu profila restorana (menja se grad restorana), poziva se iz modela M_Restoran, a iz nje se dalje poziva funkcija iz modela M_Drzava (kako bi se nastavilo sa izmenama profila)
+     * 
+     * @param type $promenljive Asocijativni niz sa poljima lozinkarestoran, id, imerestorana, adresarestorana, radnovreme,
+     * telefon, idSlika, gradrestorana i drzavarestorana
+     * @param int $idGrad
+     * 
+     * @return void
+     */
+    
     public function azuriranjeGrada($promenljive, $idGrad){
         $this->db->set('Naziv', $promenljive['gradrestorana']);
         $this->db->where('IdGrad', $idGrad);

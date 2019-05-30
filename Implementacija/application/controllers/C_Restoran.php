@@ -9,11 +9,19 @@ include_once('C_Zajednicki.php');
 
 /**
  * Description of C_Restoran
+ * 
+ * Controller za ulogovani Restoran
  *
- * @author Dunja
+ * @author Dunja Culafic 0236/2016
+ * @version 1.0
  */
 class C_Restoran extends C_Zajednicki {
 
+    /**
+    * Kreiranje nove instance
+    *
+    * @return void
+     */
     public function __construct() {
         parent::__construct();
 
@@ -33,6 +41,14 @@ class C_Restoran extends C_Zajednicki {
                 break;
         }
     }
+    /**
+     * 
+     * @param type $porukaPocetna stranica
+     * 
+     * @param string $poruka
+     * 
+     * @return void
+     */
 
     public function index($poruka = null) { //u indexu da se ide na land
         $topJeloId = $this->M_Recenzija->dohvatiTopJelo();
@@ -50,6 +66,15 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('stranice/main.php', ['jelo' => $klasa, 'poruka' => $poruka]);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * 
+     * Prikaz izmene profila Restorana
+     * 
+     * @param string $poruka
+     * 
+     * @return void
+     */
 
     public function izmenaRestorana($poruka = null) {
         $korisnik = $this->session->userdata('korisnik');
@@ -72,6 +97,15 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('stranice/izmenaRestorana.php', $info);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * 
+     * Prikaz pregleda profila Restorana
+     * 
+     * @param int $idRestorana
+     * 
+     * @return  void
+     */
 
     public function pregledRestorana($idRestorana) {
         $korisnik = $this->session->userdata('korisnik');
@@ -86,6 +120,12 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('stranice/pregledRestorana.php', $info);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * Metoda sluzi da se Restoran izloguje sa svog profila
+     * 
+     * @return void
+     */
 
     public function izlogujse() {
         $korisnik = new stdClass();
@@ -93,6 +133,12 @@ class C_Restoran extends C_Zajednicki {
         $this->session->set_userdata('korisnik', $korisnik);
         redirect('C_Gost');
     }
+    
+    /**
+     * Prikaz stranice sa kontakt informacijama
+     * 
+     * @return void
+     */
 
     public function kontakt() {
         //proveriti ko je ulogovan i uraditi redirekt
@@ -101,15 +147,16 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
-    public function regex_check($str) {
-        if (preg_match("/[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})/i", $str)) {
-            return TRUE;
-        } else {
-            $this->form_validation->set_message('regex_check', 'Mejl nije u očekivanom formatu');
-            return FALSE;
-        }
-    }
-
+    /**
+     * Vrsi upload slike
+     * 
+     * @param string $putanja
+     * @param string $imeSlike
+     * @param string $vrstaSlike
+     * 
+     * @return string
+     */
+    
     public function upload($putanja, $imeSlike, $vrstaSlike) {
         if (!file_exists($putanja)) {
             mkdir($putanja, 0777, true);
@@ -134,6 +181,13 @@ class C_Restoran extends C_Zajednicki {
             return null;
         }
     }
+    
+    /**
+     * 
+     * Funkcija sluzi za izmenu profila Restorana
+     * 
+     * @return void
+     */
 
     public function sacuvajIzmeneRestorana() {
         $promenljive['lozinkarestoran'] = $this->input->post('lozinkarestoran');
@@ -215,6 +269,12 @@ class C_Restoran extends C_Zajednicki {
             $this->index('Uspesno napravljene izmene.');
         }
     }
+    
+    /**
+     * Prikaz stranice sa informacijama o nama
+     * 
+     * @return void
+     */
 
     public function onama() {
         //proveriti ko je ulogovan i uraditi redirekt
@@ -222,6 +282,15 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('stranice/onama.php');
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * 
+     * Prikaz profila Gurmana
+     * 
+     * @param int $idGurman
+     * 
+     * @return void
+     */
 
     function pregledProfilaGurmana($idGurman) {
         
@@ -231,6 +300,15 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('stranice/pregledGurmana.php', $info);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * 
+     * Prikaz stranice za unos novog jela
+     * 
+     * @param string $poruka
+     * 
+     * @return void
+     */
 
     public function unosJela($poruka = null) {
 
@@ -238,6 +316,13 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('stranice/unosJela.php', ['poruka' => $poruka]);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * 
+     * Funkcija kojom restoran unosi novo jelo u sistem
+     * 
+     * @return void
+     */
 
     public function unesiJelo() {
         $korisnik = $this->session->userdata('korisnik');
@@ -319,6 +404,14 @@ class C_Restoran extends C_Zajednicki {
             }
         }
     }
+    
+    /**
+     * Funkcija za prikaz menija restorana ciji je id prosledjen (prikazuje sva njegova jela)
+     * 
+     * @param int $idRestorana
+     * 
+     * @return void
+     */
 
     public function prikaziMeniRestorana($idRestorana) {
         $korisnik = $this->session->userdata('korisnik');
@@ -333,6 +426,12 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view("stranice/meniRestorana.php", $info);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * Prikaz menija restorana sa omogucenim izmenama jela (moguce samo za restoran koji je trenutno ulogovan)
+     * 
+     * @return void
+     */
 
     public function izmenaMenijaRestorana() {
         $korisnik = $this->session->userdata('korisnik');
@@ -388,6 +487,15 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view("stranice/meniRestorana.php", ['jela' => $niz, 'dugmeIzmeni' => 1]);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * Prikaz stranice za izmenu jela, restorana koji je trenutno ulogovan
+     * 
+     * @param int $idJela
+     * @param string $poruka
+     * 
+     * @return void
+     */
 
     public function izmeniJelo($idJela, $poruka = null) {
         $korisnik = $this->session->userdata('korisnik');
@@ -410,6 +518,14 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view("stranice/izmenaJela.php", $info);
         $this->load->view("sablon/footer.php");
     }
+    
+    /**
+     * Izmena sopstvenog jela od strane ulogovanog restorana
+     * 
+     * @param int $idJela
+     * 
+     * @return void
+     */
 
     public function sacuvajIzmeneJela($idJela) {
         //var_dump($_POST);
@@ -508,11 +624,27 @@ class C_Restoran extends C_Zajednicki {
             $this->index('Uspesno napravljene izmene.');
         }
     }
+    
+    /**
+     * Brisanje sopstvenog jela od strane ulogovanog restorana
+     * 
+     * @param int $idJela
+     * 
+     * @return void
+     */
 
     public function ukloniJelo($idJela) {
         $this->M_Jelo->obrisiJelo($idJela);
         $this->izmenaMenijaRestorana();
     }
+    
+    /**
+     * Prikaz jela
+     * 
+     * @param int $id -> idJelo
+     * 
+     * @return void
+     */
     
     public function prikaziJelo($id) {
         $korisnik = $this->session->userdata('korisnik');
@@ -528,6 +660,14 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view("stranice/prikazJela.php", $info);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * Prikaz rezultata pretrage jela po nazivu
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
  
     public function pretragaJelaPoNazivu($val) {
         $info = parent::pretragaJelaPoNazivu($val);
@@ -538,6 +678,14 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz rezultata pretrage jela po sastojku
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
+    
     public function pretragaJelaPoSastojku($val) {
         $info = parent::pretragaJelaPoSastojku($val);
         $info['naslov'] = 'Rezultat pretrage';
@@ -546,6 +694,14 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view("stranice/rezultatPretrage.php", $info);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * Prikaz rezultata pretrage jela po restoranu
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
     
     public function pretragaJelaPoRestoranu($val) {
         $info = parent::pretragaJelaPoRestoranu($val);
@@ -556,6 +712,14 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+     /**
+     * Prikaz rezultata pretrage restorana po nazivu
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
+    
     public function pretragaRestoranaPoNazivu($val) {
         $info = parent::pretragaRestoranaPoNazivu($val);
         $info['naslov'] = 'Rezultat pretrage';
@@ -564,6 +728,14 @@ class C_Restoran extends C_Zajednicki {
         $this->load->view("stranice/rezultatPretrageRestoran.php", $info);
         $this->load->view('sablon/footer.php');
     }
+    
+    /**
+     * Prikaz rezultata pretrage restorana po adresi
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
     
     public function pretragaRestoranaPoAdresi($val) {
         $info = parent::pretragaRestoranaPoAdresi($val);

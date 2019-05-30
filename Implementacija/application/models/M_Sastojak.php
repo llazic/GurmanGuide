@@ -62,6 +62,14 @@ class M_Sastojak extends CI_Model{
         return $this->db->get()->result();
     }
     
+    /**
+     * Funkcija sluzi kako bi se proverilo da li u bazi vec postoji sacuvan sastojak sa datim imenom ili ne
+     * 
+     * @param string $imeSastojka
+     * 
+     * @return stdClass Objekti sa poljem IdSastojak - ukoliko sastojak sa datim imenom postoji, u suprotnom vraca null
+     */
+    
     public function postojiSastojak($imeSastojka){
         
         $this->db->select('IdSastojak');
@@ -70,6 +78,14 @@ class M_Sastojak extends CI_Model{
         
         return $this->db->get()->row();
     }
+    
+    /**
+     * Funkcija sluzi kako bi se dodao u bazu sastojak sa datim imenom
+     * 
+     * @param string $imeSastojka
+     * 
+     * @return int $idSastojka
+     */
     
     public function dodajSastojak($imeSastojka){
         $poslednjiId = $this->M_Sastojak->poslednjiId()->poslednjiId;

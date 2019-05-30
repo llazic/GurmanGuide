@@ -9,12 +9,22 @@
 /**
  * Description of M_Drzava
  *
- * @author Lazar
+ * @author Dunja
  */
 class M_Drzava extends CI_Model{
     public function __construct() {
         parent::__construct();
     }
+    
+    /**
+     *Funkcija koja sluzi za izmenu profila restorana (menja se drzava restorana), poziva se iz modela M_Grad
+     * 
+     * @param type $promenljive Asocijativni niz sa poljima lozinkarestoran, id, imerestorana, adresarestorana, radnovreme,
+     * telefon, idSlika, gradrestorana i drzavarestorana
+     * @param int $idDrzava
+     * 
+     * @return void
+     */
     
     public function azuriranjeDrzave($promenljive, $idDrzava){
         $this->db->set('Naziv', $promenljive['drzavarestorana']);
