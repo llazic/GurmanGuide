@@ -28,7 +28,7 @@ class C_Gurman extends C_Zajednicki {
                 break;
             case 'restoran': redirect('C_Restoran');
                 break;
-            case 'admin': redirect('C_Admin');
+            case 'admin': redirect('C_Administrator');
                 break;
         }
     }
@@ -292,6 +292,22 @@ class C_Gurman extends C_Zajednicki {
         
         $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
         $this->load->view("stranice/rezultatPretrageRestoran.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function pregledRestorana($idRestorana){
+        $info = parent::pregledRestorana($idRestorana);
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/pregledRestorana.php", $info);
+        $this->load->view('sablon/footer.php');
+    }
+    
+    public function prikaziMeniRestorana($idRestorana) {
+        $info = parent::prikaziMeniRestorana($idRestorana);
+        
+        $this->load->view('sablon/headerGurman.php', ['title' => 'Rezultat pretrage']);
+        $this->load->view("stranice/meniRestorana.php", $info);
         $this->load->view('sablon/footer.php');
     }
 }

@@ -412,6 +412,16 @@
                                 height: 170px;
                                  
                         }
+                        
+                        .center{
+                                text-align: center;
+                        }
+                        
+                        .sredina{
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
 		</style>
 	</head>
 	<body>

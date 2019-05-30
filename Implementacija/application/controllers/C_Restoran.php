@@ -29,7 +29,7 @@ class C_Restoran extends C_Zajednicki {
                 break;
             case 'gurman': redirect('C_Gurman');
                 break;
-            case 'admin': redirect('C_Admin');
+            case 'admin': redirect('C_Administrator');
                 break;
         }
     }

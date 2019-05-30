@@ -1,7 +1,7 @@
 <p class="title"> <?php echo $imeRestorana; ?> </p>
 <p class="center"><img src="<?php echo $slikaRestorana?>" width="350" class="border"/></p>
 <p class="center">
-    <table class="sredina" cellspacing="15" cellpadding="5">
+    <table class="sredina" cellspacing="15" cellpadding="5" width="40%">
 	<tr>
             <td> Kontakt telefon: </td>
             <td> <?php echo $brTelefona; ?> </td>

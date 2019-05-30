@@ -3,7 +3,7 @@
         echo "<center><font color='red' size='3'>$poruka</font></center><br>";
 ?>
                 <form action="<?php echo site_url('C_Gurman/sacuvajRecenziju/'.$idJelo);?>" method="POST">
-                    <table class="center" cellspacing="15" cellpadding="5">
+                    <table align="center" cellspacing="15" cellpadding="5">
 
                             <tr>
                                     <td> Jelo: </td>

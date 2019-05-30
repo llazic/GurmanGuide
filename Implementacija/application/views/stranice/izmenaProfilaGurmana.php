@@ -4,7 +4,7 @@
 ?>
 <p style="text-align:center;"><img src="<?php echo $slika?>" width="350" class="border"/></p>
 <form name="profil" action="<?php echo site_url('C_Gurman/sacuvajIzmeneProfila')?>" method="POST" enctype="multipart/form-data">
-		<table class="center" cellspacing="15" cellpadding="5">
+		<table align="center" cellspacing="15" cellpadding="5">
 			<tr>
 				<td align="top">Korisničko ime:</td>
 				<td>

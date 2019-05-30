@@ -18,6 +18,6 @@
                         $imaRecenzija = true;
                     }
                     if ($imaRecenzija == false){
-                        echo '<center>Nema odobrenih recenzija.</center>';
+                        echo '<center>Nema odobrenih recenzija.</center><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
                     }
                 ?>
