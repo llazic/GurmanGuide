@@ -7,12 +7,18 @@ include_once('C_Zajednicki.php');
  */
 
 /**
- * Description of C_Gurman
+ * Kontroler za ulogovanog Gurmana
  *
- * @author Lazar
+ * @author Lazar Lazic 0245/2016
+ * @version 1.0
  */
 class C_Gurman extends C_Zajednicki {
-
+    
+    /**
+     * Kreiranje nove instance
+     * 
+     * @return void
+     */
     public function __construct() {
         parent::__construct();
         
@@ -32,7 +38,14 @@ class C_Gurman extends C_Zajednicki {
                 break;
         }
     }
-
+    
+    /**
+     * Pocetna stranica
+     * 
+     * @param string $poruka 
+     * 
+     * @return void
+     */
     public function index($poruka = null) {
         $topJeloId = $this->M_Recenzija->dohvatiTopJelo();
         $recenzija = $this->M_Recenzija->dohvatiTopRecenziju($topJeloId->IdJelo);
@@ -52,28 +65,50 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('stranice/main.php', ['poruka' => $poruka, 'jelo' => $klasa]);
         $this->load->view('sablon/footer.php');
     }
-
+    
+    /**
+     * Sluzi da se Gurman izloguje
+     * 
+     * @return void
+     */
     public function izlogujSe() {
         $korisnik = new stdClass();
         $korisnik->tipKorisnika = 'gost';
         $this->session->set_userdata('korisnik', $korisnik);
         redirect('C_Gost');
     }
-
+    
+    /**
+     * Funkcija za ispis kontakt informacija
+     * 
+     * @return void
+     */
     public function kontakt() {
 
         $this->load->view('sablon/headerGurman.php', ['title' => 'Kontakt']); //ako je gurman ulogovan
         $this->load->view('stranice/kontakt.php');
         $this->load->view('sablon/footer.php');
     }
-
+    
+    /**
+     * Funkcija za ispis informacija o nama
+     * 
+     * @return void
+     */
     public function onama() {
 
         $this->load->view('sablon/headerGurman.php', ['title' => 'O nama']); //ako je gurman ulogovan
         $this->load->view('stranice/onama.php');
         $this->load->view('sablon/footer.php');
     }
-
+    
+    /**
+     * Prikaz izmene profila Gurmana
+     * 
+     * @param string $poruka 
+     * 
+     * @return void
+     */
     public function izmenaProfila($poruka = null) {
         $korisnik = $this->session->userdata('korisnik');
         $gurman = $this->M_Gurman->dohvatiGurmana($korisnik->id);
@@ -95,6 +130,11 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Izmena profila Gurmana
+     * 
+     * @return void
+     */
     public function sacuvajIzmeneProfila() {
         $info['sifra'] = $this->input->post("lozinkagurman");
         //$info['sifraPotvrda'] = $this->input->post("potvrdalozinkegurman");
@@ -172,6 +212,13 @@ class C_Gurman extends C_Zajednicki {
         }
     }
     
+    /**
+     * Prikaz profila Gurmana
+     * 
+     * @param int $idGurman
+     * 
+     * @return void
+     */
     public function pregledProfilaGurmana($idGurman) {
         $korisnik = $this->session->userdata('korisnik');
         
@@ -186,7 +233,14 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
-
+    /**
+     * Prikaz forme za postavljanje nove ili izmenu postojece recenzije
+     * 
+     * @param int $idJelo
+     * @param string $poruka 
+     * 
+     * @return void
+     */
     public function postaviPromeniRecenziju($idJelo, $poruka = null){
         $jelo = $this->M_Jelo->dohvatiJelo($idJelo);
         $restoran = $this->M_Restoran->dohvatiRestoran($jelo->IdKorisnik);
@@ -215,8 +269,15 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
-    //ukoliko ne postoji recenzija ulogovanog korisnika za dato jelo pravi novu
-    //u suprotnom menja postojecu
+    /**
+     * Cuvanje nove/izmenjene recenzije
+     * 
+     * @param int $idJelo
+     * 
+     * @return void
+     * ukoliko ne postoji recenzija ulogovanog korisnika za dato jelo pravi novu
+     * u suprotnom menja postojecu
+     */
     public function sacuvajRecenziju($idJelo){
         $korisnik = $this->session->userdata('korisnik');
         $ocena = $this->input->post('rate');
@@ -233,6 +294,11 @@ class C_Gurman extends C_Zajednicki {
         }
     }
     
+    /**
+     * Prikaz recenzija trenutno ulogovanog Gurmana
+     * 
+     * @return void
+     */
     public function prikaziRecenzije(){
         $korisnik = $this->session->userdata('korisnik');
         $info['recenzije'] = $this->M_Recenzija->dohvatiRecenzijeGurmana($korisnik->id);
@@ -242,6 +308,13 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz jela
+     * 
+     * @param int $id -> idJelo
+     * 
+     * @return void
+     */
     public function prikaziJelo($id) {
         $info = parent::prikaziJelo($id);
         
@@ -250,6 +323,13 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz rezultata pretrage jela po nazivu
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
     public function pretragaJelaPoNazivu($val) {
         $info = parent::pretragaJelaPoNazivu($val);
         $info['naslov'] = 'Rezultat pretrage';
@@ -259,6 +339,13 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz rezultata pretrage jela po sastojku
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
     public function pretragaJelaPoSastojku($val) {
         $info = parent::pretragaJelaPoSastojku($val);
         $info['naslov'] = 'Rezultat pretrage';
@@ -268,6 +355,13 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz rezultata pretrage jela po restoranu
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
     public function pretragaJelaPoRestoranu($val) {
         $info = parent::pretragaJelaPoRestoranu($val);
         $info['naslov'] = 'Rezultat pretrage';
@@ -277,6 +371,13 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz rezultata pretrage restorana po nazivu
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
     public function pretragaRestoranaPoNazivu($val) {
         $info = parent::pretragaRestoranaPoNazivu($val);
         $info['naslov'] = 'Rezultat pretrage';
@@ -286,6 +387,13 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz rezultata pretrage restorana po adresi
+     * 
+     * @param string $val
+     * 
+     * @return void
+     */
     public function pretragaRestoranaPoAdresi($val) {
         $info = parent::pretragaRestoranaPoAdresi($val);
         $info['naslov'] = 'Rezultat pretrage';
@@ -295,6 +403,13 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz profila restorana
+     * 
+     * @param int $idRestorana
+     * 
+     * @return void
+     */
     public function pregledRestorana($idRestorana){
         $info = parent::pregledRestorana($idRestorana);
         
@@ -303,6 +418,13 @@ class C_Gurman extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
     
+    /**
+     * Prikaz menija restorana
+     * 
+     * @param int $idRestorana
+     * 
+     * @return void
+     */
     public function prikaziMeniRestorana($idRestorana) {
         $info = parent::prikaziMeniRestorana($idRestorana);
         

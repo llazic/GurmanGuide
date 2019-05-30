@@ -8,7 +8,8 @@
 /**
  * Description of C_Zajednicki
  *
- * @author Lazar
+ * @author Lazar Lazic 0245/2016
+ * @version 1.0
  */
 class C_Zajednicki extends CI_Controller {
     
@@ -16,6 +17,13 @@ class C_Zajednicki extends CI_Controller {
         parent::__construct();
     }
     
+    /**
+     * Dohvata informacije o Gurmanu iz modela
+     * 
+     * @param int $idGurman
+     * 
+     * @return associative array
+     */
     public function pregledProfilaGurmana($idGurman) {
         $gurman = $this->M_Gurman->dohvatiGurmana($idGurman);
         $recenzije = $this->M_Recenzija->dohvatiRecenzijeGurmana($idGurman);
@@ -33,6 +41,15 @@ class C_Zajednicki extends CI_Controller {
         return $info;
     }
     
+    /**
+     * Vrsi upload slike
+     * 
+     * @param string $putanja
+     * @param string $imeSlike
+     * @param string $vrstaSlike
+     * 
+     * @return string
+     */
     public function upload($putanja, $imeSlike, $vrstaSlike) {
         if(!file_exists($putanja)) {
            mkdir($putanja, 0777, true);
@@ -58,6 +75,13 @@ class C_Zajednicki extends CI_Controller {
         }
     }
     
+    /**
+     * Dohvata informacije o Jelu iz modela
+     * 
+     * @param int $id -> idJelo
+     * 
+     * @return associative array
+     */
     public function prikaziJelo($id) {
         $jelo = $this->M_Jelo->dohvatiJelo($id);
         
@@ -115,6 +139,13 @@ class C_Zajednicki extends CI_Controller {
         return ['jelo' => $klasa, 'recenzije' => $niz];
     }
     
+    /**
+     * Dohvata informacije o jelima sa zadatim nazivom iz modela
+     * 
+     * @param string $val
+     * 
+     * @return associative array
+     */
     public function pretragaJelaPoNazivu($val) {
         $input = str_replace('%20', ' ', $val);
         $input = trim($input);
@@ -168,6 +199,13 @@ class C_Zajednicki extends CI_Controller {
         return ['jela' => $niz];
     }
     
+    /**
+     * Dohvata informacije o jelima restorana sa zadatim nazivom iz modela
+     * 
+     * @param string $val
+     * 
+     * @return associative array
+     */
     public function pretragaJelaPoRestoranu($val) {
         $input = str_replace('%20', ' ', $val);
         $input = trim($input);
@@ -222,6 +260,13 @@ class C_Zajednicki extends CI_Controller {
         return ['jela' => $niz];
     }
     
+    /**
+     * Dohvata informacije o restoranima sa zadatim nazivom iz modela
+     * 
+     * @param string $val
+     * 
+     * @return associative array
+     */
     public function pretragaRestoranaPoNazivu($val) {
         $input = str_replace('%20', ' ', $val);
         $input = trim($input);
@@ -266,6 +311,13 @@ class C_Zajednicki extends CI_Controller {
         return ['restorani' => $niz];
     }
     
+    /**
+     * Dohvata informacije o restoranima sa zadatom adresom iz modela
+     * 
+     * @param string $val
+     * 
+     * @return associative array
+     */
     public function pretragaRestoranaPoAdresi($val) {
         $input = str_replace('%20', ' ', $val);
         $input = trim($input);
@@ -310,6 +362,13 @@ class C_Zajednicki extends CI_Controller {
         return ['restorani' => $niz];
     }
     
+    /**
+     * Dohvata informacije o jelima sa zadatim sastojkom iz modela
+     * 
+     * @param string $val
+     * 
+     * @return associative array
+     */
     function pretragaJelaPoSastojku($val) {
         $input = str_replace('%20', ' ', $val);
         $input = trim($input);
@@ -363,6 +422,13 @@ class C_Zajednicki extends CI_Controller {
         return ['jela' => $niz];
     }
     
+    /**
+     * Dohvata informacije o restoranu iz modela
+     * 
+     * @param int $idRestorana
+     * 
+     * @return associative array
+     */
     public function pregledRestorana($idRestorana){
         $restoran = $this->M_Restoran->dohvatiRestoran($idRestorana);
 
@@ -424,6 +490,13 @@ class C_Zajednicki extends CI_Controller {
             'drzavaRestorana' => $info['drzavaRestorana'], 'imeRestorana' => $info['imeRestorana'], 'idRestoran' => $idRestorana];
     }
     
+    /**
+     * Dohvata informacije o jelima za zadati restoran
+     * 
+     * @param int $idRestorana
+     * 
+     * @return associative array
+     */
     public function prikaziMeniRestorana($idRestorana) {
         $jela = $this->M_Restoran->dohvatiJelaRestoranaId($idRestorana);
 

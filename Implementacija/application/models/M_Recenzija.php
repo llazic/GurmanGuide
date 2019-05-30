@@ -9,7 +9,8 @@
 /**
  * Description of M_Recenzija
  *
- * @author Lazar
+ * @author Lazar Lazic 0245/2016
+ * @version 1.0
  */
 class M_Recenzija
 extends CI_Model{
@@ -55,7 +56,15 @@ extends CI_Model{
 
         return $this->db->get()->result();
     }
-
+    
+    /**
+     * Dohvata recenziju zadatog Gurmana za zadato jelo
+     * 
+     * @param int $idKorisnik -> idGurman
+     * @param int $idJelo
+     * 
+     * @return stdClass 
+     */
     public function dohvatiRecenziju($idKorisnik, $idJelo){
         $this->db->from('recenzija');
         $this->db->where('IdKorisnik', $idKorisnik);
@@ -63,7 +72,17 @@ extends CI_Model{
 
         return $this->db->get()->row();
     }
-
+    
+    /**
+     * Ukoliko postoji recenzija datog Gurmana za dato jelo, azurira je; u suprotnom pravi novu
+     * 
+     * @param int $idKorisnik
+     * @param int $idJelo
+     * @param int $ocena
+     * @param string $komentar
+     * 
+     * @return void 
+     */
     public function napraviIzmeniRecenziju($idKorisnik, $idJelo, $ocena, $komentar){
         $recenzija = $this->dohvatiRecenziju($idKorisnik, $idJelo);
 
@@ -86,9 +105,14 @@ extends CI_Model{
             $this->db->update('recenzija');
         }
     }
-
-    //dohvata samo pregledane recenzije
-    //dohvata i jela i slike jela koje je gurman ocenio
+    
+    /**
+     * Dohvata pregledane recenzije zadatog Gurmana zajedno jelima i slikama tih jela iz baze
+     * 
+     * @param int $id -> idGurman
+     * 
+     * @return stdClass 
+     */
     public function dohvatiRecenzijeGurmana($idGurman){
         $query = $this->db->query("select r.IdKorisnik, r.Ocena, "
                 . "r.Komentar, r.IdJelo, r.Pregledano, j.Naziv as NazivJela, "
@@ -102,7 +126,12 @@ extends CI_Model{
 
         return $query->result();
     }
-
+    
+    /**
+     * Dohvata nepregledane recenzije iz baze
+     * 
+     * @return stdClass 
+     */
     public function dohvatiNepregledaneRecenzije() {
         $query = $this->db->query("select kor.KorisnickoIme as NazKor, "
                 . "res.Naziv as NazRes, jel.Naziv as NazJel, "
@@ -115,12 +144,30 @@ extends CI_Model{
 
         return $query->result();
     }
+    
+    /**
+     * Oznacava recenziju zadatog Gurmana za zadato jelo da je pregledana
+     * 
+     * @param int $idk -> idGurman
+     * @param int $idj -> idJelo
+     * 
+     * @return void 
+     */
     public function postaviPregledano($idk,$idj) {
         $this->db->set('Pregledano', 'P');
         $this->db->where('IdKorisnik', $idk);
         $this->db->where('IdJelo', $idj);
         $this->db->update('recenzija');
     }
+    
+    /**
+     * Brise recenziju zadatog Gurmana za zadato jelo
+     * 
+     * @param int $idk -> idGurman
+     * @param int $idj -> idJelo
+     * 
+     * @return void 
+     */
     public function obrisiRecenziju($idk,$idj){
         $this->db->where('IdKorisnik', $idk);
         $this->db->where('IdJelo', $idj);
@@ -164,9 +211,14 @@ extends CI_Model{
         
         return $this->db->get()->row();
     }
-
-    //input: jelo ciju recenziju zelimo
-    //output: bilo koja recenzija unetog jela koja ima ocenu vecu ili jednaku sa 4
+    
+    /**
+     * Dohvata random recenziju koja ima ocenu >= 4 za zadato jelo iz baze
+     * 
+     * @param int $idJelo
+     * 
+     * @return void 
+     */
     public function dohvatiTopRecenziju($idJelo) {
         $this->db->select('*');
         $this->db->from('recenzija');

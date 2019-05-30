@@ -16,6 +16,13 @@ class M_Gurman extends CI_Model{
         parent::__construct();
     }
     
+    /**
+     * Dohvata informacije o Gurmanu sa zadatim ID iz baze
+     * 
+     * @param int $id -> idGurman
+     * 
+     * @return stdClass 
+     */
     public function dohvatiGurmana($id){
         $this->db->from('gurman');
         $this->db->where('IdKorisnik', $id);
@@ -35,6 +42,13 @@ class M_Gurman extends CI_Model{
         }
     }
     
+    /**
+     * Azurira Gurmana sa zadatim ID zadatim informacijama
+     * 
+     * @param associative array $info
+     * 
+     * @return void 
+     */
     public function azuriranjeGurmana($info){
         $this->db->set('Lozinka', $info['sifra']);
         $this->db->where('IdKorisnik', $info['id']);
@@ -50,6 +64,14 @@ class M_Gurman extends CI_Model{
         $this->db->update('Gurman');
     }
     
+    /**
+     * Azurira ID slike Gurmanu sa zadatim ID
+     * 
+     * @param int $idGurman
+     * @param int $idSlika
+     * 
+     * @return void
+     */
     public function promeniSlikuGurmanu($idGurman, $idSlika){
         $this->db->set('IdSlika', $idSlika);
         $this->db->where('IdKorisnik', $idGurman);
