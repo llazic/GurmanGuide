@@ -31,7 +31,7 @@
                             echo "<div class='komentar'>";
                                 echo "<p><a title='Prikaži mi sva jela ovog restorana' href=";
                                 echo site_url("{$this->router->class}/prikaziMeniRestorana/$restoran->IdKorisnik");
-                                echo ">Prikaži mi sva jela restorana</a></p>";
+                                echo ">Prikaži mi meni restorana</a></p>";
                             echo "</div>";
                         echo "</td>";
                     echo "</tr>";
