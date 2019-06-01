@@ -11,7 +11,7 @@
  * @author Lazar Lazic 0245/2016
  * @version 1.0
  */
-class C_Zajednicki extends CI_Controller {
+abstract class C_Zajednicki extends CI_Controller {
     
     public function __construct() {
         parent::__construct();

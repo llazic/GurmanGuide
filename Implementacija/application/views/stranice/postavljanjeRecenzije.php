@@ -2,7 +2,7 @@
 <?php if(isset($poruka))
         echo "<center><font color='red' size='3'>$poruka</font></center><br>";
 ?>
-                <form action="<?php echo site_url('C_Gurman/sacuvajRecenziju/'.$idJelo);?>" method="POST">
+                <form name="recenzija" action="<?php echo site_url('C_Gurman/sacuvajRecenziju/'.$idJelo);?>" method="POST">
                     <table align="center" cellspacing="15" cellpadding="5">
 
                             <tr>
