@@ -10,6 +10,7 @@
  * Description of M_Slika
  *
  * @author Lazar
+ * @author Nenad Babin 0585/2016
  */
 class M_Slika extends CI_Model{
     public function __construct() {

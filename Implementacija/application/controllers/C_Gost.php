@@ -1,16 +1,12 @@
 <?php
 
 include_once('C_Zajednicki.php');
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of C_Gost
+ * Kontroler koji odgovara korisniku koji trenutno nije ulogovan.
  *
- * @author Nenad
+ * @author Nenad Babin 0585/2016
+ * @author Lazar Lazic 0245/2016
+ * @version 1.1
  */
 class C_Gost extends C_Zajednicki {
 
@@ -32,6 +28,10 @@ class C_Gost extends C_Zajednicki {
         }
     }
 
+    /**
+     * Indeks stranica kontrolera Gost. Metoda ucitava index stranicu zajedno sa podacima o top jelu.
+     * Sastavni deo index stranice su headerGost i footer.
+     */
     public function index() {
         $topJeloId = $this->M_Recenzija->dohvatiTopJelo();
         $recenzija = $this->M_Recenzija->dohvatiTopRecenziju($topJeloId->IdJelo);
@@ -52,12 +52,22 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metoda za ucitavanje stranice za registraciju Gurmana
+     * @param type $poruka Poruka koja se ispisuje ispod header-a, a iznad forme za registraciju u slucaju neuspeha.
+     * Ukoliko se paametar ne prosledi, stranica se ucitava bez poruke.
+     */
     public function registrujGurmana($poruka = null) {
         $this->load->view("sablon/headerGost.php", ['title' => 'Registracija']);
         $this->load->view('stranice/registracijaGurmana.php', ['poruka' => $poruka]);
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metoda za ucitavanje stranice za registraciju Restorana
+     * @param type $poruka Poruka koja se ispisuje ispod header-a, a iznad forme za registraciju u slucaju neuspeha.
+     * Ukoliko se paametar ne prosledi, stranica se ucitava bez poruke.
+     */
     public function registrujRestoran() {
         $gradovi = $this->M_Grad->gohvatiSveGradove();
         $this->load->view("sablon/headerGost.php", ['title' => 'Registracija']);
@@ -65,12 +75,21 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metoda za ucitavanje stranice za logovanje
+     * @param type $poruka Poruka koja se ispisuje ispod header-a, a iznad forme za logovanje u slucaju neuspeha.
+     * Ukoliko se paametar ne prosledi, stranica se ucitava bez poruke.
+     */
     public function prijaviSe($poruka = null) {
         $this->load->view("sablon/headerGost.php", ['title' => 'Login']);
         $this->load->view('stranice/login.php', ['poruka' => $poruka]);
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metoda za proveru prijave korisnika. Uspesno ulogovan korisnik se redirektuje na odgovarajuci kontroler
+     * i zapocinje se sesija. U suprotnom se korisniku ispisuje razlog neuspeha logovanja.
+     */
     public function proveraPrijave() {
         $korime = $this->input->post("korimegurman");
         $sifra = $this->input->post("lozinkagurman");
@@ -138,6 +157,12 @@ class C_Gost extends C_Zajednicki {
         }
     }
 
+    /**
+     * Metoda za proveru registracije Gurmana. Metoda proverava da li su podaci uspesno uneti i
+     * da li u sistemu vec ne postoji takav korisnik. Ukoliko se korisnik odlucio za upload slike,
+     * radi se upload slike u folder na serveru koji odgovara korisniku. U suportonom se ispisuje poruka
+     * o gresci. Uspesno registrovan korisnik se preusmerava na stranicu za logovanje.
+     */
     public function proveraRegistracijeGurman() {
         $korime = $this->input->post("korimegurman");
         $sifra = $this->input->post("lozinkagurman");
@@ -211,6 +236,12 @@ class C_Gost extends C_Zajednicki {
         }
     }
 
+    /**
+     * Metod za proveru ispravnosti e-mail adrese.
+     * 
+     * @param type $str E-mail adresa cija se provera vrsi.
+     * @return boolean Vraca TRUE ako je E-Mail adresa odgovara sablonu, u suprotnom vraca FALSE.
+     */
     public function regex_check($str) {
         if (preg_match("/[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})/i", $str)) {
             return TRUE;
@@ -223,6 +254,15 @@ class C_Gost extends C_Zajednicki {
     //vrsta slike moze biti:
     //      slikagurman
     //      slikarestoran
+    /**
+     * Metod za upload slike na server.
+     * 
+     * @param type $putanja Putanja na kojoj se cuva slika. Ukoliko putanja jos uvek ne posotji, pravi se nova.
+     * @param type $imeSlike Naziv slike na serveru.
+     * @param type $vrstaSlike Naziv elementra forme koji sluzi za odabir slike.
+     * @return name.extension/null Ukoliko je upload bio uspesan vraca se imeSlike.ekstenzija, dok se u
+     * suprotnom vraca NULL.
+     */
     public function upload($putanja, $imeSlike, $vrstaSlike) {
         if (!file_exists($putanja)) {
             mkdir($putanja, 0777, true);
@@ -248,6 +288,12 @@ class C_Gost extends C_Zajednicki {
         }
     }
 
+    /**
+     * Metoda za proveru registracije Restorana. Metoda proverava da li su podaci uspesno uneti i
+     * da li u sistemu vec ne postoji takav korisnik. Ukoliko se korisnik odlucio za upload slike,
+     * radi se upload slike u folder na serveru koji odgovara korisniku. U suportonom se ispisuje poruka
+     * o gresci. Uspesno registrovan korisnik se preusmerava na stranicu za logovanje.
+     */
     public function proveraRegistracijeRestoran() {
         $korime = $this->input->post("korimerestoran");
         $sifra = $this->input->post("lozinkarestoran");
@@ -327,6 +373,12 @@ class C_Gost extends C_Zajednicki {
         }
     }
 
+    /**
+     * Metod za ucitavanje stranice koja predstavlja rezultat pretrage jela po nazivu.
+     * 
+     * @param type $val Naziv jela koje se pretrazuje. Umesto naziva se moze proslediti samo deo naziva ili
+     * string koji je podstring naziva jela. Ukoliko nema rezultata, ispisuje se poruka o gresci.
+     */
     public function pretragaJelaPoNazivu($val) {
         $jela = parent::pretragaJelaPoNazivu($val);
         $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
@@ -334,6 +386,12 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+     /**
+     * Metod za ucitavanje stranice koja predstavlja rezultat pretrage jela po sastojku.
+     * 
+     * @param type $val Naziv sastojka koji se sadrzi u jelima. Umesto naziva se moze proslediti samo deo naziva ili
+     * string koji je podstring naziva sastojka. Ukoliko nema rezultata, ispisuje se poruka o gresci.
+     */
     function pretragaJelaPoSastojku($val) {
         $jela = parent::pretragaJelaPoSastojku($val);
         $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
@@ -341,6 +399,12 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice koja predstavlja rezultat pretrage jela po restoranu.
+     * 
+     * @param type $val Naziv restorana cija jela pretrazujemo. Umesto naziva se moze proslediti samo deo naziva ili
+     * string koji je podstring naziva restorana. Ukoliko nema rezultata, ispisuje se poruka o gresci.
+     */
     function pretragaJelaPoRestoranu($val) {
         $jela = parent::pretragaJelaPoRestoranu($val);
         $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
@@ -348,6 +412,12 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice koja predstavlja rezultat pretrage restorana po nazivu.
+     * 
+     * @param type $val Naziv restorana koje zelimo da pretrazimo. Umesto naziva se moze proslediti samo deo naziva ili
+     * string koji je podstring naziva restorana. Ukoliko nema rezultata, ispisuje se poruka o gresci.
+     */
     function pretragaRestoranaPoNazivu($val) {
         $restorani = parent::pretragaRestoranaPoNazivu($val);
         $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
@@ -355,6 +425,12 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice koja predstavlja rezultat pretrage restorana po adresi.
+     * 
+     * @param type $val Adresa restorana koje zelimo da pretrazimo. Umesto naziva se moze proslediti samo deo naziva ili
+     * string koji je podstring adrese restorana. Ukoliko nema rezultata, ispisuje se poruka o gresci.
+     */
     public function pretragaRestoranaPoAdresi($val) {
         $restorani = parent::pretragaRestoranaPoAdresi($val);
         $this->load->view('sablon/headerGost.php', ['title' => 'Rezultat pretrage']);
@@ -362,6 +438,11 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice koja prikazuje jelo.
+     * 
+     * @param type $id Id jela koje zelimo da prikazemo.
+     */
     public function prikaziJelo($id) {
         $rezultat = parent::prikaziJelo($id);
         $this->load->view('sablon/headerGost.php', ['title' => 'Prikaz jela']);
@@ -369,6 +450,11 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice koja prikazuje profil Gurmana.
+     * 
+     * @param type $id Id Gurmana kojeg zelimo da prikazemo.
+     */
     public function pregledProfilaGurmana($idGurman) {
         $info = parent::pregledProfilaGurmana($idGurman);
         $korime = $info['korime'];
@@ -377,18 +463,29 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice Kontakt.
+     */
     public function kontakt() {
         $this->load->view('sablon/headerGost.php', ['title' => 'Kontakt']);
         $this->load->view('stranice/kontakt.php');
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice O nama.
+     */
     public function onama() {
         $this->load->view('sablon/headerGost.php', ['title' => 'O nama']);
         $this->load->view('stranice/onama.php');
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice koja prikazuje profil Restorana.
+     * 
+     * @param type $idRestorana Id Restorana koji zelimo da prikazemo.
+     */
     public function pregledRestorana($idRestorana) {
         $info = parent::pregledRestorana($idRestorana);
         $this->load->view('sablon/headerGost.php', ['title' => 'Restoran']);
@@ -396,6 +493,11 @@ class C_Gost extends C_Zajednicki {
         $this->load->view('sablon/footer.php');
     }
 
+    /**
+     * Metod za ucitavanje stranice koja prikazuje meni Restorana.
+     * 
+     * @param type $idRestorana Id Restorana ciji meni zelimo da prikazemo.
+     */
     public function prikaziMeniRestorana($idRestorana) {
         $info = parent::prikaziMeniRestorana($idRestorana);
         $this->load->view("sablon/headerGost.php", ['title' => 'Meni restorana']);

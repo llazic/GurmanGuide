@@ -10,6 +10,7 @@
  * Description of M_Jelo
  *
  * @author Lazar
+ * @author Nenad Babin 0585/2016
  */
 class M_Jelo extends CI_Model {
 

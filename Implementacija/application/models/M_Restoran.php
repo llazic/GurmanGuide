@@ -10,6 +10,7 @@
  * Description of M_Restoran
  *
  * @author Lazar
+ * @author Nenad Babin 0585/2016
  */
 class M_Restoran extends CI_Model{
     public function __construct() {

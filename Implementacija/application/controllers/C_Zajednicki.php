@@ -9,6 +9,7 @@
  * Description of C_Zajednicki
  *
  * @author Lazar Lazic 0245/2016
+ * @author Nenad Babin 0585/2016
  * @version 1.0
  */
 abstract class C_Zajednicki extends CI_Controller {
