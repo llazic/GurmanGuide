@@ -143,7 +143,7 @@ class C_Gurman extends C_Zajednicki {
         $info['pol'] = $this->input->post("pol");
         //$info['slika'] = $this->input->post("slikagurman");
 
-        $this->form_validation->set_rules('lozinkagurman', 'Sifra', 'required', array('required' => 'Niste uneli šifru'));
+        $this->form_validation->set_rules('lozinkagurman', 'Sifra', 'required|min_length[4]|max_length[20]', array('required' => 'Niste uneli šifru', 'min_length' => 'Šifra mora imati bar 4 znaka.', 'max_length' => 'Šifra ne sme biti duža od 20 znakova.'));
         $this->form_validation->set_rules('potvrdalozinkegurman', 'Potvrda sifre', 'required|matches[lozinkagurman]', array('required' => 'Niste uneli potvrdu šifre', 'matches' => 'Šifre koje ste uneli se ne poklapaju'));
         $this->form_validation->set_rules('imegurman', 'Ime', 'required|trim', array('required' => 'Niste uneli ime.'));
         $this->form_validation->set_rules('prezimegurman', 'Prezime', 'required|trim', array('required' => 'Niste uneli prezime.'));

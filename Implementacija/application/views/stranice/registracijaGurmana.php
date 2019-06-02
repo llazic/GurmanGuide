@@ -65,7 +65,8 @@
           <td align="top">Korisničko ime:</td>
           <td>
               <?php echo "<font color='red' size='2'>" .form_error('korimegurman') ."</font>"?>
-             <input type="text" name="korimegurman" size="50" placeholder="&nbsp;Unesite korisničko ime" value="<?php echo set_value('korimegurman'); ?>">
+             <input type="text" oninput="proveriKorime()" name="korimegurman" size="50" placeholder="&nbsp;Unesite korisničko ime" value="<?php echo set_value('korimegurman'); ?>">
+             <font color='red' size='2' id='provera'> </font>
              <br/>
           </td>
        </tr>
@@ -121,4 +122,35 @@
           <td class="polje" colspan="2"><input type="submit" name="potvrdi" value="Postani Gurman"></td>
        </tr>
     </table>
+    
+    <script>
+        function proveriKorime(){
+            
+            var korime = document.loginform.korimegurman.value;
+            var xmlhttp;
+            
+            if(window.XMLHttpRequest){
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            
+            xmlhttp.onreadystatechange = function(){
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                    var nasao = xmlhttp.responseText;
+                    
+                    var ispis = document.getElementById('provera');
+                    if (nasao == 'true') {
+                        ispis.innerHTML = '<br/>To korisničko ime je zauzeto.';
+                    } else {
+                        ispis.innerHTML = '';
+                    }
+                }
+            };
+            
+            xmlhttp.open("GET", "<?php echo site_url($this->router->class.'/proveraKorisnickogImena/')?>"+korime);
+            xmlhttp.send();
+        }
+    </script>
+        
 </form>

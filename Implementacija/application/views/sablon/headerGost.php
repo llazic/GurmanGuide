@@ -275,7 +275,7 @@
                         /*Ovo je samo zbog meniRestorana.php ...*/
 		</style>
 	</head>
-	<body onload="clear()">
+	<body onload="">
 		<div class="headerH">
                     <a href="<?php echo site_url('C_Gost/index')?>">
 			<img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo">

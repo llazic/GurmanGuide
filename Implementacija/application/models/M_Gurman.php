@@ -81,7 +81,7 @@ class M_Gurman extends CI_Model{
     /**
      * Funckija za proveru korisnickog imena gurmana.
      * 
-     * @param type $korime
+     * @param string $korime
      * @return stdClass Vraca objekat sa poljima IdKorisnik, KorisnickoIme, Lozinka, Email
      * Ime, Prezime, Pol, IdSlika ukoliko korisnicko ime postoji, inace vraca null.
      */
@@ -97,8 +97,8 @@ class M_Gurman extends CI_Model{
     /**
      * Funckija za proveru sifre korisnika.
      * 
-     * @param type $korime Korisnicko ime korisnika
-     * @param type $sifra Sifra korisnika
+     * @param string $korime Korisnicko ime korisnika
+     * @param string $sifra Sifra korisnika
      * @return stdClass Vraca objekat sa poljima IdKorisnik, KorisnickoIme, Lozinka, Email
      * Ime, Prezime, Pol, IdSlika ukoliko sifra odgovara korisnickom imenu, inace vraca null.
      */
@@ -127,7 +127,7 @@ class M_Gurman extends CI_Model{
     /**
      * Funkcija za evidentiranje gurmana u bazi.
      * 
-     * @param type $gurman Asocijativni niz sa kljucevima IdKorisnik, KorisnickoIme, Lozinka, Email
+     * @param stdClass $gurman Asocijativni niz sa kljucevima IdKorisnik, KorisnickoIme, Lozinka, Email
      * Ime, Prezime, Pol, IdSlika i odgovarajucim vrednostima.
      */
     public function unesiGurmana($gurman) {

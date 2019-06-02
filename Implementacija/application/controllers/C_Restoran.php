@@ -199,7 +199,7 @@ class C_Restoran extends C_Zajednicki {
         $promenljive['gradrestorana'] = $this->input->post('gradrestorana');
         $promenljive['drzavarestorana'] = $this->input->post('drzavarestorana');
 
-        $this->form_validation->set_rules('lozinkarestoran', 'Sifra', 'required', array('required' => 'Niste uneli šifru.'));
+        $this->form_validation->set_rules('lozinkarestoran', 'Sifra', 'required|min_length[4]|max_length[20]', array('required' => 'Niste uneli šifru.', 'min_length' => 'Šifra mora imati bar 4 znaka.', 'max_length' => 'Šifra ne sme biti duža od 20 znakova.'));
         $this->form_validation->set_rules('potvrdalozinkerestoran', 'Potvrda sifre', 'required|matches[lozinkarestoran]', array('required' => 'Niste uneli potvrdu šifre.', 'matches' => 'Šifre koje ste uneli se ne poklapaju.'));
         $this->form_validation->set_rules('telefon', 'Telefon', 'required|trim', array('required' => 'Niste uneli broj telefona.'));
         $this->form_validation->set_rules('imerestorana', 'Naziv', 'required|trim', array('required' => 'Niste uneli naziv restorana.'));
@@ -387,7 +387,7 @@ class C_Restoran extends C_Zajednicki {
                 $this->M_Jelo->napraviJelo($uneto);
                 foreach ($_POST as $key => $value) {
                     if (strpos($key, 'name') !== false) {
-                        $imeSastojka = strtolower($value);
+                        $imeSastojka = mb_strtolower($value,'UTF-8');
                         if ($imeSastojka != "") {
                             $postojiSastojak = $this->M_Sastojak->postojiSastojak($imeSastojka);
 
@@ -603,9 +603,8 @@ class C_Restoran extends C_Zajednicki {
                // var_dump($_POST);
                // return;
                 if (strpos($key, 'name') !== false) {
-                     $imeSastojka = strtolower($value);
-                     if ($imeSastojka != "") {  
-                         //echo $imeSastojka;
+                     $imeSastojka = mb_strtolower($value,'UTF-8');
+                     if ($imeSastojka != "") {
                         $postojiSastojak = $this->M_Sastojak->postojiSastojak($imeSastojka);
                         
                             if ($postojiSastojak != null) {
