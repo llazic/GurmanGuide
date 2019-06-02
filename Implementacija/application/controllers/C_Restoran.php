@@ -605,7 +605,7 @@ class C_Restoran extends C_Zajednicki {
                 if (strpos($key, 'name') !== false) {
                      $imeSastojka = strtolower($value);
                      if ($imeSastojka != "") {  
-                         echo $imeSastojka;
+                         //echo $imeSastojka;
                         $postojiSastojak = $this->M_Sastojak->postojiSastojak($imeSastojka);
                         
                             if ($postojiSastojak != null) {
