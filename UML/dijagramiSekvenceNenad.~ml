@@ -19581,7 +19581,7 @@ stranice meniRestorana, rezultatPretrageRestoran.
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedCollaborationInstanceSets[6]" type="UMLCollaborationInstanceSet" guid="MiQn/GCejE20JNreZonj9QAA">
-<XPD:ATTR name="Name" type="string">CollaborationInstanceSet1</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Pregled top jela</XPD:ATTR>
 <XPD:REF name="RepresentedClassifier">XDYdH1x/s0yMmwSfgEYiZgAA</XPD:REF>
 <XPD:ATTR name="#InteractionInstanceSets" type="integer">1</XPD:ATTR>
 <XPD:OBJ name="InteractionInstanceSets[0]" type="UMLInteractionInstanceSet" guid="NS3mq1SbxkexM3ylhaG6FQAA">

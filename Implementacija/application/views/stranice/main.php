@@ -26,24 +26,24 @@
 		<div class="leftcolumn">
 			<input type="text" class="pretraga" id="search" name="target" placeholder="Pretraži...">
 		</div>
-		<div class="rightcolumn">
-			<div class="dropdown">
-  			<button class="dropbtn">Pretraga jela</button>
-  			<div class="dropdown-content">
+                <div class="rightcolumn">
+                    <div class="dropdown">
+                        <button class="dropbtn">Pretraga jela</button>
+                        <div class="dropdown-content">
                                 <a href="" id = "l1" onclick="insert()">po nazivu</a>
-  				<a href="" id = "l2" onclick="insert()">po sastojku</a>
-  				<a href="" id = "l3" onclick="insert()">po restoranu</a>
+                                <a href="" id = "l2" onclick="insert()">po sastojku</a>
+                                <a href="" id = "l3" onclick="insert()">po restoranu</a>
                         </div>
-		</div>
-		<div class="dropdown">
-			<button class="dropbtn">Pretraga restorana</button>
-			<div class="dropdown-content">
-				<a href="" id = "l4" onclick="insert()">po nazivu</a>
-  				<a href="" id = "l5" onclick="insert()">po adresi</a>
-			</div>
-		</div>
-	</div>
-</div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">Pretraga restorana</button>
+                        <div class="dropdown-content">
+                                <a href="" id = "l4" onclick="insert()">po nazivu</a>
+                                <a href="" id = "l5" onclick="insert()">po adresi</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
 </form>
 
 
