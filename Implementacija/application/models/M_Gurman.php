@@ -11,7 +11,7 @@
  *
  * @author Lazar Lazic
  * @author Nenad Babin 0585/2016
- * @vesrion 1.0
+ * @version 1.0
  */
 class M_Gurman extends CI_Model{
     public function __construct() {

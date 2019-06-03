@@ -11,7 +11,7 @@
  *
  * @author Nenad Babin 0585/2016
  * @author Dunja Culafic 0236/2016
- * @vesrion 1.0
+ * @version 1.0
  */
 class M_Sastojak extends CI_Model{
     public function __construct() {
@@ -69,7 +69,7 @@ class M_Sastojak extends CI_Model{
      * 
      * @param string $imeSastojka
      * 
-     * @return stdClass Objekti sa poljem IdSastojak - ukoliko sastojak sa datim imenom postoji, u suprotnom vraca null
+     * @return stdClass Objekat sa poljem IdSastojak - ukoliko sastojak sa datim imenom postoji, u suprotnom vraca null
      */
     
     public function postojiSastojak($imeSastojka){
@@ -99,6 +99,14 @@ class M_Sastojak extends CI_Model{
         
         return $idSastojka;
     }
+    
+    /**
+     * Funkcija sluzi za proveru povezanosti jela i sastojka u tabeli ima_sastojak 
+     * 
+     * @param string $imeSastojka
+     * @param int $idJela
+     * @return povratna vrednost je objekat sa poljima iz tabela sastojak i ima_sastojka, ukoliko povezanost postoji, u suprotnom je null
+     */
     
     public function proveraPovezani($imeSastojka, $idJela){
         $this->db->from('ima_sastojak i, sastojak s');

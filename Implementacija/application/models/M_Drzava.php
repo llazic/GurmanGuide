@@ -10,7 +10,7 @@
  * Description of M_Drzava
  *
  * @author Dunja Culafic 0236/2016
- * @vesrion 1.0
+ * @version 1.0
  */
 class M_Drzava extends CI_Model{
     public function __construct() {

@@ -11,7 +11,7 @@
  *
  * @author Nenad Babin 0585/2016
  * @author Dunja Culafic 0236/2016
- * @vesrion 1.0
+ * @version 1.0
  */
 class M_Restoran extends CI_Model{
     public function __construct() {
@@ -95,7 +95,7 @@ class M_Restoran extends CI_Model{
      * Funkcija sluzi da vrati sve neophodne informacije o restoranu za dati id
      * 
      * @param int $id
-     * @return stdClass Objekti sa poljima imeRestorana, brTelefona, adresaRestorana, gradRestorana, 
+     * @return stdClass Objekat sa poljima imeRestorana, brTelefona, adresaRestorana, gradRestorana, 
      * drzavaRestorana, korime, lozinka, email, id, radnoVreme, IdSlika -ukoliko postoji takav restoran, inace vraca null.
      */
     
@@ -115,7 +115,7 @@ class M_Restoran extends CI_Model{
      * @param int $idRestoran
      * @param int $idSlika
      * 
-     * @return null
+     * @return void
      */
     
     public function promeniSlikuRestoranu($idRestoran, $idSlika){

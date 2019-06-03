@@ -11,7 +11,7 @@
  *
  * @author Nenad Babin 0585/2016
  * @author Dunja Culafic 0236/2016
- * @vesrion 1.0
+ * @version 1.0
  */
 class M_Jelo extends CI_Model {
 

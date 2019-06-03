@@ -11,7 +11,7 @@
  *
  * @author Nenad Babin 0585/2016
  * @author Lazar Lazic 0245/2016
- * @vesrion 1.0
+ * @version 1.0
  */
 class M_Slika extends CI_Model{
     public function __construct() {
