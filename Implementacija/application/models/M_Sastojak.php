@@ -9,9 +9,9 @@
 /**
  * Description of M_Sastojak
  *
- * @author Lazar
  * @author Nenad Babin 0585/2016
  * @author Dunja Culafic 0236/2016
+ * @vesrion 1.0
  */
 class M_Sastojak extends CI_Model{
     public function __construct() {

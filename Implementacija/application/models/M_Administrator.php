@@ -9,8 +9,8 @@
 /**
  * Description of M_Administrator
  * 
- * @author Lazar
  * @author Nenad Babin 0585/2016
+ * @vesrion 1.0
  */
 class M_Administrator extends CI_Model{
     public function __construct() {

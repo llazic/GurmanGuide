@@ -9,9 +9,9 @@
 /**
  * Description of M_Grad
  *
- * @author Lazar
  * @author Nenad Babin 0585/2016
  * @author Dunja Culafic 0236/2016
+ * @vesrion 1.0
  */
 class M_Grad extends CI_Model{
     public function __construct() {
