@@ -11,6 +11,7 @@
  *
  * @author Nenad Babin 0585/2016
  * @author Dunja Culafic 0236/2016
+ * @author Nikola Bozovic 0439/2016
  * @version 1.0
  */
 class M_Restoran extends CI_Model{
@@ -33,7 +34,11 @@ class M_Restoran extends CI_Model{
         
         return $this->db->get()->row();
     }
-    
+     /**
+     * Funckija za dohvatanje imena restorana po njegovom id.
+     * @param type $id Id Korisnika
+	 * @return Sting naziv restorana
+	 */
     public function dohvatiIme($id) {
         return $this->db->select('Naziv')->from('restoran')->where('IdKorisnik', $id)->get()->row();
     }
@@ -123,7 +128,14 @@ class M_Restoran extends CI_Model{
         $this->db->where('IdKorisnik', $idRestoran);
         $this->db->update('Restoran');
     }
-    
+	
+    /**
+     * Dohvata sve nepregledane registracije 
+     * 
+     * @return stdClass Objekti sa poljima imeRestorana, brTelefona, adresaRestorana, drzavaRestorana, NazivDrzave,id,radnoVreme  ukoliko postoje takvi restorani,
+     * inace vraca null.
+     */
+	 
     public function dohvatiNepregledaneRegistracije(){
         
         $query = $this->db->query("SELECT restoran.Naziv as imeRestorana, restoran.Telefon as brTelefona, restoran.Adresa as adresaRestorana, grad.Naziv as gradRestorana, drzava.Naziv as drzavaRestorana,  restoran.IdKorisnik as id, restoran.RadnoVreme as radnoVreme "
@@ -266,12 +278,23 @@ class M_Restoran extends CI_Model{
         
         return $this->db->get()->result();
     }
-    
+    /**
+     * Postavlja flag o registraciji na pregledano
+     * 
+	 * @param type $id
+	 * @return void
+     */
      public function postaviPregledano($id) {
         $this->db->set('Pregledano', 'P');
         $this->db->where('IdKorisnik', $id);
         $this->db->update('restoran');
     }
+	/**
+     * Brise registraciju iz baze
+     * 
+	 * @param type $id
+	 * @return void
+     */
     public function obrisiRegistraciju($id){
         $this->db->where('IdKorisnik', $id);
         $this->db->delete('restoran');

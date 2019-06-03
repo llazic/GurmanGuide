@@ -9,7 +9,7 @@
 /**
  * Description of M_Gurman
  *
- * @author Lazar Lazic
+ * @author Lazar Lazic 0245/2016
  * @author Nenad Babin 0585/2016
  * @version 1.0
  */

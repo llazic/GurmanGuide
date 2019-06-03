@@ -8,6 +8,8 @@ include_once('C_Zajednicki.php');
  * @author Nikola Bozovic 0439/2016
  * @version 1.0
  */
+ 
+ 
 class C_Administrator extends C_Zajednicki {
 
     /**

@@ -130,10 +130,23 @@ class M_Jelo extends CI_Model {
         $this->db->where('IdJelo', $idJela);
         $this->db->delete('jelo');
     }
-
+	
+	/**
+     * Dohvata sva nepregledana jela  
+     * 
+     * @return stdClass Objekat sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika, Pregledano
+     */
+	 
     public function dohvatiNepregledanaJela() {
         return $this->db->select("*")->from('jelo')->where('Pregledano', 'N')->get()->result();
     }
+	
+	/**
+     * Postavlja flag da je jelo pregledano
+     * 
+	 * @param type $id
+	 * @return void
+     */
 
     public function postaviPregledano($id) {
         $this->db->set('Pregledano', 'P');

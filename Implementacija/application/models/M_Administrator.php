@@ -17,6 +17,13 @@ class M_Administrator extends CI_Model{
         parent::__construct();
     }
     
+	 /**
+     * Funckija za proveru korisnickog imena administratora.
+     * 
+     * @param string $korime
+     * @return stdClass Vraca objekat sa poljima IdKorisnik, KorisnickoIme, Lozinka, Email
+     * Ime, Prezime, Pol, IdSlika ukoliko korisnicko ime postoji, inace vraca null.
+     */
     public function proveraKorImena($korime) {
         $this->db->select('*');
         $this->db->from('korisnik, administrator');
@@ -25,6 +32,15 @@ class M_Administrator extends CI_Model{
         
         return $this->db->get()->row();
     }
+	
+	/**
+     * Funckija za proveru sifre administratora.
+     * 
+     * @param string $korime Korisnicko ime administratora
+     * @param string $sifra Sifra administratora
+     * @return stdClass Vraca objekat sa poljima IdKorisnik, KorisnickoIme, Lozinka, Email
+     * Ime, Prezime, Pol, IdSlika ukoliko sifra odgovara korisnickom imenu, inace vraca null.
+     */
     
     public function proveraSifre($korime, $sifra) {
         $this->db->select('*');
