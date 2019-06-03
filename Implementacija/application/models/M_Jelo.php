@@ -11,6 +11,7 @@
  *
  * @author Lazar
  * @author Nenad Babin 0585/2016
+ * @author Dunja Culafic 0236/2016
  */
 class M_Jelo extends CI_Model {
 
