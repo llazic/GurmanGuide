@@ -10,6 +10,7 @@
  * Description of M_Slika
  *
  * @author Nenad Babin 0585/2016
+ * @author Lazar Lazic 0245/2016
  * @vesrion 1.0
  */
 class M_Slika extends CI_Model{
@@ -56,13 +57,25 @@ class M_Slika extends CI_Model{
         
         return $this->db->get()->row();
     }
-     
+    
+    /**
+     * Menja putanju slike sa datim ID, datom putanjom
+     * 
+     * @param int $idSlika
+     * @param string $putanja
+     * @return void
+     */
     public function promeniPutanjuSlike($idSlika, $putanja){
         $this->db->set('Putanja', $putanja);
         $this->db->where('IdSlika', $idSlika);
         $this->db->update('slika');
     }
     
+    /**
+     * Brise sliku sa zadatim ID
+     * @param int $idSlike
+     * return void
+     */
     public function obrisiSliku($idSlike){
         $this->db->where('IdSlika', $idSlike);
         $this->db->delete('slika');
