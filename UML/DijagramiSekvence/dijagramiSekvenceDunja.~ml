@@ -6683,7 +6683,7 @@ Kontroler je odgovarajuci kotroler za dati tip korisnika.
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="BSCqNnMIJEGwhZSzTAzNkwAA">
 <XPD:ATTR name="Alpha" type="real">1,19029081175179</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10,770329614269</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">35 : izmenaJela(&quot;Poruka o gresci&quot;)</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">35 : izmeniJelo(idJela, &quot;Poruka o gresci&quot;)</XPD:ATTR>
 <XPD:REF name="Model">CnkvqnIBO0qMTIdooov+DgAA</XPD:REF>
 <XPD:REF name="HostEdge">GTlAwTKpbk+0ou+YSDFTwAAA</XPD:REF>
 </XPD:OBJ>
@@ -7197,8 +7197,8 @@ Kontroler je odgovarajuci kotroler za dati tip korisnika.
 <XPD:REF name="Views[3]">sjn7KN0vWUGZDNdVR7SeLgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="ParticipatingStimuli[34]" type="UMLStimulus" guid="CnkvqnIBO0qMTIdooov+DgAA">
-<XPD:ATTR name="Name" type="string">izmenaJela</XPD:ATTR>
-<XPD:ATTR name="Arguments" type="string">&quot;Poruka o gresci&quot;</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">izmeniJelo</XPD:ATTR>
+<XPD:ATTR name="Arguments" type="string">idJela, &quot;Poruka o gresci&quot;</XPD:ATTR>
 <XPD:REF name="Sender">tqaityctqkmvR0EeUYEHBwAA</XPD:REF>
 <XPD:REF name="Receiver">+GmKZB7mIUWKhTWlZ3v+9gAA</XPD:REF>
 <XPD:OBJ name="Action" type="UMLReturnAction" guid="rSjZ68G6QUm7atJBh6kywwAA">
