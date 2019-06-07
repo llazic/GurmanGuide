@@ -4,215 +4,376 @@
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <link rel="icon" href="http://localhost/GurmanGuide/images/icon.png">
         <style>
-            * {
-                box-sizing: border-box;
-            }
-            .naslovH1 {
-                text-align: center;
-                font-size: 45px;
-                letter-spacing: 2px;
-                font-weight: bold;
-            }
-            body{
-                background-color:rgb(198, 219, 192);
-                font-family: "Arial Black", Gadget, sans-serif;
-            }
-            .btn-group-red .button {
-                background-color: #FF0000;
-                border-radius: 12px;
-                border: none;
-                color: white;
-                padding: 12px 20px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 15px;
-                cursor: pointer;
-                float: right;
-            }
-            .btn-group-green .button {
-                background-color: #33CC33;
-                border-radius: 12px;
-                border: none;
-                color: white;
-                padding: 12px 20px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 15px;
-                cursor: pointer;
-                float: right;
-            }
-            .logo{
-                position: absolute;
-                margin-top: 20px;
-                margin-left: 30px;
-            }
+           body{
+				background-color:rgb(198, 219, 192);
+				font-family: "Arial Black", Gadget, sans-serif;
+			}
 
-            .header{
-                position: absolute;
-                clear: both;
-                top: 0;
-                left: 0;
-                right: 0;
-                background-color: #efefef;
-                height: 170px;
-            }
+			.logo{
+				position: absolute;
+				margin-top: 20px;
+				margin-left: 30px;
+			}
 
-            .footer{
-                position: absolute;
-                clear: both;
-                height: 70px;
-                left: 0;
-                right: 0;
-                align: bottom;
-                background-color: #efefef;
-                text-align: center;
-            }
+			.header{
+				position: absolute;
+				clear: both;
+				top: 0;
+				left: 0;
+				right: 0;
+				background-color: #efefef;
+				height: 170px;
+			}
+			.headerH{
+				position: absolute;
+				clear: both;
+				top: 0;
+				left: 0;
+				right: 0;
+				background-color: #efefef;
+				height: 170px;
+			}
+			.footer{
+				position: absolute;
+				clear: both;
+				height: 70px;
+				left: 0;
+				right: 0;
+				align: bottom;
+				background-color: #efefef;
+				text-align: center;
+			}
+			
+			.title{
+				margin-top: 200px;
+				text-align: center;
+				font-size: 30px;
+			}
 
-            .title{
-                margin-top: 200px;
-                text-align: center;
-                font-size: 30px;
-            }
+			.tblctr {
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
+			.polje {
+				text-align:center;
+			}
+			.crvenaSlova {
+				font-size: 13px;
+				font-family: Arial;
+				color: red;
+			}
+			.mojprofil{
+				text-align: right;
+				margin-right: 50px;
+				margin-top: 70px;
+			}
+			.user {
+				text-align:right;
+				margin-right:10px;
+				font-size: 15px;
+				font-family:"Arial", Gadget, sans-serif
+			}
+                        
+                        .row:after {
+                          content: "";
+                          display: table;
+                          clear: both;
+                        }
+                        
+                        .leftcolumn {
+                          float: left;
+                          width: 60%;
+                        }
 
-            .stil {
-                font-family:"Georgia",serif;
-                font-style:italic;
-            }
+			.profil{
+				text-align: right;
+				margin-right: 50px;
+				margin-top: 70px;
+			}
 
-            .center{
-                text-align:center;
-            }
+			a{
+				color:black;
+			}
 
-            .box{
-                background-color: white;
-                width: 50%;
-                border: 2px solid darkgray;
-                padding: 10px;
-                margin: auto;
-                overflow:auto;
-            }
+			.tekst{
+				resize:none;
+			}
+                        
+			.center{
+                                text-align: center;
+                        }
+                        
+                        .sredina{
+				margin-left:auto;
+				margin-right:auto;
+				vertical-align:middle;
+			}
+                        
+                        .box{
+			    background-color: white;
+				width: 50%;
+				border: 1px solid darkgray;
+				padding: 10px;
+				margin: auto;
+				overflow:auto;
+			}
+                        
+                        .slika{
+				float:left;
+			}
+                        
+                        .slikaMeni {
+                            border-radius: 8px;
+                            object-fit: cover;
+                            float: left;
+                            width: 290px;
+                            height: 200px;
+                        }
+                        
+                        .column {
+                            height: auto;
+                            width: auto;
+                            padding: 10px;
+                            border: 1px solid #000000;
+                            float: center;
+                            margin-left: 0px;
+                            margin-top: 10px;
+                            margin-right: 0px;
+                        }
 
-            .slika{
-                float:left;
-            }
+                        .column h1 {
+                                width: 300px;
+                                font-size: 20px;
+                                border-bottom: 1px solid #000000;
+                        }
 
-            .mojprofil{
-                text-align: right;
-                margin-right: 50px;
-                margin-top: 70px;
-            }
+                        .korisnik {
+                                font-size: 12px;
+                                color: #923b7a;
+                        }
 
-            .star{
-                margin-top: 2px;
-                margin-right: 5px;
-                height: 20px;
-                width: 20px;
-            }
+                        .komentar {
+                                border-style: ridge;
+                                border-color: #2d022b;
+                                border-width: 2px;
+                                margin-bottom: 10px;
+                                font-size: 13px;
+                                border-radius: 15px;
+                                padding-left: 5px;
+                                padding-right: 5px;
+                        }
 
-            a {
-                color:black;
-            }
+                        p.sastojci {
+                                font-size: 15px;
+                                font-style: italic;
+                        }
+                        
+                        .tags {
+                                list-style: none;
+                                margin: 0;
+                                overflow: hidden;
+                                padding: 0;
+                        }
 
-            .sredina{
-                margin-left:auto;
-                margin-right:auto;
-                vertical-align:middle;
-            }
-            .row:after {
-                content: "";
-                display: table;
-                clear: both;
-            }
-            .leftcolumn {
-                float: left;
-                width: 60%;
-            }
+                        .tags li {
+                                float: left;
+                        }
 
-            .rightcolumn {
-                float: left;
-                width: 40%;
-                padding-left: 20px;
-            }
+                        .tag {
+                                background: #eee;
+                                border-radius: 3px 0 0 3px;
+                                color: #999;
+                                display: inline-block;
+                                height: 26px;
+                                line-height: 26px;
+                                padding: 0 20px 0 23px;
+                                position: relative;
+                                margin: 0 10px 10px 0;
+                                text-decoration: none;
+                                -webkit-transition: color 0.2s;
+                        }
 
-            @media screen and (max-width: 800px) {
-                .leftcolumn, .rightcolumn {
-                    width: 100%;
-                    padding: 0;
-                }
-            }
-            .dropbtn {
-                background-color: #333;
-                border-radius: 10px;
-                color: white;
-                padding: 14px;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 16px;
-                border: none;
-                text-align: center;
-            }
-            .topnav .dropdown{
-                display: inline-block;
-            }
-            .dropdown {
-                position: relative;
-                display: inline-block;
-            }
+                        .tag::before {
+                                background: #C6DBC0;
+                                border-radius: 10px;
+                                box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+                                content: '';
+                                height: 6px;
+                                left: 10px;
+                                position: absolute;
+                                width: 6px;
+                                top: 10px;
+                        }
 
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                background-color: #f2f2f2;
-                border-radius: 10px;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                z-index: 1;
-            }
+                        .tag::after {
+                                background: #C6DBC0;
+                                border-bottom: 13px solid transparent;
+                                border-left: 10px solid #eee;
+                                border-top: 13px solid transparent;
+                                content: '';
+                                position: absolute;
+                                right: 0;
+                                top: 0;
+                        }
 
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-                border-radius: 10px;
-            }
+                        .tag:hover {
+                                background-color: #923b7a;
+                                color: white;
+                        }
 
-            .dropdown-content a:hover {background-color: #333; color: white;border-radius: 10px;}
+                        .tag:hover::after {
+                                border-left-color: #923b7a;
+                        }
+                        
+                        .star{
+				margin-top: 2px;
+				margin-right: 5px;
+				height: 20px;
+				width: 20px;
+			}
+                        
+                        .stil {
+				font-family:"Georgia",serif;
+				font-style:italic;
+			}
+                        
+                        .border {
+				padding:1px;
+				border:4px solid #021a40;
+			}
+                        
+                        .gore{
+				vertical-align:top;
+			}
+                        
+                        table.center {
+                            margin-left:auto;
+                            margin-right:auto;
+                            vertical-align:middle;
+                        }
+                        
+                        .pretraga {
+                          width: 60%;
+                          padding : 20px;
+                          border: 2px solid #ccc;
+                          margin-left: 40%;
+                          height: 50px;
+                          border-radius: 4px;
+                          resize: vertical;
+                        }
+                        
+                        .rightcolumn {
+                          float: left;
+                          width: 40%;
+                          padding-left: 20px;
+                        }
+                        
+                        .dropbtn {
+                          background-color: #333;
+                          border-radius: 10px;
+                          color: white;
+                          padding: 14px;
 
-            .dropdown:hover .dropdown-content {
-                display: block;
-                border-radius: 10px;
-            }
+                          font-size: 16px;
+                          border: none;
+                          cursor: pointer;
+                          text-align: center;
+                        }
+                        
+                        .topnav .dropdown{
+                                display: inline-block;
+                        }
+                        .dropdown {
+                          position: relative;
+                          display: inline-block;
+                        }
 
-            .dropdown:hover .dropbtn {
-                background-color: white;
-                color: black;
-                border-radius: 10px;
-            }
-            .lugano {
-                font-family:"Georgia",serif;
-                font-style:italic;
-            }
+                        .dropdown-content {
+                          display: none;
+                          position: absolute;
+                          background-color: #f2f2f2;
+                                border-radius: 10px;
+                          min-width: 160px;
+                          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                          z-index: 1;
+                        }
 
-            .center{
-                text-align:center;
-            }
+                        .dropdown-content a {
+                          color: black;
+                          padding: 12px 16px;
+                          text-decoration: none;
+                          display: block;
+                          border-radius: 10px;
+                        }
 
-            .sredina{
-                margin-left:auto;
-                margin-right:auto;
-                vertical-align:middle;
-            }
-            .pretraga {
-                width: 60%;
-                padding : 20px;
-                border: 2px solid #ccc;
-                margin-left: 40%;
-                height: 50px;
-                border-radius: 4px;
-                resize: vertical;
-            }
+                        .dropdown-content a:hover {background-color: #333; color: white;border-radius: 10px;}
+
+                        .dropdown:hover .dropdown-content {
+                          display: block;
+                                border-radius: 10px;
+                        }
+
+                        .dropdown:hover .dropbtn {
+                          background-color: white;
+                                color: black;
+                                border-radius: 10px;
+                        }
+                        
+                        .naslovH1 {
+                                text-align: center;
+                                font-size: 45px;
+                                letter-spacing: 2px;
+                                font-weight: bold;
+                        }
+                        
+                        * {
+                          box-sizing: border-box;
+                        }
+                        
+                        .topnav {
+                          overflow: hidden;
+                          background-color: #333;
+                        }
+
+                        .topnav a {
+                          float: right;
+                          display: block;
+                          color: #f2f2f2;
+                          text-align: center;
+                          padding: 14px 16px;
+                          text-decoration: none;
+                        }
+
+                        .topnav a:hover {
+                          background-color: #ddd;
+                          color: black;
+                        }
+                        
+                        @media screen and (max-width: 800px) {
+                          .leftcolumn, .rightcolumn {
+                                width: 100%;
+                                padding: 0;
+                          }
+                        }
+                        
+                        .lugano {
+                                font-family:"Georgia",serif;
+                                font-style:italic;
+                        }
+                        
+                        .card {
+                          background-color: white;
+                                border-radius: 10px;
+                          padding: 25px;
+                          margin-left: 23%;
+                                margin-right: 20%;
+                                margin-top: 2%;
+                                margin-bottom: 2%;
+                                width: 55%;
+                                height: 170px;
+                                 
+                        }
         </style>
     </head>
     <body>
