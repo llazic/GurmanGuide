@@ -223,11 +223,15 @@ extends CI_Model{
      * Ukoliko takvo jelo ne postoji, vraca se null (ni jedno jelo se ne ispisuje na pocetnoj stranici).
      */
     public function dohvatiTopJelo() {
-        $this->db->select('IdJelo');
-        $this->db->from('recenzija');
-        $this->db->where('Pregledano', 'P');
-        $this->db->group_by('IdJelo');
-        $this->db->having('avg(Ocena) >= 4');
+        $this->db->select('r.IdJelo');
+        $this->db->from('recenzija r, jelo j, restoran rest');
+        $this->db->where('r.Pregledano', 'P');
+        $this->db->where('r.IdJelo = j.IdJelo');
+        $this->db->where('rest.IdKorisnik = j.IdKorisnik');
+        $this->db->where('j.Pregledano', 'P');
+        $this->db->where('rest.Pregledano', 'P');
+        $this->db->group_by('r.IdJelo');
+        $this->db->having('avg(r.Ocena) >= 4');
         $this->db->order_by('rand()');
         
         return $this->db->get()->row();

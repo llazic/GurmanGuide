@@ -27,11 +27,13 @@ class M_Jelo extends CI_Model {
      * @return stdClass Objekat sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika, Pregledano
      */
     public function dohvatiJelaPoNazivu($pattern) {
-        $this->db->select('*');
-        $this->db->from('jelo');
-        $this->db->like('Naziv', $pattern);
-        $this->db->where('Pregledano', 'P');
-
+        $this->db->select('j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika');
+        $this->db->from('restoran r, jelo j');
+        $this->db->like('j.Naziv', $pattern);
+        $this->db->where('r.IdKorisnik = j.IdKorisnik');
+        $this->db->where('j.Pregledano', 'P');
+        $this->db->where('r.Pregledano', 'P');
+        
         return $this->db->get()->result();
     }
 

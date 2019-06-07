@@ -54,11 +54,13 @@ class M_Sastojak extends CI_Model{
     */
     public function dohvatiJelaZaSastojak($sastojak) {
         $this->db->select('j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika');
-        $this->db->from('sastojak s, ima_sastojak is, jelo j');
+        $this->db->from('sastojak s, ima_sastojak is, jelo j, restoran r');
         $this->db->like('s.Naziv', $sastojak);
         $this->db->where('s.IdSastojak = is.IdSastojak');
         $this->db->where('is.IdJelo = j.IdJelo');
         $this->db->where('j.Pregledano', 'P');
+        $this->db->where('j.IdKorisnik = r.IdKorisnik');
+        $this->db->where('r.Pregledano', 'P');
         $this->db->group_by('j.Naziv, j.Opis, j.IdJelo, j.IdKorisnik,, j.IdSlika');
         
         return $this->db->get()->result();
