@@ -28,6 +28,6 @@ if (empty($registracije) == false) {
         echo "<br>";
     }
 } else {
-    echo "<center>Nema nepregledanih recenzija</center>";
+    echo "<center>Nema nepregledanih registracija</center>";
 }
 ?>
