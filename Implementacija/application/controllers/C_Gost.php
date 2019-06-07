@@ -68,10 +68,10 @@ class C_Gost extends C_Zajednicki {
      * @param type $poruka Poruka koja se ispisuje ispod header-a, a iznad forme za registraciju u slucaju neuspeha.
      * Ukoliko se paametar ne prosledi, stranica se ucitava bez poruke.
      */
-    public function registrujRestoran() {
+    public function registrujRestoran($poruka = null) {
         $gradovi = $this->M_Grad->gohvatiSveGradove();
         $this->load->view("sablon/headerGost.php", ['title' => 'Registracija']);
-        $this->load->view('stranice/registracijaRestorana.php', ['gradovi' => $gradovi]);
+        $this->load->view('stranice/registracijaRestorana.php', ['gradovi' => $gradovi, 'poruka' => $poruka]);
         $this->load->view('sablon/footer.php');
     }
 
