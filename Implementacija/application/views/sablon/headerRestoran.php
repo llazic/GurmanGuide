@@ -1,30 +1,31 @@
 <html>
 	<head>
-		<title><?php $title?></title>
+		<title><?php echo $title?></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<link rel="icon" href="http://localhost/GurmanGuide/images/icon.png">
 		<script language="Javascript">
-                    function append()
-                    {
-
+                    function append() {
                         var noviSastojak = document.getElementById('noviSastojak').value;
-                        document.getElementById('noviSastojak').value = '';
-                        var i = parseInt(document.getElementById( "iCheckboxes" ).value);
-                        var cb = document.createElement( "input" );
-                        cb.type = "hidden";
-                                //cb.onclick = "remove(" + i + ")";
-                        cb.id = "id"+i;
-                        cb.name = "name"+i;
-                        cb.value = noviSastojak;
-                        //cb.checked = true;
-                        
-			var text = '<font id="id' + (i+2) + '"> ' + noviSastojak + '<br/></font>';
-			var x = '<input type="button" id="id' + (i+1) + '" value="x" onclick="brisi(\'' + i + '\', \'' + (i+1) + '\', \'' + (i+2) + '\')"/>';
-                        
-                        document.getElementById( 'append' ).innerHTML += x;
-                        document.getElementById( 'append' ).innerHTML += text;
-                        document.getElementById( 'append' ).appendChild( cb );
-                        document.getElementById( "iCheckboxes" ).value = parseInt(document.getElementById( "iCheckboxes" ).value) + 3;
+                        noviSastojak = noviSastojak.trim();
+                        if (noviSastojak != '') {
+                            document.getElementById('noviSastojak').value = '';
+                            var i = parseInt(document.getElementById( "iCheckboxes" ).value);
+                            var cb = document.createElement( "input" );
+                            cb.type = "hidden";
+                                    //cb.onclick = "remove(" + i + ")";
+                            cb.id = "id"+i;
+                            cb.name = "name"+i;
+                            cb.value = noviSastojak;
+                            //cb.checked = true;
+
+                            var text = '<font id="id' + (i+2) + '"> ' + noviSastojak + '<br/></font>';
+                            var x = '<input type="button" id="id' + (i+1) + '" value="x" onclick="brisi(\'' + i + '\', \'' + (i+1) + '\', \'' + (i+2) + '\')"/>';
+
+                            document.getElementById( 'append' ).innerHTML += x;
+                            document.getElementById( 'append' ).innerHTML += text;
+                            document.getElementById( 'append' ).appendChild( cb );
+                            document.getElementById( "iCheckboxes" ).value = parseInt(document.getElementById( "iCheckboxes" ).value) + 3;
+                        }
                      }
 					 
                      function brisi(id1, id2, id3){
@@ -290,8 +291,7 @@
                           font-family: Arial, Helvetica, sans-serif;
                           font-size: 16px;
                           border: none;
-                          //cursor: pointer;
-                                text-align: center;
+                          text-align: center;
                         }
                         
                         .topnav .dropdown{
@@ -395,7 +395,7 @@
                     <a href="<?php echo site_url('C_Restoran/index');?>"><img src="http://localhost/GurmanGuide/images/logo.png" width="300" class="logo"></a>
 			<div class="profil">
                                 <a href="<?php echo site_url('C_Restoran/izmenaMenijaRestorana');?>" align="right"> Moja jela</a> &nbsp;
-                                <a href="<?php echo site_url('C_Restoran/unosJela');?>" align="right"> Novo jelo</a> &nbsp;
+                                <a href="<?php echo site_url('C_Restoran/unosJela');?>" align="right"> Dodaj jelo</a> &nbsp;
 				<a href="<?php echo site_url('C_Restoran/izmenaRestorana');?>" align="right"> Moj profil</a> &nbsp;
 				<a href="<?php echo site_url('C_Restoran/izlogujse');?>" align="right"> Izloguj se</a>
 			</div>

@@ -150,7 +150,6 @@
                 font-family: Arial, Helvetica, sans-serif;
                 font-size: 16px;
                 border: none;
-                //cursor: pointer;
                 text-align: center;
             }
             .topnav .dropdown{

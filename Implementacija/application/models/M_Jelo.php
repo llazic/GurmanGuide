@@ -193,7 +193,6 @@ class M_Jelo extends CI_Model {
     public function azuriranjeJela($promenljive){
         $this->db->set('Naziv', $promenljive['naziv']);
         $this->db->set('Opis', $promenljive['opisjela']);
-        $this->db->set('Pregledano', 'N');
         if (isset($promenljive['idSlika'])){
             $this->db->set('IdSlika', $promenljive['idSlika']);
         }

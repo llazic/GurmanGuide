@@ -80,7 +80,6 @@ class M_Restoran extends CI_Model{
         $this->db->set('Adresa', $promenljive['adresarestorana']);
         $this->db->set('RadnoVreme', $promenljive['radnovreme']);
         $this->db->set('Telefon', $promenljive['telefon']);
-        $this->db->set('Pregledano', 'N');
         if (isset($promenljive['idSlika'])){
             $this->db->set('IdSlika', $promenljive['idSlika']);
         }
@@ -220,6 +219,7 @@ class M_Restoran extends CI_Model{
                                 . "FROM jelo j, recenzija r "
                                 . "WHERE j.IdKorisnik = ".$idRestorana." "
                                 . "AND j.Pregledano = 'P' "
+                                . "AND r.Pregledano = 'P' "
                                 . "AND j.IdJelo = r.IdJelo "
                                 . "GROUP BY Naziv, Opis, IdJelo, IdKorisnik, IdSlika "
                                 . "ORDER BY Ocena DESC");
@@ -228,7 +228,7 @@ class M_Restoran extends CI_Model{
     }
     
     /**
-     * Dohvata sva jela restorana koji ima prosledjeni ID
+     * Dohvata sva pregledana jela pregledanog restorana koji ima prosledjeni ID
      * 
      * @param type $id
      * @return stdClass Objekti sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika ukoliko postoji restoran sa
@@ -241,6 +241,22 @@ class M_Restoran extends CI_Model{
         $this->db->where('r.IdKorisnik = j.IdKorisnik');
         $this->db->where('j.Pregledano', 'P');
         $this->db->where('r.Pregledano', 'P');
+        
+        return $this->db->get()->result();
+    }
+    
+    /**
+     * Dohvata sva jela restorana koji ima prosledjeni ID
+     * 
+     * @param type $id
+     * @return stdClass Objekti sa poljima Naziv, Opis, IdJelo, IdKorisnik, IdSlika ukoliko postoji restoran sa
+     * prosledjenim ID-jem, inace vraca null.
+     */
+    public function dohvatiJelaRestoranaIdNP($id) {
+        $this->db->select('j.Naziv as Naziv, j.Opis as Opis, j.IdJelo as IdJelo, j.IdKorisnik as IdKorisnik, j.IdSlika as IdSlika');
+        $this->db->from('restoran r, jelo j');
+        $this->db->where('r.IdKorisnik', $id);
+        $this->db->where('r.IdKorisnik = j.IdKorisnik');
         
         return $this->db->get()->result();
     }

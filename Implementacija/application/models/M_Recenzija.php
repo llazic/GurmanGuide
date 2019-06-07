@@ -129,6 +129,26 @@ extends CI_Model{
     }
     
     /**
+     * Dohvata sve recenzije zadatog Gurmana zajedno jelima i slikama tih jela iz baze
+     * 
+     * @param int $id -> idGurman
+     * 
+     * @return stdClass 
+     */
+    public function dohvatiRecenzijeGurmanaNP($idGurman){
+        $query = $this->db->query("select r.IdKorisnik, r.Ocena, "
+                . "r.Komentar, r.IdJelo, r.Pregledano, j.Naziv as NazivJela, "
+                . "j.Opis, j.IdKorisnik as IdRestoran, j.IdSlika, "
+                . "j.Pregledano, s.Putanja as PutanjaSlike "
+                . "from recenzija r, jelo j, slika s "
+                . "where r.IdKorisnik = ".$idGurman." "
+                . "and r.IdJelo = j.IdJelo "
+                . "and j.IdSlika = s.IdSlika");
+
+        return $query->result();
+    }
+    
+    /**
      * Dohvata nepregledane recenzije iz baze
      * 
      * @return stdClass 

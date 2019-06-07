@@ -301,7 +301,7 @@ class C_Gurman extends C_Zajednicki {
      */
     public function prikaziRecenzije(){
         $korisnik = $this->session->userdata('korisnik');
-        $info['recenzije'] = $this->M_Recenzija->dohvatiRecenzijeGurmana($korisnik->id);
+        $info['recenzije'] = $this->M_Recenzija->dohvatiRecenzijeGurmanaNP($korisnik->id);
         
         $this->load->view('sablon/headerGurman.php', ['title' => 'Pregled profila']);
         $this->load->view('stranice/recenzijeGurman.php', $info);

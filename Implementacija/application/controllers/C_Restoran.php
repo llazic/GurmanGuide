@@ -436,7 +436,7 @@ class C_Restoran extends C_Zajednicki {
     public function izmenaMenijaRestorana() {
         $korisnik = $this->session->userdata('korisnik');
 
-        $jela = $this->M_Restoran->dohvatiJelaRestoranaId($korisnik->id);
+        $jela = $this->M_Restoran->dohvatiJelaRestoranaIdNP($korisnik->id);
 
         $niz = [];
 
@@ -585,7 +585,7 @@ class C_Restoran extends C_Zajednicki {
                         $slika->IdSlika = $slikaId;
                         $slika->Putanja = "http://localhost/GurmanGuide/Implementacija/uploads/jelo/" . $jelo->IdJelo . "/" . $nazivSlike;
                         $this->M_Slika->unesiSliku($slika);
-
+                        
 
                         $promenljive['idSlika'] = $slikaId;
                     } else {
