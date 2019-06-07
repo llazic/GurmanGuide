@@ -314,6 +314,9 @@ class M_Restoran extends CI_Model{
     public function obrisiRegistraciju($id){
         $this->db->where('IdKorisnik', $id);
         $this->db->delete('restoran');
+        
+        $this->db->where('IdKorisnik', $id);
+        $this->db->delete('korisnik');
     }
     
 }
