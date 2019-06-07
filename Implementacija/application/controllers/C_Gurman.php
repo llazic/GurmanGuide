@@ -179,7 +179,7 @@ class C_Gurman extends C_Zajednicki {
                     }
                     $this->izmenaProfila("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
-                            . "Maksimalna veličina 1000 kilobajta. <br />"
+                            . "Maksimalna veličina 1000 KB. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
                     
                     return;

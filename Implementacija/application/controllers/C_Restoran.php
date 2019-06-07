@@ -162,6 +162,7 @@ class C_Restoran extends C_Zajednicki {
             mkdir($putanja, 0777, true);
         }
         if (isset($_FILES["$vrstaSlike"]) && $_FILES["$vrstaSlike"]['error'] != UPLOAD_ERR_NO_FILE) {
+            
             $config['upload_path'] = $putanja;
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = 1000;
@@ -170,7 +171,6 @@ class C_Restoran extends C_Zajednicki {
             $config['file_name'] = $imeSlike;
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload("$vrstaSlike")) {
-                //$message = (string)$this->upload->display_errors();
                 return null;
             } else {
                 //upload uspesan
@@ -239,7 +239,7 @@ class C_Restoran extends C_Zajednicki {
 
                     $this->izmenaRestorana("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
-                            . "Maksimalna veličina 1000 bajtova. <br />"
+                            . "Maksimalna veličina 1000 KB. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
                     return;
                 } else {
@@ -367,7 +367,7 @@ class C_Restoran extends C_Zajednicki {
                     if (($nazivSlike = $this->upload($putanjaDoFoldera, "profil", "slikajelo")) == null) {
                         $this->unosJela("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                                 . "Podržani formati: gif, jpg, png. <br />"
-                                . "Maksimalna veličina 1000 bajtova. <br />"
+                                . "Maksimalna veličina 1000 KB. <br />"
                                 . "Maksimalna rezolucija 2048x1024px.");
                         return;
                     } else {
@@ -571,7 +571,7 @@ class C_Restoran extends C_Zajednicki {
 
                     $this->izmeniJelo($idJela, "Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
-                            . "Maksimalna veličina 1000 bajtova. <br />"
+                            . "Maksimalna veličina 1000 KB. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
                     return;
                 } else {

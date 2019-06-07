@@ -200,7 +200,7 @@ class C_Gost extends C_Zajednicki {
                 if (($nazivSlike = $this->upload($putanjaDoFoldera, "profil", "slikagurman")) == null) {
                     $this->registrujGurmana("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
-                            . "Maksimalna veličina 1000 bajtova. <br />"
+                            . "Maksimalna veličina 1000 KB. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
                     return;
                 } else {
@@ -333,7 +333,7 @@ class C_Gost extends C_Zajednicki {
                 if (($nazivSlike = $this->upload($putanjaDoFoldera, "profil", "slikarestoran")) == null) {
                     $this->registrujRestoran("Greška pri otpremanju slike. Slika mora da zadovoljava sledeće kriterijume: <br /> "
                             . "Podržani formati: gif, jpg, png. <br />"
-                            . "Maksimalna veličina 1000 bajtova. <br />"
+                            . "Maksimalna veličina 1000 KB. <br />"
                             . "Maksimalna rezolucija 2048x1024px.");
                     return;
                 } else {
