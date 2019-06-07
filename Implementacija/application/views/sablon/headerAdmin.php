@@ -147,10 +147,10 @@
                 border-radius: 10px;
                 color: white;
                 padding: 14px;
-
+                font-family: Arial, Helvetica, sans-serif;
                 font-size: 16px;
                 border: none;
-                cursor: pointer;
+                //cursor: pointer;
                 text-align: center;
             }
             .topnav .dropdown{

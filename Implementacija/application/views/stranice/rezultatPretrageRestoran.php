@@ -24,9 +24,13 @@
                             echo "</div>";
                             echo "<div class='komentar'>";
                                 echo "<p class='korisnik'>Top jelo:</p>";
-                                echo "<p><a title='Prikaži mi jelo' href=";
-                                echo site_url("{$this->router->class}/prikaziJelo/$restoran->topJeloId"); //ovo ispravi posle
-                                echo ">$restoran->topJeloNaziv</a></p>"; //ovo ispravi posle
+                                if ($restoran->topJeloNaziv == "Restoran nema jela") {
+                                    echo "<p>Restoran nema jela</p>"; //ovo ispravi posle
+                                } else {
+                                    echo "<p><a title='Prikaži mi jelo' href=";
+                                    echo site_url("{$this->router->class}/prikaziJelo/$restoran->topJeloId"); //ovo ispravi posle
+                                    echo ">$restoran->topJeloNaziv</a></p>"; //ovo ispravi posle
+                                }
                             echo "</div>";
                             echo "<div class='komentar'>";
                                 echo "<p><a title='Prikaži mi sva jela ovog restorana' href=";

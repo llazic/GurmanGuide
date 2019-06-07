@@ -28,7 +28,7 @@
 		</div>
                 <div class="rightcolumn">
                     <div class="dropdown">
-                        <button class="dropbtn">Pretraga jela</button>
+                        <div class="dropbtn">Pretraga jela</div>
                         <div class="dropdown-content">
                                 <a href="" id = "l1" onclick="insert()">po nazivu</a>
                                 <a href="" id = "l2" onclick="insert()">po sastojku</a>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button class="dropbtn">Pretraga restorana</button>
+                        <div class="dropbtn">Pretraga restorana</div>
                         <div class="dropdown-content">
                                 <a href="" id = "l4" onclick="insert()">po nazivu</a>
                                 <a href="" id = "l5" onclick="insert()">po adresi</a>
