@@ -2,7 +2,7 @@
 <?php if(isset($poruka))
         echo "<center><font color='red' size='3'>$poruka</font></center><br>";
 ?>
-<p style="text-align:center;"><img src="<?php echo $slika?>" width="350" class="border"/></p>
+<p style="text-align:center;"><img src="<?php echo $slika?>" width="350" class=""/></p>
 <form name="profil" action="<?php echo site_url('C_Gurman/sacuvajIzmeneProfila')?>" method="POST" enctype="multipart/form-data">
 		<table align="center" cellspacing="15" cellpadding="5">
 			<tr>
