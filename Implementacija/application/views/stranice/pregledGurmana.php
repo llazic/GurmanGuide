@@ -1,6 +1,6 @@
 <p class="title"> <?php echo $ime." ".$prezime?></p>
 
-<p style="text-align:center;"><img src="<?php echo $slikagurman?>" width="350" class="border"/></p>
+<p style="text-align:center;"><img src="<?php echo $slikagurman?>" width="350" class=""/></p>
 		<p style="text-align:center;"><font>
 			Korisničko ime:&nbsp;<?php echo $korime?><br></br>
 		</p>
