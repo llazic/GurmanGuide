@@ -290,7 +290,7 @@ class C_Gurman extends C_Zajednicki {
             $this->postaviPromeniRecenziju($idJelo, $poruka);
         } else {
             $this->M_Recenzija->napraviIzmeniRecenziju($korisnik->id, $idJelo, $ocena, $komentar);
-            $this->index('Uspesno ste ostavili recenziju. Nakon odobrenja ce biti prikazana!');
+            $this->index('Uspesno ste ostavili recenziju.');
         }
     }
     
